@@ -56,7 +56,7 @@ olarak iþleyebilmesi için temel gereksinimlerdendir.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/dev/{ataraid,cciss,cdroms,cpu/{0,1,2,3,4,5,6,7}} \
 	$RPM_BUILD_ROOT/dev/{discs,i2o,ida,input,net,pts,raw,rd,usb,shm,snd,zap} \
-	$RPM_BUILD_ROOT/dev/mapper
+	$RPM_BUILD_ROOT/dev/{mapper,dri}
 
 install %{SOURCE0} .
 
@@ -198,6 +198,13 @@ rm -rf $RPM_BUILD_ROOT
 %dev(c,212,0) %attr(600,root,root) /dev/slamr0
 %dev(c,213,0) %attr(600,root,root) /dev/slusb0
 %dev(c,226,0) %attr(660,root,video) /dev/dri/card0
+%dev(c,226,1) %attr(660,root,video) /dev/dri/card1
+%dev(c,226,2) %attr(660,root,video) /dev/dri/card2
+%dev(c,226,3) %attr(660,root,video) /dev/dri/card3
+%dev(c,226,4) %attr(660,root,video) /dev/dri/card4
+%dev(c,226,5) %attr(660,root,video) /dev/dri/card5
+%dev(c,226,6) %attr(660,root,video) /dev/dri/card6
+%dev(c,226,7) %attr(660,root,video) /dev/dri/card7
 %endif
 
 %ifarch m68k

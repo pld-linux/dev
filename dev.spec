@@ -5,13 +5,14 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	13
+Release:	14
 License:	public domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
 BuildRequires:	setup
 BuildRequires:	shadow
 PreReq:		setup >= 2.4.1-2
+Provides:	devfs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Autoreqprov:	no
 
@@ -308,6 +309,9 @@ for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 done
 mknode input/mice c 13 63
 mknode usb/rio500 c 180 64
+
+# Some PLD-folklor :)
+ln -sf null drzewo
 
 %clean
 rm -rf $RPM_BUILD_ROOT

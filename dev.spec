@@ -136,8 +136,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/ataraid
 %dir /dev/cciss
 %dir /dev/dri
-%attr(660,root,disk) %dir /dev/cdroms
-%attr(660,root,disk) %dir /dev/discs
+%attr(770,root,disk) %dir /dev/cdroms
+%attr(770,root,disk) %dir /dev/discs
 %dir /dev/i2o
 %dir /dev/ida
 %dir /dev/input

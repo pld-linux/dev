@@ -76,7 +76,7 @@ ln -sf em8300-0    em8300
 ln -sf em8300_ma-0 em8300_ma
 ln -sf em8300_mv-0 em8300_mv
 ln -sf em8300_sp-0 em8300_sp
-for i in 0 1 2 3 4 5 6 7; do
+for i in `seq 0 31`; do
 	ln -sf fb$i fb${i}current
 done
 ln -sf /proc/self/fd fd
@@ -157,7 +157,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not link) %attr(660,root,disk) /dev/nftape
 %config(noreplace) %verify(not link) %attr(660,root,disk) /dev/ramdisk
 %attr(660,root,video) /dev/em8300*
-%attr(664,root,video) /dev/fb[0-7]current
+%attr(664,root,video) /dev/fb[0-9]*current
 /dev/fd
 /dev/stdin
 /dev/stdout

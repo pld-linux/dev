@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	30
+Release:	31
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -405,6 +405,13 @@ ln -sf null drzewo
 # For mplayer helper:
 mknode dhahelper c 180 0
 
+# pktcdvd support:
+mknode pktcdvd0 b 97 0
+mknode pktcdvd1 b 97 1
+mknode pktcdvd2 b 97 2
+mknode pktcdvd3 b 97 3
+mknode pktcdvd4 b 97 4
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -549,6 +556,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/pd*
 %attr(660,root,disk) /dev/pf*
 %attr(600,root,root) /dev/pg*
+
+%attr(660,root,disk) /dev/pktcdvd*
 
 %attr(640,root,kmem) /dev/port
 %attr(644,root,root) /dev/ppp

@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	33
+Release:	34
 License:	Public Domain
 Group:		Base
 Source0:	http://piorun.ds.pg.gda.pl/~blues/SOURCES/%{name}-%{version}.tar.gz
@@ -459,7 +459,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/capi*
 %dir /dev/cciss
 %attr(660,root,root) /dev/cciss/*
-%attr(%{perm_cdrom}) %dir /dev/cdroms
 %attr(600,root,root) /dev/cfs0
 %attr(660,root,console) /dev/console
 %attr(664,root,root) /dev/cui*
@@ -469,7 +468,6 @@ rm -rf $RPM_BUILD_ROOT
 #d#
 %attr(600,root,root) /dev/dcbri*
 %attr(660,root,sys) /dev/dcxx*
-%attr(660,root,disk) %dir /dev/discs
 %attr(660,root,audio) /dev/dmfm*
 %attr(660,root,audio) /dev/dmmidi*
 %attr(666,root,root) /dev/drzewo
@@ -482,8 +480,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/enskip
 
 #f#
-%config(noreplace) %verify(not link) %attr(644,root,root) /dev/fb
-%attr(664,root,video) /dev/fb?*
+%config(noreplace) %verify(not link) %attr(660,root,video) /dev/fb
+%attr(660,root,video) /dev/fb?*
 %attr(660,root,floppy) /dev/fd*
 %config(noreplace) %verify(not link) %attr(666,root,root) /dev/ftape
 %attr(644,root,root) /dev/full

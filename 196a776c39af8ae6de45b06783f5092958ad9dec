@@ -1,0 +1,4 @@
+- changed some listings to 'for' loops,
+- changed group of /dev/tty{0,1*,2 thru 9} from 'tty'
+  to 'root' - it's being changed anyway after logout,
+- added using %{__*} macros.

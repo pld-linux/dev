@@ -210,6 +210,9 @@ mknod md13 b 9 13
 mknod md14 b 9 14
 mknod md15 b 9 15
 
+#netfilter
+mknod /dev/ipstate c 95 2
+
 #temporary
 install -d $RPM_BUILD_ROOT/proc/asound
 touch $RPM_BUILD_ROOT/proc/asound/snd
@@ -311,6 +314,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/ipauth
 %attr(600,root,root) /dev/ipl
 %attr(600,root,root) /dev/ipnat
+%attr(600,root,root) /dev/ipstate
 %attr(600,root,root) /dev/ippp*
 %attr(660,root, sys) /dev/iscc*
 %attr(600,root,root) /dev/isctl

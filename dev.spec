@@ -130,6 +130,8 @@ done
 
 # watchdog support
 mknode watchdog c 10 130
+mknod temperature c 10 131
+
 
 # agpgart
 mknode agpgart c 10 175

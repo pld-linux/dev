@@ -342,8 +342,8 @@ done
 
 #m#
 %attr(640,root,kmem) /dev/mem
-%config(noreplace) %verify(not link) %attr(662,root,sys) /dev/midi
-%attr(662,root,audio) /dev/midi?*
+%config(noreplace) %verify(not link) %attr(660,root,audio) /dev/midi
+%attr(660,root,audio) /dev/midi?*
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/mixer
 %attr(660,root,audio) /dev/mixer?*
 %attr(660,root,sys) /dev/mmetfgrab

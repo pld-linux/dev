@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	20
+Release:	21
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -337,6 +337,9 @@ done
 mknode input/mice c 13 63
 mknode usb/rio500 c 180 64
 
+# For Capsel:
+mknode capsel c 240 0
+
 # Some PLD-folklor :)
 ln -sf null drzewo
 
@@ -372,6 +375,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,console) /dev/console
 %attr(664,root,root) /dev/cui*
 %attr(600,root,root) /dev/cum*
+%attr(600,root,root) /dev/capsel
 
 #d#
 %attr(600,root,root) /dev/dcbri*

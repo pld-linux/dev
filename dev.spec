@@ -11,10 +11,9 @@ Source:		%{name}-%{version}.tar.gz
 Copyright:	public domain
 Group:		Base
 Group(pl):	Podstawowe
-#BuildPrereq:	setup
-# remove shadow if floppy and console group exist in setup
-#BuildPrereq:	shadow
-#Prereq:		setup
+BuildPrereq:	setup
+BuildPrereq:	shadow
+Requires:	setup
 Buildarch:	noarch
 Buildroot:	/tmp/%{name}-%{version}-root
 Autoreqprov:	no
@@ -457,7 +456,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/ttyP*
 %attr(600,root,root) /dev/ttyR*
 
-%attr(644,root,root) /dev/ttyS*
+%attr(664,root, ttyS) /dev/ttyS*
 
 %attr(666,root, tty) /dev/ttya*
 %attr(666,root, tty) /dev/ttyb*

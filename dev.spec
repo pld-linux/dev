@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	12
+Release:	13
 License:	public domain
 Group:		Base
 Group(cs):	Základ
@@ -322,7 +322,7 @@ for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 	mknode usb/ttyUSB$i c 188 $i
 	mknode usb/ttyUB$i c 216 $i
 done
-mknode input/mice c 13 31
+mknode input/mice c 13 63
 mknode usb/rio500 c 180 64
 
 %clean

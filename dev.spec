@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	3
+Release:	4
 Source0:	%{name}-%{version}.tar.gz
 License:	public domain
 Group:		Base
@@ -272,6 +272,7 @@ mknode irlpt1 c 161 17
 
 # lirc
 mknode lirc c 61 0
+mknode lircm p
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -356,6 +357,7 @@ rm -rf $RPM_BUILD_ROOT
 
 #l#
 %attr(660,root,root) /dev/lirc
+%attr(660,root,root) /dev/lircm
 %attr(660,root,disk) /dev/loop*
 %attr(660,root,lp) /dev/lp*
 

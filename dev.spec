@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.5.9
-Release:	3
+Release:	4
 #######		From ftp.redhat.com/rawhide
 Source:		%{name}-%{version}.cpio
 Copyright:	public domain
@@ -51,7 +51,6 @@ eines Systems unbedingt erforderlich.
 %setup -q -c -T
 rm -rf $RPM_BUILD_ROOT
 
-%build
 install -d $RPM_BUILD_ROOT
 BUILD_DIR=`pwd`
 
@@ -66,8 +65,12 @@ cd $RPM_BUILD_ROOT
 %ifarch sparc
 # SPARC specific devices
 ln -s sunmouse dev/mouse
+mknod dev/fb0 c 29 0
+mknod dev/fb1 c 29 32
 mknod dev/kbd c 11 0
 mknod dev/openprom c 10 139
+ln -s fb0 dev/fb
+chmod 666 dev/fb*
 
 # remove devices that will *never* exist on a SPARC
 rm -f dev/hd* dev/aztcd dev/mcd dev/sbpcd1 dev/cdu31a dev/sbpcd2 dev/scd3
@@ -76,18 +79,18 @@ rm -f dev/gscd dev/sbpcd0 dev/atibm dev/inportbm dev/logibm dev/psaux
 
 %endif
 
-#chmod 660 dev/lp*
-#chgrp daemon dev/lp*
+chmod 660 dev/lp*
+chgrp daemon dev/lp*
 
 for I in 9 10 11 12; do
 	mknod dev/tty$I c 4 $I
 	chown root:tty dev/tty$I
-#	chmod 600 dev/tty$I
+	chmod 600 dev/tty$I
 done
 
 cd dev
 
-#chgrp floppy fd?*
+chgrp floppy fd?*
 
 ln -s ram0 ramdisk
 ln -s ../proc/self/fd fd
@@ -131,23 +134,23 @@ mknod pt1  c 96 1
 mknod pt2  c 96 2
 mknod pt3  c 96 3
 
-#chmod 0660      pd[a-d]* pcd[0-3] pf[0-3] pt[0-3]
-#chown root:disk pd[a-d]* pcd[0-3] pf[0-3] pt[0-3]
+chmod 0660      pd[a-d]* pcd[0-3] pf[0-3] pt[0-3]
+chown root:disk pd[a-d]* pcd[0-3] pf[0-3] pt[0-3]
 
 # unix98 pty support 
 mknod ptmx c 5 2
-#chmod 666 ptmx; chown root.tty ptmx
+chmod 666 ptmx; chown root.tty ptmx
 install -d -m 755 pts
 
 # framebuffer support
-mknod fb0 c 29 0
-mknod fb1 c 29 32
-mknod fb2 c 29 64
-mknod fb3 c 29 96
-mknod fb4 c 29 128
-mknod fb5 c 29 160
-mknod fb6 c 29 192
-mknod fb7 c 29 224
+mknod fb0 b 29 0
+mknod fb1 b 29 32
+mknod fb2 b 29 64
+mknod fb3 b 29 96
+mknod fb4 b 29 128
+mknod fb5 b 29 160
+mknod fb6 b 29 192
+mknod fb7 b 29 224
 
 ln -s fb0 fb0current
 ln -s fb1 fb1current
@@ -157,21 +160,12 @@ ln -s fb4 fb4current
 ln -s fb5 fb5current
 ln -s fb6 fb6current
 ln -s fb7 fb7current
-ln -s fb0 fb
-
-# It's correct ?
-#chmod 666 fb*
 
 # watchdog support
 mknod watchdog c 10 130 
 
-# /dev/log support
-touch log
 # route 
 mknod route c 36 0
-
-# Coda support
-mknod cfs0 c 67 0
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
@@ -193,7 +187,6 @@ rm -rf $RPM_BUILD_ROOT
 #c#
 %attr(664,root,root) /dev/cdu31a
 %attr(640,root,disk) /dev/cdu535
-%attr(600,root,root) /dev/cfs0
 %attr(664,root,root) /dev/cm206cd
 %attr(600,root,root) /dev/console
 %attr(666,root,root) /dev/cui*
@@ -366,11 +359,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(666,root,root) /dev/zero
 
 %changelog
-* Tue Apr 20 1999 Artur Frysiak <wiget@pld.org.pl>
-  [2.5.9-3]
-- compiled on rpm 3
-- fixed framebuffer support
-- added coda support
+* Thu Apr 22 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
+  [2.5.9-4]
+- /dev/log moved to sysklog package.
 
 * Sat Dec 12 1998 Sergiusz Paw³owicz <ser@hyperreal.art.pl>
   [2.5.9-1d]
@@ -379,4 +370,46 @@ rm -rf $RPM_BUILD_ROOT
 - added handles to framebuffer support,
 - revised spec file, adding group 'floppy' removed.
 - removed initctl -- SysVinit provides it.
-- start at RH spec file.
+- rewrote spec && major changes. 
+
+* Fri May 08 1998 Michael K. Johnson <johnsonm@redhat.com>
+- added paride devices
+
+* Tue May 05 1998 Erik Troan <ewt@redhat.com>
+- uses a filelist
+- ghosts /dev/log
+
+* Fri May 01 1998 Cristian Gafton <gafton@redhat.com>
+- fixed groupadd call in the %install
+
+* Fri Apr 24 1998 Prospector System <bugs@redhat.com>
+- translations modified for de
+
+* Thu Apr 23 1998 Prospector System <bugs@redhat.com>
+- translations modified for fr, tr
+
+* Thu Apr 23 1998 Erik Troan <ewt@redhat.com>
+- fixed preinstall script
+
+* Tue Apr 21 1998 Erik Troan <ewt@redhat.com>
+- updated groupadd to work with upgrades where the floppy group already exists
+
+* Mon Nov 10 1997 Michael K. Johnson <johnsonm@redhat.com>
+- Added more ramdisk entries
+
+* Wed Oct 29 1997 Michael K. Johnson <johnsonm@redhat.com>
+- Added fd and ramdisk symlinks
+
+* Fri Oct 24 1997 Michael K. Johnson <johnsonm@redhat.com>
+- Added floppy group for floppies; made them group-writable.
+
+* Tue Jul 08 1997 Erik Troan <ewt@redhat.com>
+- added bpcd device
+
+* Thu Apr 10 1997 Erik Troan <ewt@redhat.com>
+- Added ftape devices
+
+* Tue Mar 25 1997 Erik Troan <ewt@redhat.com>
+- Fixed stdin, stdout devices.
+- Moved rtc to cpio archive
+- Added ISDN devices

@@ -239,6 +239,9 @@ mknod svga2 c 209 2
 mknod svga3 c 209 3
 mknod svga4 c 209 4
 
+#ipsec character device
+mknod ipsec c 36 10
+
 %clean 
 rm -rf $RPM_BUILD_ROOT
 

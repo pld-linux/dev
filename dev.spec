@@ -348,6 +348,8 @@ done
 
 # ltmodem
 mknode ttyLT0 c 62 64
+# Smart Link soft modem
+mknode ttySL0 c 212 0
 
 # XFree86-nvidia-kernel a.k.a. kernel(-smp)-video-nvidia
 for i in 0 1 2 3; do
@@ -650,6 +652,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(664,root,ttyS) /dev/ttyS*
 %attr(664,root,ttyS) /dev/ttyLT*
+%attr(664,root,ttyS) /dev/ttySL*
 
 %attr(666,root,tty) /dev/ttya*
 %attr(666,root,tty) /dev/ttyb*

@@ -328,7 +328,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,kmem) /dev/kmem
 
 #l#
-%attr(666,root,root) /dev/log
 %attr(664,root,root) /dev/logibm
 %attr(660,root,disk) /dev/loop*
 

@@ -232,24 +232,9 @@ mknode initctl p
 #prepared for Log Daemon
 mkfifo --mode=666 syslog
 
-%pre
-# if setup contains groups floppy and console this mayby obsoletes
-#%{_sbindir}/groupadd -g 19 -r -f floppy
-#%{_sbindir}/groupadd -g 20 -r -f console
-
-%post
-if [ -f /etc/fstab ] ; then
-  # add /dev/pts to fstab if fstab exists (install2 does it during install)
-  if grep 'devpts' /etc/fstab >/dev/null 2>&1 ; then : ; else
-    # note that we do not disallow comments; we wish to allow people
-    # to comment it out if they so desire.
-    TMP=$(mktemp /tmp/fstab.XXXXXX)
-    sed '/\/proc/a\
-pts                    /dev/pts                devpts  mode=0600       0 0
-        ' < /etc/fstab > $TMP && mv -f $TMP /etc/fstab || { echo "failed to add devpts filesystem to /etc/fstab" 1>&2 ; exit 1 ; }
-    rm -f $TMP
-  fi
-fi
+# never require /bin/sh
+#%pre
+#%post
 
 %clean 
 rm -rf $RPM_BUILD_ROOT

@@ -8324,15 +8324,15 @@
 %dev(c,7,137) %attr(620,root,tty) %verify(not user) /dev/vcsa9
 %dev(c,81,0) %attr(660,root,video) /dev/video0
 %dev(c,10,165) %attr(640,root,root) /dev/vmmon
-%dev(c,119,10) %attr(640,root,root) /dev/vmnet0
-%dev(c,119,10) %attr(640,root,root) /dev/vmnet1
-%dev(c,119,10) %attr(640,root,root) /dev/vmnet2
-%dev(c,119,10) %attr(640,root,root) /dev/vmnet3
-%dev(c,119,10) %attr(640,root,root) /dev/vmnet4
-%dev(c,119,10) %attr(640,root,root) /dev/vmnet5
-%dev(c,119,10) %attr(640,root,root) /dev/vmnet6
-%dev(c,119,10) %attr(640,root,root) /dev/vmnet7
-%dev(c,119,10) %attr(640,root,root) /dev/vmnet8
+%dev(c,119,0) %attr(640,root,root) /dev/vmnet0
+%dev(c,119,1) %attr(640,root,root) /dev/vmnet1
+%dev(c,119,2) %attr(640,root,root) /dev/vmnet2
+%dev(c,119,3) %attr(640,root,root) /dev/vmnet3
+%dev(c,119,4) %attr(640,root,root) /dev/vmnet4
+%dev(c,119,5) %attr(640,root,root) /dev/vmnet5
+%dev(c,119,6) %attr(640,root,root) /dev/vmnet6
+%dev(c,119,7) %attr(640,root,root) /dev/vmnet7
+%dev(c,119,8) %attr(640,root,root) /dev/vmnet8
 %dev(c,81,192) %attr(660,root,video) /dev/vtx0
 %dev(c,10,130) %attr(600,root,root) /dev/watchdog
 %dev(c,26,0) %attr(660,root,sys) /dev/wvisfgrab

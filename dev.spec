@@ -5,15 +5,16 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.7.7
-Release:	4
+Release:	5
 #######		From ftp.redhat.com/rawhide
 Source:		%{name}-%{version}.tar.gz
 Copyright:	public domain
 Group:		Base
-BuildPrereq:	setup
+Group(pl):	Podstawowe
+#BuildPrereq:	setup
 # remove shadow if floppy and console group exist in setup
-BuildPrereq:	shadow
-Prereq:		setup
+#BuildPrereq:	shadow
+#Prereq:		setup
 Buildroot:	/tmp/%{name}-%{version}-root
 Autoreqprov:	no
 
@@ -63,8 +64,8 @@ install -d $RPM_BUILD_ROOT
 # if setup contains this group then remove next 4 lines 
 #grep '^floppy:' /etc/group  >/dev/null \
 #	|| groupadd -g 19 -r -f floppy >/dev/null
-grep '^console:' /etc/group >/dev/null \
-	|| groupadd -g 20 -f -r console >/dev/null
+#grep '^console:' /etc/group >/dev/null \
+#	|| groupadd -g 20 -f -r console >/dev/null
 
 # do some cleanup in build root
 cd $RPM_BUILD_ROOT
@@ -203,7 +204,7 @@ mkfifo --mode=666 syslog
 %pre
 # if setup contains groups floppy and console this mayby obsoletes
 #%{_sbindir}/groupadd -g 19 -r -f floppy
-%{_sbindir}/groupadd -g 20 -r -f console
+#%{_sbindir}/groupadd -g 20 -r -f console
 
 %post
 if [ -f /etc/fstab ] ; then

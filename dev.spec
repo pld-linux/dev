@@ -73,10 +73,10 @@ ln -sf mixer0 mixer
 ln -sf nrft0 nftape
 ln -sf ram0 ramdisk
 
-ln -sf em8300-0    em8300
-ln -sf em8300_ma-0 em8300_ma
-ln -sf em8300_mv-0 em8300_mv
-ln -sf em8300_sp-0 em8300_sp
+ln -sf em8300-0		em8300
+ln -sf em8300_ma-0	em8300_ma
+ln -sf em8300_mv-0	em8300_mv
+ln -sf em8300_sp-0	em8300_sp
 for i in `seq 0 31`; do
 	ln -sf fb$i fb${i}current
 done

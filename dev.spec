@@ -231,7 +231,7 @@ mknod arpd c 36 8
 
 # temporary
 install -d $RPM_BUILD_ROOT/proc/asound
-touch $RPM_BUILD_ROOT/proc/asound/dev
+> $RPM_BUILD_ROOT/proc/asound/dev
 
 ln -sf ../proc/asound/dev snd
 

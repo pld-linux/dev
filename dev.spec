@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	29
+Release:	30
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -386,6 +386,8 @@ for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 done
 mknode input/mice c 13 63
 mknode usb/rio500 c 180 64
+mknode usb/tkpanel0 c 180 180
+mknode usb/tkpanel1 c 180 181
 
 # more ttys (12 may be not sufficient)
 for i in 13 14 15 16 17 18 19 20 21 22 23 24; do
@@ -677,6 +679,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(664,root,ttyS) /dev/usb/ttyACM*
 %attr(664,root,ttyS) /dev/usb/ttyUB*
 %attr(664,root,ttyS) /dev/usb/ttyUSB*
+%attr(660,root,root) /dev/usb/tkpanel*
 
 #v#
 %attr(620,root,tty) %verify(not user) /dev/vcs*

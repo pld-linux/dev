@@ -170,6 +170,9 @@ touch log
 # route 
 mknod route c 36 0
 
+# Coda support
+mknod cfs0 c 67 0
+
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
@@ -190,6 +193,7 @@ rm -rf $RPM_BUILD_ROOT
 #c#
 %attr(664,root,root) /dev/cdu31a
 %attr(640,root,disk) /dev/cdu535
+%attr(600,root,root) /dev/cfs0
 %attr(664,root,root) /dev/cm206cd
 %attr(600,root,root) /dev/console
 %attr(666,root,root) /dev/cui*
@@ -366,6 +370,7 @@ rm -rf $RPM_BUILD_ROOT
   [2.5.9-3]
 - compiled on rpm 3
 - fixed framebuffer support
+- added coda support
 
 * Sat Dec 12 1998 Sergiusz Paw³owicz <ser@hyperreal.art.pl>
   [2.5.9-1d]

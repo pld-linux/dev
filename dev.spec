@@ -215,6 +215,9 @@ done
 # netfilter
 mknode ipstate c 95 2
 
+# arpd
+mknod arpd c 36 8
+
 # temporary
 install -d $RPM_BUILD_ROOT/proc/asound
 touch $RPM_BUILD_ROOT/proc/asound/dev
@@ -284,6 +287,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/amidi
 %attr(660,root,audio) /dev/amidi?*
+
+%attr(660,root,root) /dev/arpd
 
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio
 %attr(660,root,audio) /dev/audio?*

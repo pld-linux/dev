@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	21
+Release:	22
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -111,6 +111,7 @@ mknode fdhd1 b 2 5
 mknode adb c 56 0
 mknode adbmouse c 10 10
 ln -sf adbmouse mouse
+mknode pmu c 10 154
 %endif
 
 %ifarch sparc m68k
@@ -650,6 +651,7 @@ rm -rf $RPM_BUILD_ROOT
 %ifarch ppc
 %attr(644,root,root) /dev/adb*
 %attr(644,root,root) /dev/mouse
+%attr(644,root,root) /dev/pmu
 %endif
 
 # only on sparc

@@ -7,15 +7,16 @@ Name:		dev
 Version:	2.7.7
 Release:	11
 Source0:	%{name}-%{version}.tar.gz
-Copyright:	public domain
+License:	public domain
 Group:		Base
 Group(pl):	Podstawowe
 BuildPrereq:	setup
 BuildPrereq:	shadow
 Prereq:		setup
-Buildarch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Autoreqprov:	no
+
+%define		perm_cdrom	660,root,disk
 
 %description
 Unix and unix like systems (including Linux) use file system entries
@@ -91,34 +92,27 @@ done
 
 %ifarch sparc
 # SPARC specific devices
-ln -s sunmouse mouse
-mknode kbd c 11 0
+ln -sf sunmouse mouse
 mknode openprom c 10 139
-chmod 666 fb*
-
-# remove devices that will *never* exist on a SPARC
-rm -f hd* aztcd mcd sbpcd1 cdu31a sbpcd2 scd3
-rm -f sjcd cdu535 sbpcd3 sonycd cm206cd sbpcd
-rm -f gscd sbpcd0 atibm inportbm logibm psaux
-
 %endif
 
-%ifarch m68k                                                                    
+%ifarch m68k
 # m68k specific devices                                                         
 mknode amigamouse c 10 4                                                         
 mknode atarimouse c 10 5                                                         
 mknode apollomouse c 10 7                                                        
-ln -s amigamouse mouse                                                          
+ln -sf amigamouse mouse                                                          
 mknode fdhd0 b 2 4                                                               
 mknode fdhd1 b 2 5                                                               
-mknode kbd c 11 0                                                                
-chmod 666 fb*                                                                   
-                                                                                
-# remove devices that will *never* exist on a m68k                              
-rm -f hd* aztcd mcd sbpcd1 cdu31a sbpcd2 scd3                                   
-rm -f sjcd cdu535 sbpcd3 sonycd cm206cd sbpcd                                   
-rm -f gscd sbpcd0 atibm inportbm logibm psaux                                   
-                                                                                
+%endif
+
+%ifarch sparc m68k
+# common sparc & m68k specific devices
+mknode kbd c 11 0
+chmod 666 fb*
+# remove devices that will *never* exist on a SPARC or m68k
+rm -f aztcd mcd sbpcd* cm206cd cdu31a cdu535 sonycd sjcd gscd
+rm -f hd* atibm inportbm logibm psaux
 %endif
 
 # Coda support 
@@ -127,14 +121,14 @@ mknode cfs0 c 67 0
 # PPP support
 mknode ppp c 108 0
 
-ln -s fb0 fb0current
-ln -s fb1 fb1current
-ln -s fb2 fb2current
-ln -s fb3 fb3current
-ln -s fb4 fb4current
-ln -s fb5 fb5current
-ln -s fb6 fb6current
-ln -s fb7 fb7current
+ln -sf fb0 fb0current
+ln -sf fb1 fb1current
+ln -sf fb2 fb2current
+ln -sf fb3 fb3current
+ln -sf fb4 fb4current
+ln -sf fb5 fb5current
+ln -sf fb6 fb6current
+ln -sf fb7 fb7current
 
 # watchdog support
 mknode watchdog c 10 130 
@@ -148,29 +142,29 @@ mknode mixer0 c 14 0
 mknode mixer1 c 14 16
 mknode mixer2 c 14 32
 mknode mixer3 c 14 48
-ln -s mixer0 mixer
+ln -sf mixer0 mixer
 
-ln -s midi00 midi
+ln -sf midi00 midi
 
 rm -f dsp*
 mknode dsp0 c 14 3
 mknode dsp1 c 14 19
 mknode dsp2 c 14 35
 mknode dsp3 c 14 51
-ln -s dsp0 dsp
+ln -sf dsp0 dsp
 
 rm -f audio*
 mknode audio0 c 14 4
 mknode audio1 c 14 20
 mknode audio2 c 14 36
 mknode audio3 c 14 52
-ln -s audio0 audio
+ln -sf audio0 audio
 
 mknode adsp0 c 14 12
 mknode adsp1 c 14 28
 mknode adsp2 c 14 44
 mknode adsp3 c 14 60
-ln -s adsp0 adsp
+ln -sf adsp0 adsp
 
 mknode dmfm0 c 14 10
 mknode dmfm1 c 14 26
@@ -193,9 +187,9 @@ mknode amidi0 c 14 13
 mknode amidi1 c 14 29
 mknode amidi2 c 14 45
 mknode amidi3 c 14 61
-ln -s amidi0 amidi
+ln -sf amidi0 amidi
 
-ln -s music sequencer2
+ln -sf music sequencer2
 
 mknode aloadC0 c 116 0
 mknode aloadC1 c 116 32
@@ -213,10 +207,10 @@ mknode video0 c 81 0
 mknode radio0 c 81 64
 mknode vtx0 c 81 192
 mknode vbi0 c 81 224
-ln -s video0 video
-ln -s radio0 radio
-ln -s vtx0 vtx
-ln -s vbi0 vbi
+ln -sf video0 video
+ln -sf radio0 radio
+ln -sf vtx0 vtx
+ln -sf vbi0 vbi
 
 #raid
 mknode md0 b 9 0
@@ -243,7 +237,7 @@ mknode ipstate c 95 2
 install -d $RPM_BUILD_ROOT/proc/asound
 touch $RPM_BUILD_ROOT/proc/asound/dev
 
-ln -s ../proc/asound/dev snd
+ln -sf ../proc/asound/dev snd
 
 # prepared for SysVinit
 mknode initctl p
@@ -279,6 +273,12 @@ for i in 0 1 2 3;do
 done
 mknod nvidiactl c 195 255
 
+# kernel 2.4 requires /dev/js* with major 13
+for f in 0 1 2 3 ; do
+	mv -f js$f oldjs$f
+	mknod js$f c 13 $f
+done
+
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
@@ -294,22 +294,15 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not link) %attr(662,root,root) /dev/amidi
 %attr(662,root,root) /dev/amidi?*
 
-%attr(664,root,root) /dev/atibm
-
 %config(noreplace) %verify(not link) %attr(660,root, audio) /dev/audio
 %attr(660,root, audio) /dev/audio?*
 
-%attr(664,root,root) /dev/aztcd
-
 #b#
-%attr(664,root,root) /dev/bpcd
+%attr(%{perm_cdrom}) /dev/bpcd
 
 #c#
 %attr(600,root,root) /dev/capi*
-%attr(664,root,root) /dev/cdu31a
-%attr(640,root,disk) /dev/cdu535
 %attr(600,root,root) /dev/cfs0
-%attr(664,root,root) /dev/cm206cd
 %attr(660,root,console) /dev/console
 %attr(664,root,root) /dev/cui*
 %attr(600,root,root) /dev/cum*
@@ -326,17 +319,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/enskip
 
 #f#
-%config(noreplace) %verify(not link) %attr(644,root,root)   /dev/fb
+%config(noreplace) %verify(not link) %attr(644,root,root) /dev/fb
 %attr(644,root,root)   /dev/fb?*
 %attr(660,root,floppy) /dev/fd*
 %config(noreplace) %verify(not link) %attr(666,root,root) /dev/ftape
 %attr(644,root,root)   /dev/full
 
 #g#
-%attr(664,root,root) /dev/gscd
 
 #h#
-%attr(660,root,disk) /dev/hd*
 %attr(660,root,disk) /dev/ht0
 
 #i#
@@ -344,7 +335,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/ida
 %attr(660,root,disk) /dev/ida/*
 %attr(600,root,root) /dev/initctl
-%attr(664,root,root) /dev/inportbm
 %attr(600,root,root) /dev/ipauth
 %attr(600,root,root) /dev/ipl
 %attr(600,root,root) /dev/ipnat
@@ -365,13 +355,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,kmem) /dev/kmem
 
 #l#
-%attr(664,root,root) /dev/logibm
 %attr(660,root,disk) /dev/loop*
-
-%attr(660,root,daemon) /dev/lp*
+%attr(660,root,lp) /dev/lp*
 
 #m#
-%attr(640,root,disk) /dev/mcd
 %attr(640,root,kmem) /dev/mem
 %config(noreplace) %verify(not link) %attr(662,root,sys) /dev/midi
 %attr(662,root,audio) /dev/midi?*
@@ -396,13 +383,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/nzqft*
 
 #o#
-%attr(664,root,root) /dev/optcd
+%attr(%{perm_cdrom}) /dev/optcd
+%attr(660,root, sys) /dev/oldjs*
 
 #p#
-%attr(640,root,daemon) /dev/par?
-%attr(660,root,daemon) /dev/parport*
+%attr(660,root,lp) /dev/par?
+%attr(660,root,lp) /dev/parport*
 
-%attr(660,root,disk) /dev/pcd*
+%attr(%{perm_cdrom}) /dev/pcd*
 %attr(660,root,disk) /dev/pd*
 %attr(660,root,disk) /dev/pf*
 %attr(600,root,root) /dev/pg*
@@ -410,7 +398,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,kmem) /dev/port
 %attr(644,root,root) /dev/ppp
 %attr(600,root,root) /dev/printer
-%attr(664,root,root) /dev/psaux
 
 %attr(660,root,disk) /dev/pt0
 %attr(660,root,disk) /dev/pt1
@@ -450,21 +437,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/raw/*
 
 #s#
-%attr(640,root,disk) /dev/sbpc*
-%attr(660,root,disk) /dev/scd*
+%attr(%{perm_cdrom}) /dev/scd*
 %attr(660,root,disk) /dev/sd*
 
 %attr(660,root,audio) /dev/sequencer
 %attr(660,root,audio) /dev/sequencer2
 
 %attr(600,root,root) /dev/sg*
-%attr(664,root,root) /dev/sjcd
 %attr(600,root,root) /dev/smtpe*
 
 %attr(444,root,root) /dev/snd
 %attr(666,root,root) /dev/sndstat
-
-%attr(640,root,disk) /dev/sonycd
 
 %attr(600,root,root) /dev/srnd*
 
@@ -472,7 +455,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/staliomem*
 %attr(666,root,root) /dev/std*
 
-%attr(664,root,root) /dev/sunmouse
 %attr(664,root,root) /dev/svga*
 %attr(666,root,root) /dev/syslog
 %attr(600,root,root) /dev/systty
@@ -541,3 +523,42 @@ rm -rf $RPM_BUILD_ROOT
 #z#
 %attr(666,root,root) /dev/zero
 %attr(660,root,disk) /dev/zqft*
+
+# only on sparc or m68k
+%ifarch sparc m68k
+# XXX: which permissions???
+%attr(600,root,root) /dev/kbd
+%endif
+
+# only on m68k
+%ifarch m68k
+# XXX: which permissions???
+%attr(664,root,root) /dev/amigamouse
+%attr(664,root,root) /dev/atarimouse
+%attr(664,root,root) /dev/apollomouse
+%endif
+
+# only on sparc
+%ifarch sparc
+# XXX: which permissions ???
+%attr(600,root,root) /dev/openprom
+%attr(664,root,root) /dev/sunmouse
+%endif
+
+# not on sparc or m68k
+%ifnarch sparc m68k
+%attr(664,root,root) /dev/atibm
+%attr(%{perm_cdrom}) /dev/aztcd
+%attr(%{perm_cdrom}) /dev/cdu31a
+%attr(%{perm_cdrom}) /dev/cdu535
+%attr(%{perm_cdrom}) /dev/cm206cd
+%attr(%{perm_cdrom}) /dev/gscd
+%attr(660,root,disk) /dev/hd*
+%attr(664,root,root) /dev/inportbm
+%attr(664,root,root) /dev/logibm
+%attr(%{perm_cdrom}) /dev/mcd
+%attr(664,root,root) /dev/psaux
+%attr(%{perm_cdrom}) /dev/sbpcd*
+%attr(%{perm_cdrom}) /dev/sjcd
+%attr(%{perm_cdrom}) /dev/sonycd
+%endif

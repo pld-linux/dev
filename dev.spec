@@ -10,8 +10,8 @@ Source0:	%{name}-%{version}.tar.gz
 License:	public domain
 Group:		Base
 Group(pl):	Podstawowe
-BuildPrereq:	setup
-BuildPrereq:	shadow
+BuildRequires:	setup
+BuildRequires:	shadow
 Prereq:		setup
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Autoreqprov:	no
@@ -84,10 +84,10 @@ cd dev
 # this code protects against dev package updaters forgetting to
 # use the p option when unpacking the souce tarball.
 for dev in zero null tty ttyp0; do
-  if [ ! $(ls -l $dev | awk '{print $1}') = crw-rw-rw- ]; then
-    echo bad permissions on device $dev 1>&2
-    exit 1
-  fi
+	if [ ! $(ls -l $dev | awk '{print $1}') = crw-rw-rw- ]; then
+		echo bad permissions on device $dev 1>&2
+		exit 1
+	fi
 done
 
 %ifarch sparc

@@ -26,7 +26,7 @@ contains the most commonly used /dev entries. These files are essential
 for a system to function properly.
 
 %description -l pl
-Wszystkie systemy Unix, jak na przyk³ad Linux, u¿ywaj± plików do przedstawienia 
+Wszystkie systemy unixowe, w tym Linux, u¿ywaj± plików do przedstawiania 
 urz±dzeñ pod³±czonych do komputera. Wszystkie te pliki znajduj± siê zwykle w 
 katalogu /dev. Pakiet ten zawiera wiêkszo¶æ popularnych plików specjalnych, 
 s± one jedn± z wa¿niejszych czê¶ci prawid³owo dzia³aj±cego systemu operacyjnego.

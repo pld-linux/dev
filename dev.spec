@@ -136,7 +136,7 @@ mknod temperature c 10 131
 # agpgart
 mknode agpgart c 10 175
 
-%ifarch %{x86}
+%ifarch %{ix86}
 # toshiba support
 mknode toshiba c 10 181
 %endif
@@ -482,7 +482,7 @@ rm -rf $RPM_BUILD_ROOT
 #t#
 %attr(660,root,disk) /dev/tape*
 %attr(600,root,root) /dev/tlk*
-%ifarch %{x86}
+%ifarch %{ix86}
 %attr(666,root,root) /dev/toshiba
 %endif
 %attr(660,root,disk) /dev/tpqic*

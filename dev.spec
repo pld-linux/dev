@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	25
+Release:	26
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -257,12 +257,22 @@ for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 	mknode hdk$i b 57 $i
 	mknode hdl$i b 57 $(( $i + 64 ))
 done
+# i2o disks
+mkdir i2o
+mknode i2o/ctl c 10 166
+min=0
+for d in a b c d e f g h i j k l m n o p; do
+	mknode i2o/hd$d b 80 $min
+	for p in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+		mknode i2o/hd${d}${p} b 80 $(($min + $p))
+	done
+	min=$(($min + 16))
+done
 
 # raid
 for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 	mknode md$i b 9 $i
 done
-
 # ataraid
 mkdir ataraid
 for d in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
@@ -271,6 +281,22 @@ for d in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 		mknode ataraid/d${d}p${p} b 114 $(( $d * 16 + $p ))
 	done
 done
+# Compaq Next Generation Drive Array
+mkdir cciss
+for c in 0 1 2 3 4 5 6 7; do
+	for d in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+		mknode cciss/c${c}d$d b $((104 + $c)) $(( $d * 16 ))
+		for p in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+			mknode cciss/c${c}d${d}p$p b $((104 + $c)) $(( $d * 16 + $p ))
+		done
+	done
+done
+
+# InterMezzo fs cache managers
+mknode intermezzo0 c 185 0
+mknode intermezzo1 c 185 1
+mknode intermezzo2 c 185 2
+mknode intermezzo3 c 185 3
 
 # netfilter
 mknode ipstate c 95 2
@@ -393,6 +419,8 @@ rm -rf $RPM_BUILD_ROOT
 
 #c#
 %attr(600,root,root) /dev/capi*
+%dir /dev/cciss
+%attr(660,root,root) /dev/cciss/*
 %attr(600,root,root) /dev/cfs0
 %attr(660,root,console) /dev/console
 %attr(664,root,root) /dev/cui*
@@ -426,6 +454,9 @@ rm -rf $RPM_BUILD_ROOT
 
 #i#
 %attr(600,root,root) /dev/i2c*
+%dir /dev/i2o
+%attr(600,root,root) /dev/i2o/ctl
+%attr(660,root,disk) /dev/i2o/hd*
 %dir /dev/ida
 %attr(660,root,disk) /dev/ida/*
 %attr(600,root,root) /dev/initctl
@@ -434,6 +465,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,sys) /dev/input/js*
 %attr(660,root,root) /dev/input/mice
 %attr(660,root,root) /dev/input/mouse*
+%attr(600,root,root) /dev/intermezzo*
 %attr(600,root,root) /dev/ipauth
 %attr(600,root,root) /dev/ipl
 %attr(600,root,root) /dev/ipnat

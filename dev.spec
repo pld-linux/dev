@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	28
+Release:	29
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -329,10 +329,13 @@ mknode svga4 c 209 4
 # ipsec character device
 mknode ipsec c 36 10
 
-# TUN/TAP devices
+# TUN/TAP devices for 2.2+tun patch
 for i in 0 1 2 3 4 5 6 7 8 9; do
 	mknode tun$i c 90 $i
 done
+# TAP/TUN for 2.4
+install -d $RPM_BUILD_ROOT/dev/net
+mknode net/tun c 10 200
 
 # raw io devices
 mknode rawctl c 162 0
@@ -516,6 +519,8 @@ rm -rf $RPM_BUILD_ROOT
 
 #n#
 %attr(660,root,disk) /dev/nb*
+%dir /dev/net
+%attr(600,root,root) /dev/net/tun
 %config(noreplace) %verify(not link) %attr(666,root,root) /dev/nftape
 %attr(660,root,disk) /dev/nht*
 %attr(660,root,disk) /dev/nqft*

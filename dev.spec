@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	4
+Release:	5
 Source0:	%{name}-%{version}.tar.gz
 License:	public domain
 Group:		Base

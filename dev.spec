@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	22
+Release:	23
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -136,6 +136,9 @@ done
 # watchdog support
 mknode watchdog c 10 130
 mknode temperature c 10 131
+
+# nvram
+mknode nvram c 10 144
 
 # agpgart
 mknode agpgart c 10 175
@@ -463,6 +466,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/ntpqic*
 %attr(666,root,root) /dev/null
 %attr(666,root,root) /dev/nvidia*
+%attr(600,root,root) /dev/nvram
 %attr(660,root,disk) /dev/nzqft*
 
 #o#
@@ -543,7 +547,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/staliomem*
 %attr(666,root,root) /dev/std*
 
-%attr(664,root,root) /dev/svga*
+%attr(664,root,video) /dev/svga*
 %attr(666,root,root) /dev/syslog
 %attr(600,root,root) /dev/systty
 
@@ -559,16 +563,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(666,root,root) /dev/tty
 
-%attr(600,root,root) /dev/tty0
-%attr(600,root,root) /dev/tty1*
-%attr(600,root,root) /dev/tty2
-%attr(600,root,root) /dev/tty3
-%attr(600,root,root) /dev/tty4
-%attr(600,root,root) /dev/tty5
-%attr(600,root,root) /dev/tty6
-%attr(600,root,root) /dev/tty7
-%attr(600,root,root) /dev/tty8
-%attr(600,root,root) /dev/tty9
+%attr(600,root,root) %verify(not user group mode) /dev/tty[0-9]*
 
 %attr(600,root,root) /dev/ttyC*
 %attr(600,root,root) /dev/ttyD*

@@ -9,6 +9,7 @@ Release:	33
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
+# Source0-md5: 758636059b5d98ab63c3b8093a3c18da
 BuildRequires:	setup
 BuildRequires:	shadow
 PreReq:		setup >= 2.4.1-2

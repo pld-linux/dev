@@ -197,6 +197,17 @@ ln -s amidi0 amidi
 
 ln -s music sequencer2
 
+mknode aloadC0 c 116 0
+mknode aloadC1 c 116 32
+mknode aloadC2 c 116 64
+mknode aloadC3 c 116 96
+mknode aloadSEQ c 116 1
+
+mknode amixer0 c 14 11
+mknode amixer1 c 14 27
+mknode amixer2 c 14 43
+mknode amixer3 c 14 59
+
 #raid
 mknode md0 b 9 0
 mknode md1 b 9 1
@@ -220,9 +231,9 @@ mknode ipstate c 95 2
 
 #temporary
 install -d $RPM_BUILD_ROOT/proc/asound
-touch $RPM_BUILD_ROOT/proc/asound/snd
+touch $RPM_BUILD_ROOT/proc/asound/dev
 
-ln -s ../proc/asound/snd snd
+ln -s ../proc/asound/dev snd
 
 # prepared for SysVinit
 mknode initctl p

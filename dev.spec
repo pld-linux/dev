@@ -59,7 +59,11 @@ eines Systems unbedingt erforderlich.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-mknode() { [ -e $1 ] || mknod $1 $2 $3 $4 }
+mknode() { 
+# [ -e $1 ] || mknod $1 $2 $3 $4 
+    rm -f $1
+    mknod $1 $2 $3 $4 
+}
 
 install -d $RPM_BUILD_ROOT
 

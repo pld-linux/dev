@@ -236,7 +236,7 @@ mkfifo --mode=666 syslog
 # never require /bin/sh
 #%pre
 %post
-if ! id -g audio; then
+if ! getgid audio >/dev/null ; then
         %{_sbindir}/groupadd -g 23 audio
 fi
 

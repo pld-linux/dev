@@ -13,9 +13,7 @@ Group:		Base
 Group(pl):	Podstawowe
 BuildPrereq:	setup
 BuildPrereq:	shadow
-Requires:	setup
-Requires:	sh-utils
-Requires:	shadow
+Prereq:		setup
 Buildarch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Autoreqprov:	no
@@ -232,13 +230,6 @@ mknode initctl p
 
 #prepared for Log Daemon
 mkfifo --mode=666 syslog
-
-# never require /bin/sh
-#%pre
-%post
-if ! getgid audio >/dev/null ; then
-        %{_sbindir}/groupadd -g 23 audio
-fi
 
 %clean 
 rm -rf $RPM_BUILD_ROOT

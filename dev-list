@@ -8091,7 +8091,7 @@
 %dev(c,90,7) %attr(600,root,root) /dev/tun7
 %dev(c,90,8) %attr(600,root,root) /dev/tun8
 %dev(c,90,9) %attr(600,root,root) /dev/tun9
-%dev(c,10,233) %attr(600,root,root) /dev/input/uinput
+%dev(c,10,223) %attr(600,root,root) /dev/input/uinput
 %dev(c,1,9) %attr(644,root,root) /dev/urandom
 %dev(c,180,64) %attr(660,root,root) /dev/usb/ez0
 %dev(c,180,65) %attr(660,root,root) /dev/usb/ez1

@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	14
+Release:	15
 License:	Public Domain
 Group:		Base
 Source0:	dev-list
@@ -178,9 +178,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/printer
 %attr(666,root,root) /dev/syslog
 %attr(666,root,root) /dev/drzewo
-
-%dev(c,10,63) %attr(660,root,disk) /dev/mapper/control
-%dev(c,10,62) %attr(660,root,video) /dev/fbsplash
 
 %ifarch %{ix86}
 %dev(c,10,184) %attr(666,root,root) /dev/cpu/microcode

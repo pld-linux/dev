@@ -15,7 +15,7 @@ Group(pl):	Podstawowe
 Group(pt_BR):	Base
 BuildRequires:	setup
 BuildRequires:	shadow
-Prereq:		setup >= 2.4.1-2
+PreReq:		setup >= 2.4.1-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Autoreqprov:	no
 
@@ -265,7 +265,7 @@ done
 # ltmodem
 mknode ttyLT0 c 62 64
 
-# XFree86-nvidia-kernel
+# XFree86-nvidia-kernel a.k.a. kernel(-smp)-video-nvidia
 for i in 0 1 2 3; do
 	mknode nvidia$i c 195 $i
 done

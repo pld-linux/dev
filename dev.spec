@@ -278,7 +278,7 @@ done
 
 # dpt i2o
 for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17; do
-	mknode dpti$i b 151 $i
+	mknode dpti$i c 151 $i
 done
 
 # raid

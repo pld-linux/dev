@@ -57,18 +57,18 @@ Funktionieren eines Systems unbedingt erforderlich.
 %setup -q -c -T
 
 %install
-rm -rf $RPM_BUILD_ROOT
+%{__rm} -rf $RPM_BUILD_ROOT
 
-mknode() { 
-# [ -e $1 ] || mknod $1 $2 $3 $4 
-    rm -f $1
-    mknod $1 $2 $3 $4 
+mknode() {
+# [ -e $1 ] || mknod $1 $2 $3 $4
+	%{__rm} -f $1
+	mknod $1 $2 $3 $4
 }
 
-install -d $RPM_BUILD_ROOT
+%{__install} -d $RPM_BUILD_ROOT
 
-#add group for floppy and console
-# if setup contains this group then remove next 4 lines 
+# add group for floppy and console
+# if setup contains this group then remove next 4 lines
 #grep '^floppy:' /etc/group >/dev/null \
 #	|| groupadd -g 19 -r -f floppy >/dev/null
 #grep '^console:' /etc/group >/dev/null \
@@ -76,15 +76,15 @@ install -d $RPM_BUILD_ROOT
 
 # do some cleanup in build root
 cd $RPM_BUILD_ROOT
-tar xpSzf $RPM_SOURCE_DIR/%{name}-%{version}.tar.gz
+%{__tar} xpSzf $RPM_SOURCE_DIR/%{name}-%{version}.tar.gz
 
 cd dev
 
 # tar doesn't save some permissions unless the p option is used
 # this code protects against dev package updaters forgetting to
 # use the p option when unpacking the souce tarball.
-for dev in zero null tty ttyp0 ; do
-  if [ ! $(ls -l $dev | awk '{print $1}') = crw-rw-rw- ] ; then
+for dev in zero null tty ttyp0; do
+  if [ ! $(ls -l $dev | awk '{print $1}') = crw-rw-rw- ]; then
     echo bad permissions on device $dev 1>&2
     exit 1
   fi
@@ -92,79 +92,74 @@ done
 
 %ifarch sparc
 # SPARC specific devices
-ln -sf sunmouse mouse
+%{__ln_s} -f sunmouse mouse
 mknode openprom c 10 139
 %endif
 
 %ifarch m68k
-# m68k specific devices                                                         
-mknode amigamouse c 10 4                                                         
-mknode atarimouse c 10 5                                                         
-mknode apollomouse c 10 7                                                        
-ln -sf amigamouse mouse                                                          
-mknode fdhd0 b 2 4                                                               
-mknode fdhd1 b 2 5                                                               
+# m68k specific devices
+mknode amigamouse c 10 4
+mknode atarimouse c 10 5
+mknode apollomouse c 10 7
+%{__ln_s} -f amigamouse mouse
+mknode fdhd0 b 2 4
+mknode fdhd1 b 2 5
 %endif
 
 %ifarch sparc m68k
 # common sparc & m68k specific devices
 mknode kbd c 11 0
-chmod 666 fb*
+%{__chmod} 666 fb*
 # remove devices that will *never* exist on a SPARC or m68k
-rm -f aztcd mcd sbpcd* cm206cd cdu31a cdu535 sonycd sjcd gscd
-rm -f hd* atibm inportbm logibm psaux
+%{__rm} -f aztcd mcd sbpcd* cm206cd cdu31a cdu535 sonycd sjcd gscd
+%{__rm} -f hd* atibm inportbm logibm psaux
 %endif
 
-# Coda support 
+# Coda support
 mknode cfs0 c 67 0
 
 # PPP support
 mknode ppp c 108 0
 
-ln -sf fb0 fb0current
-ln -sf fb1 fb1current
-ln -sf fb2 fb2current
-ln -sf fb3 fb3current
-ln -sf fb4 fb4current
-ln -sf fb5 fb5current
-ln -sf fb6 fb6current
-ln -sf fb7 fb7current
+for i in 0 1 2 3 4 5 6 7; do
+	%{__ln_s} -f fb$i fb${i}current
+done
 
 # watchdog support
-mknode watchdog c 10 130 
+mknode watchdog c 10 130
 
-# route 
+# route
 mknode route c 36 0
 
-#ALSA support
-rm -f mixer*
+# ALSA support
+%{__rm} -f mixer*
 mknode mixer0 c 14 0
 mknode mixer1 c 14 16
 mknode mixer2 c 14 32
 mknode mixer3 c 14 48
-ln -sf mixer0 mixer
+%{__ln_s} -f mixer0 mixer
 
-ln -sf midi00 midi
+%{__ln_s} -f midi00 midi
 
-rm -f dsp*
+%{__rm} -f dsp*
 mknode dsp0 c 14 3
 mknode dsp1 c 14 19
 mknode dsp2 c 14 35
 mknode dsp3 c 14 51
-ln -sf dsp0 dsp
+%{__ln_s} -f dsp0 dsp
 
-rm -f audio*
+%{__rm} -f audio*
 mknode audio0 c 14 4
 mknode audio1 c 14 20
 mknode audio2 c 14 36
 mknode audio3 c 14 52
-ln -sf audio0 audio
+%{__ln_s} -f audio0 audio
 
 mknode adsp0 c 14 12
 mknode adsp1 c 14 28
 mknode adsp2 c 14 44
 mknode adsp3 c 14 60
-ln -sf adsp0 adsp
+%{__ln_s} -f adsp0 adsp
 
 mknode dmfm0 c 14 10
 mknode dmfm1 c 14 26
@@ -179,7 +174,7 @@ mknode dmmidi3 c 14 57
 mknode music c 14 8
 
 mknode admmidi0 c 14 14
-mknode admmidi1 c 14 30 
+mknode admmidi1 c 14 30
 mknode admmidi2 c 14 46
 mknode admmidi3 c 14 62
 
@@ -187,9 +182,9 @@ mknode amidi0 c 14 13
 mknode amidi1 c 14 29
 mknode amidi2 c 14 45
 mknode amidi3 c 14 61
-ln -sf amidi0 amidi
+%{__ln_s} -f amidi0 amidi
 
-ln -sf music sequencer2
+%{__ln_s} -f music sequencer2
 
 mknode aloadC0 c 116 0
 mknode aloadC1 c 116 32
@@ -202,100 +197,87 @@ mknode amixer1 c 14 27
 mknode amixer2 c 14 43
 mknode amixer3 c 14 59
 
-#video4linux support
+# video4linux support
 mknode video0 c 81 0
 mknode radio0 c 81 64
 mknode vtx0 c 81 192
 mknode vbi0 c 81 224
-ln -sf video0 video
-ln -sf radio0 radio
-ln -sf vtx0 vtx
-ln -sf vbi0 vbi
+%{__ln_s} -f video0 video
+%{__ln_s} -f radio0 radio
+%{__ln_s} -f vtx0 vtx
+%{__ln_s} -f vbi0 vbi
 
-#raid
-mknode md0 b 9 0
-mknode md1 b 9 1
-mknode md2 b 9 2
-mknode md3 b 9 3
-mknode md4 b 9 4
-mknode md5 b 9 5
-mknode md6 b 9 6
-mknode md7 b 9 7
-mknode md8 b 9 8
-mknode md9 b 9 9
-mknode md10 b 9 10
-mknode md11 b 9 11
-mknode md12 b 9 12
-mknode md13 b 9 13
-mknode md14 b 9 14
-mknode md15 b 9 15
+# raid
+for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+	mknode md$i b 9 $i
+done
 
-#netfilter
+# netfilter
 mknode ipstate c 95 2
 
-#temporary
-install -d $RPM_BUILD_ROOT/proc/asound
+# temporary
+%{__install} -d $RPM_BUILD_ROOT/proc/asound
 touch $RPM_BUILD_ROOT/proc/asound/dev
 
-ln -sf ../proc/asound/dev snd
+%{__ln_s} -f ../proc/asound/dev snd
 
 # prepared for SysVinit
 mknode initctl p
 
-#prepared for Log Daemon
+# prepared for Log Daemon
 mkfifo --mode=666 syslog
 
-#libsvga char dev helpers
+# libsvga char dev helpers
 mknod svga c 209 0
 mknod svga1 c 209 1
 mknod svga2 c 209 2
 mknod svga3 c 209 3
 mknod svga4 c 209 4
 
-#ipsec character device
+# ipsec character device
 mknod ipsec c 36 10
 
 # raw io devices
 mknode rawctl c 162 0
-mkdir $RPM_BUILD_ROOT/dev/raw
+%{__mkdir} $RPM_BUILD_ROOT/dev/raw
 minor=1
 while [ "$minor" -ne 256 ]; do
-    mknode "raw/raw$minor" c 162 $minor
-    minor=$(($minor +1))
+	mknode "raw/raw$minor" c 162 $minor
+	minor=$(($minor +1))
 done
 
 # ltmodem
 mknod ttyLT0 c 62 64
 
 # XFree86-nvidia-kernel
-for i in 0 1 2 3;do
+for i in 0 1 2 3; do
 	mknod nvidia$i c 195 $i
 done
 mknod nvidiactl c 195 255
 
 # kernel 2.4 requires /dev/js* with major 13
-for f in 0 1 2 3 ; do
-	mv -f js$f oldjs$f
+for f in 0 1 2 3; do
+	%{__mv} -f js$f oldjs$f
 	mknod js$f c 13 $f
 done
 
-%clean 
-rm -rf $RPM_BUILD_ROOT
+%clean
+%{__rm} -rf $RPM_BUILD_ROOT
 
-%files 
+%files
 %defattr(644,root,root,755)
 
 #a#
-%attr(662,root, sys) /dev/admmidi*
+%attr(662,root,sys) /dev/admmidi*
 
-%config(noreplace) %verify(not link) %attr(666,root, sys) /dev/adsp
-%attr(662,root, sys) /dev/adsp?*
+%config(noreplace) %verify(not link) %attr(666,root,sys) /dev/adsp
+%attr(662,root,sys) /dev/adsp?*
 
 %config(noreplace) %verify(not link) %attr(662,root,root) /dev/amidi
 %attr(662,root,root) /dev/amidi?*
 
-%config(noreplace) %verify(not link) %attr(660,root, audio) /dev/audio
-%attr(660,root, audio) /dev/audio?*
+%config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio
+%attr(660,root,audio) /dev/audio?*
 
 #b#
 %attr(%{perm_cdrom}) /dev/bpcd
@@ -309,21 +291,21 @@ rm -rf $RPM_BUILD_ROOT
 
 #d#
 %attr(600,root,root) /dev/dcbri*
-%attr(660,root, sys) /dev/dcxx*
-%attr(662,root, sys) /dev/dmfm*
-%attr(662,root, sys) /dev/dmmidi*
-%config(noreplace) %verify(not link) %attr(660,root, audio) /dev/dsp
-%attr(660,root, audio) /dev/dsp?*
+%attr(660,root,sys) /dev/dcxx*
+%attr(662,root,sys) /dev/dmfm*
+%attr(662,root,sys) /dev/dmmidi*
+%config(noreplace) %verify(not link) %attr(660,root,audio) /dev/dsp
+%attr(660,root,audio) /dev/dsp?*
 
 #e#
 %attr(600,root,root) /dev/enskip
 
 #f#
 %config(noreplace) %verify(not link) %attr(644,root,root) /dev/fb
-%attr(644,root,root)   /dev/fb?*
+%attr(644,root,root) /dev/fb?*
 %attr(660,root,floppy) /dev/fd*
 %config(noreplace) %verify(not link) %attr(666,root,root) /dev/ftape
-%attr(644,root,root)   /dev/full
+%attr(644,root,root) /dev/full
 
 #g#
 
@@ -340,7 +322,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/ipnat
 %attr(600,root,root) /dev/ipstate
 %attr(600,root,root) /dev/ippp*
-%attr(660,root, sys) /dev/iscc*
+%attr(660,root,sys) /dev/iscc*
 %attr(600,root,root) /dev/isctl
 %attr(600,root,root) /dev/isdn?
 %attr(600,root,root) /dev/isdn??
@@ -349,7 +331,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(444,root,root) /dev/isdninfo
 
 #j#
-%attr(660,root, sys) /dev/js*
+%attr(660,root,sys) /dev/js*
 
 #k#
 %attr(640,root,kmem) /dev/kmem
@@ -364,7 +346,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(662,root,audio) /dev/midi?*
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/mixer
 %attr(660,root,audio) /dev/mixer?*
-%attr(660,root, sys) /dev/mmetfgrab
+%attr(660,root,sys) /dev/mmetfgrab
 %attr(600,root,root) /dev/mpu401*
 %attr(660,root,audio) /dev/music
 %attr(660,root,disk) /dev/md*
@@ -384,7 +366,7 @@ rm -rf $RPM_BUILD_ROOT
 
 #o#
 %attr(%{perm_cdrom}) /dev/optcd
-%attr(660,root, sys) /dev/oldjs*
+%attr(660,root,sys) /dev/oldjs*
 
 #p#
 %attr(660,root,lp) /dev/par?
@@ -404,8 +386,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/pt2
 %attr(660,root,disk) /dev/pt3
 
-%attr(666,root, tty) /dev/ptmx
-%attr(666,root, tty) /dev/pty*
+%attr(666,root,tty) /dev/ptmx
+%attr(666,root,tty) /dev/pty*
 %dir /dev/pts
 
 #r#
@@ -466,16 +448,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(666,root,root) /dev/tty
 
-%attr(600,root, tty) /dev/tty0
-%attr(600,root, tty) /dev/tty1*
-%attr(600,root, tty) /dev/tty2
-%attr(600,root, tty) /dev/tty3
-%attr(600,root, tty) /dev/tty4
-%attr(600,root, tty) /dev/tty5
-%attr(600,root, tty) /dev/tty6
-%attr(600,root, tty) /dev/tty7
-%attr(600,root, tty) /dev/tty8
-%attr(600,root, tty) /dev/tty9
+%attr(600,root,root) /dev/tty0
+%attr(600,root,root) /dev/tty1*
+%attr(600,root,root) /dev/tty2
+%attr(600,root,root) /dev/tty3
+%attr(600,root,root) /dev/tty4
+%attr(600,root,root) /dev/tty5
+%attr(600,root,root) /dev/tty6
+%attr(600,root,root) /dev/tty7
+%attr(600,root,root) /dev/tty8
+%attr(600,root,root) /dev/tty9
 
 %attr(600,root,root) /dev/ttyC*
 %attr(600,root,root) /dev/ttyD*
@@ -485,25 +467,25 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/ttyP*
 %attr(600,root,root) /dev/ttyR*
 
-%attr(664,root, ttyS) /dev/ttyS*
+%attr(664,root,ttyS) /dev/ttyS*
 %attr(664,root,ttyS) /dev/ttyLT*
 
-%attr(666,root, tty) /dev/ttya*
-%attr(666,root, tty) /dev/ttyb*
-%attr(666,root, tty) /dev/ttyc*
-%attr(666,root, tty) /dev/ttyd*
-%attr(666,root, tty) /dev/ttye*
-%attr(666,root, tty) /dev/ttyp*
-%attr(666,root, tty) /dev/ttyq*
-%attr(666,root, tty) /dev/ttyr*
-%attr(666,root, tty) /dev/ttys*
-%attr(666,root, tty) /dev/ttyt*
-%attr(666,root, tty) /dev/ttyu*
-%attr(666,root, tty) /dev/ttyv*
-%attr(666,root, tty) /dev/ttyw*
-%attr(666,root, tty) /dev/ttyx*
-%attr(666,root, tty) /dev/ttyy*
-%attr(666,root, tty) /dev/ttyz*
+%attr(666,root,tty) /dev/ttya*
+%attr(666,root,tty) /dev/ttyb*
+%attr(666,root,tty) /dev/ttyc*
+%attr(666,root,tty) /dev/ttyd*
+%attr(666,root,tty) /dev/ttye*
+%attr(666,root,tty) /dev/ttyp*
+%attr(666,root,tty) /dev/ttyq*
+%attr(666,root,tty) /dev/ttyr*
+%attr(666,root,tty) /dev/ttys*
+%attr(666,root,tty) /dev/ttyt*
+%attr(666,root,tty) /dev/ttyu*
+%attr(666,root,tty) /dev/ttyv*
+%attr(666,root,tty) /dev/ttyw*
+%attr(666,root,tty) /dev/ttyx*
+%attr(666,root,tty) /dev/ttyy*
+%attr(666,root,tty) /dev/ttyz*
 
 #u#
 %attr(644,root,root) /dev/urandom
@@ -513,7 +495,7 @@ rm -rf $RPM_BUILD_ROOT
 
 #w#
 %attr(600,root,root) /dev/watchdog
-%attr(660,root, sys) /dev/wvisfgrab
+%attr(660,root,sys) /dev/wvisfgrab
 
 #x#
 %attr(660,root,disk) /dev/xd*

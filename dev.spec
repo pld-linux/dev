@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	5
+Release:	6
 License:	Public Domain
 Group:		Base
 Source0:	dev-list
@@ -55,7 +55,7 @@ olarak iþleyebilmesi için temel gereksinimlerdendir.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/dev/{ataraid,cciss,cdroms,cpu/{0,1,2,3,4,5,6,7}} \
-	$RPM_BUILD_ROOT/dev/{discs,i2o,ida,input,net,pts,raw,rd,usb,snd}
+	$RPM_BUILD_ROOT/dev/{discs,i2o,ida,input,net,pts,raw,rd,usb,shm,snd}
 
 install %{SOURCE0} .
 
@@ -164,6 +164,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,video) /dev/radio
 %attr(660,root,audio) /dev/sequencer2
 %attr(600,root,root) /dev/sg[0-7]
+%dir /dev/shm
 %dir /dev/snd
 %attr(660,root,video) /dev/vbi
 %attr(660,root,video) /dev/video

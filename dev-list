@@ -7,10 +7,19 @@
 %dev(c,14,44) %attr(660,root,audio) /dev/adsp2
 %dev(c,14,60) %attr(660,root,audio) /dev/adsp3
 %dev(c,10,175) %attr(644,root,root) /dev/agpgart
+%dev(c,116,0) %attr(660,root,audio) /dev/aloadC0
+%dev(c,116,32) %attr(660,root,audio) /dev/aloadC1
+%dev(c,116,64) %attr(660,root,audio) /dev/aloadC2
+%dev(c,116,96) %attr(660,root,audio) /dev/aloadC3
+%dev(c,116,1) %attr(660,root,audio) /dev/aloadSEQ
 %dev(c,14,13) %attr(660,root,audio) /dev/amidi0
 %dev(c,14,29) %attr(660,root,audio) /dev/amidi1
 %dev(c,14,45) %attr(660,root,audio) /dev/amidi2
 %dev(c,14,61) %attr(660,root,audio) /dev/amidi3
+%dev(c,14,11) %attr(660,root,audio) /dev/amixer0
+%dev(c,14,27) %attr(660,root,audio) /dev/amixer1
+%dev(c,14,43) %attr(660,root,audio) /dev/amixer2
+%dev(c,14,59) %attr(660,root,audio) /dev/amixer3
 %dev(c,36,8) %attr(660,daemon,root) /dev/arpd
 %dev(b,114,0) %attr(660,root,disk) /dev/ataraid/d0
 %dev(b,114,1) %attr(660,root,disk) /dev/ataraid/d0p1
@@ -3862,6 +3871,7 @@
 %dev(c,185,2) %attr(600,root,root) /dev/intermezzo2
 %dev(c,185,3) %attr(600,root,root) /dev/intermezzo3
 %dev(c,95,3) %attr(600,root,root) /dev/ipauth
+%dev(c,36,10) %attr(600,root,root) /dev/ipsec
 %dev(c,95,0) %attr(600,root,root) /dev/ipl
 %dev(c,95,1) %attr(600,root,root) /dev/ipnat
 %dev(c,45,128) %attr(600,root,root) /dev/ippp0
@@ -7251,6 +7261,7 @@
 %dev(c,4,0) %attr(600,root,root) /dev/systty
 %dev(c,12,136) %attr(660,root,disk) /dev/tape-d
 %dev(c,12,255) %attr(660,root,disk) /dev/tape-reset
+%dev(c,10,131) %attr(600,root,root) /dev/temperature
 %dev(c,102,0) %attr(600,root,root) /dev/tlk0
 %dev(c,102,1) %attr(600,root,root) /dev/tlk1
 %dev(c,102,2) %attr(600,root,root) /dev/tlk2

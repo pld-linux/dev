@@ -175,6 +175,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(666,root,root) /dev/syslog
 %attr(666,root,root) /dev/drzewo
 
+%dev(c,10,165) %attr(640,root,root) /dev/vmmon
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet0
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet1
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet2
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet3
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet4
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet5
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet6
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet7
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet8
+
 %ifarch %{ix86}
 %dev(c,10,184) %attr(666,root,root) /dev/cpu/microcode
 %dev(c,10,181) %attr(666,root,root) /dev/toshiba

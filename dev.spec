@@ -351,6 +351,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,sys) /dev/dcxx*
 %attr(660,root,audio) /dev/dmfm*
 %attr(660,root,audio) /dev/dmmidi*
+%attr(666,root,root) /dev/drzewo
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/dsp
 %attr(660,root,audio) /dev/dsp?*
 

@@ -237,6 +237,9 @@ mknode svga2 c 209 2
 mknode svga3 c 209 3
 mknode svga4 c 209 4
 
+# agpgart
+mknode agpgart c 10 175
+
 # ipsec character device
 mknode ipsec c 36 10
 
@@ -289,6 +292,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/amidi
 %attr(660,root,audio) /dev/amidi?*
 
+%attr(644,root,root) /dev/agpgart
 %attr(660,daemon,root) /dev/arpd
 
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio

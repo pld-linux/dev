@@ -148,6 +148,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/usb
 %dir /dev/mapper
 %dir /dev/zap
+%dir /dev/cdemu
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/adsp
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/amidi
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio

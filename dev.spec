@@ -289,7 +289,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/amidi
 %attr(660,root,audio) /dev/amidi?*
 
-%attr(660,root,root) /dev/arpd
+%attr(660,daemon,root) /dev/arpd
 
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio
 %attr(660,root,audio) /dev/audio?*

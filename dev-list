@@ -8729,3 +8729,11 @@
 %dev(c,196,253) %attr(664,root,root) /dev/zap/timer
 %dev(c,196,254) %attr(664,root,root) /dev/zap/channel
 %dev(c,196,255) %attr(664,root,root) /dev/zap/pseudo
+%dev(b,62,0) %attr(664,root,root) /dev/cdemu/0
+%dev(b,62,1) %attr(664,root,root) /dev/cdemu/1
+%dev(b,62,2) %attr(664,root,root) /dev/cdemu/2
+%dev(b,62,3) %attr(664,root,root) /dev/cdemu/3
+%dev(b,62,4) %attr(664,root,root) /dev/cdemu/4
+%dev(b,62,5) %attr(664,root,root) /dev/cdemu/5
+%dev(b,62,6) %attr(664,root,root) /dev/cdemu/6
+%dev(b,62,7) %attr(664,root,root) /dev/cdemu/7

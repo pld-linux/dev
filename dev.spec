@@ -10,9 +10,12 @@ Release:	2
 Source:		%{name}-%{version}.tar.gz
 Copyright:	public domain
 Group:		Base
+BuildPrereq:	setup
+# remove shadow if floppy and console group exist in setup
+BuildPrereq:	shadow
+Prereq:		setup
 Buildroot:	/tmp/%{name}-%{version}-root
 Autoreqprov:	no
-Prereq:		setup
 
 %description
 Unix and unix like systems (including Linux) use file system entries
@@ -50,14 +53,18 @@ eines Systems unbedingt erforderlich.
 
 %prep
 %setup -q -c -T
+
+%install
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT
-BUILD_DIR=`pwd`
 
 #add group for floppy and console
-/usr/sbin/groupadd -g 19 -r -f floppy >/dev/null
-/usr/sbin/groupadd -g 20 -f -r console >/dev/null
+# if setup contains this group then remove next 4 lines 
+grep '^floppy:' /etc/group  >/dev/null \
+	|| groupadd -g 19 -r -f floppy >/dev/null
+grep '^console:' /etc/group >/dev/null \
+	|| groupadd -g 20 -f -r console >/dev/null
 
 # do some cleanup in build root
 cd $RPM_BUILD_ROOT
@@ -97,8 +104,6 @@ mknod apollomouse c 10 7
 ln -s amigamouse mouse                                                          
 mknod fdhd0 b 2 4                                                               
 mknod fdhd1 b 2 5                                                               
-mknod fb0current c 29 0                                                         
-mknod fb1current c 29 32                                                        
 mknod kbd c 11 0                                                                
 chmod 666 fb*                                                                   
                                                                                 
@@ -108,11 +113,6 @@ rm -f sjcd cdu535 sbpcd3 sonycd cm206cd sbpcd
 rm -f gscd sbpcd0 atibm inportbm logibm psaux                                   
                                                                                 
 %endif
-
-mknod fb0 c 29 0
-mknod fb1 c 29 32
-
-ln -s fb0 fb                                                                    
 
 # Coda support 
 mknod cfs0 c 67 0
@@ -135,6 +135,7 @@ ln -s fb4 fb4current
 ln -s fb5 fb5current
 ln -s fb6 fb6current
 ln -s fb7 fb7current
+ln -s fb0 fb                                                                    
 
 # watchdog support
 mknod watchdog c 10 130 
@@ -205,7 +206,7 @@ ln -s music sequencer2
 install -d $RPM_BUILD_ROOT/proc/asound
 touch $RPM_BUILD_ROOT/proc/asound/snd
 
-ls -s ../proc/asound/snd snd
+ln -s ../proc/asound/snd snd
 
 # prepared for SysVinit
 mknod initctl p
@@ -214,6 +215,7 @@ mknod initctl p
 mkfifo --mode=666 syslog
 
 %pre
+# if setup contains groups floppy and console this mayby obsoletes
 /usr/sbin/groupadd -g 19 -r -f floppy
 /usr/sbin/groupadd -g 20 -r -f console
 
@@ -231,8 +233,6 @@ none                    /dev/pts                devpts  mode=0622       0 0
   fi
 fi
 
-%postun
-
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
@@ -243,39 +243,42 @@ rm -rf $RPM_BUILD_ROOT
 
 #a#
 %attr(664,root,root) /dev/atibm
-%attr(662,root, sys) /dev/audio
-%attr(662,root, sys) /dev/audio1
+%config(noreplace) %verify(not link) %attr(662,root, sys) /dev/audio
+%attr(662,root, sys) /dev/audio?*
 %attr(664,root,root) /dev/aztcd
 
-%attr(666,root,root) /dev/adsp*
-%attr(666,root,root) /dev/audio*
-%attr(666,root,root) /dev/admmidi*
-%attr(666,root,root) /dev/amidi*
+%config(noreplace) %verify(not link) %attr(666,root, sys) /dev/adsp
+%attr(662,root, sys) /dev/adsp?*
+%attr(662,root, sys) /dev/admmidi*
+%config(noreplace) %verify(not link) %attr(662,root,root) /dev/amidi
+%attr(662,root,root) /dev/amidi?*
 
 #b#
 %attr(664,root,root) /dev/bpcd
 
 #c#
-%attr(664,root,root) /dev/cdu31a
-%attr(640,root,disk) /dev/cdu535
-%attr(664,root,root) /dev/cm206cd
-%attr(600,root,root) /dev/console
-%attr(666,root,root) /dev/cui*
-%attr(600,root,root) /dev/cum*
-%attr(600,root,root) /dev/cfs0
+%attr(664,root,root)    /dev/cdu31a
+%attr(640,root,disk)    /dev/cdu535
+%attr(664,root,root)    /dev/cm206cd
+%attr(660,root,console) /dev/console
+%attr(666,root,root)    /dev/cui*
+%attr(600,root,root)    /dev/cum*
+%attr(600,root,root)    /dev/cfs0
 
 #d#
-%attr(666,root,root) /dev/dsp*
-%attr(666,root,root) /dev/dmfm*
-%attr(666,root,root) /dev/dmmidi*
+%config(noreplace) %verify(not link) %attr(662,root, sys) /dev/dsp
+%attr(662,root, sys) /dev/dsp?*
+%attr(662,root, sys) /dev/dmfm*
+%attr(662,root, sys) /dev/dmmidi*
 
 #e#
 
 #f#
-%attr(644,root,  root) /dev/fb*
+%config(noreplace) %verify(not link) %attr(644,root,root)   /dev/fb
+%attr(644,root,root)   /dev/fb?*
 %attr(664,root,floppy) /dev/fd*
-%attr(666,root,root) /dev/ftape
-%attr(644,root,root) /dev/full
+%config(noreplace) %verify(not link) %attr(666,root,root) /dev/ftape
+%attr(644,root,root)   /dev/full
 
 #g#
 %attr(664,root,root) /dev/gscd
@@ -289,7 +292,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(664,root,root) /dev/inportbm
 %attr(600,root,root) /dev/ippp*
 %attr(600,root,root) /dev/isctl
-%attr(600,root,root) /dev/isdnctrl*
+%config(noreplace) %verify(not link) %attr(600,root,root) /dev/isdnctrl
+%attr(600,root,root) /dev/isdnctrl?*
 %attr(444,root,root) /dev/isdninfo
 %attr(600,root,root) /dev/initctl
 
@@ -308,8 +312,10 @@ rm -rf $RPM_BUILD_ROOT
 #m#
 %attr(640,root,disk) /dev/mcd
 %attr(640,root,kmem) /dev/mem
-%attr(666,root, sys) /dev/midi*
-%attr(666,root,root) /dev/mixer*
+%config(noreplace) %verify(not link) %attr(666,root, sys) /dev/midi
+%attr(666,root, sys) /dev/midi?*
+%config(noreplace) %verify(not link) %attr(666,root,root) /dev/mixer
+%attr(666,root,root) /dev/mixer?*
 %attr(666,root,root) /dev/music
 
 #n#
@@ -319,7 +325,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/nst*
 %attr(666,root,root) /dev/null
 
-%attr(666,root,root) /dev/nftape
+%config(noreplace) %verify(not link) %attr(666,root,root) /dev/nftape
 
 #o#
 %attr(664,root,root) /dev/optcd
@@ -356,7 +362,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/ram8
 %attr(660,root,disk) /dev/ram9
 
-%attr(660,root,disk) /dev/ramdisk
+%config(noreplace) %verify(not link) %attr(660,root,disk) /dev/ramdisk
 
 %attr(644,root,root) /dev/random
 %attr(660,root,disk) /dev/rft*
@@ -377,8 +383,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/sdf*
 %attr(660,root,disk) /dev/sdg*
 
-%attr(666,root,root) /dev/sequencer
-%attr(666,root,root) /dev/sequencer2
+%attr(662,root,sys)  /dev/sequencer
+%attr(662,root,sys)  /dev/sequencer2
 
 %attr(444,root,root) /dev/snd
 

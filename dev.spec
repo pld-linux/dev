@@ -553,7 +553,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/tlk*
 %ifarch %{ix86}
 %attr(666,root,root) /dev/toshiba
-%attr(644,root,root) /dev/tun*
+%attr(600,root,root) /dev/tun*
 %dir /dev/cpu
 %attr(666,root,root) /dev/cpu/microcode
 %endif

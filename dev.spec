@@ -193,6 +193,7 @@ rm -rf $RPM_BUILD_ROOT
 %dev(c,10,240) %attr(600,root,root) /dev/mptctl
 
 %dev(c,10,63) %attr(660,root,disk) /dev/mapper/control
+%dev(c,10,63) %attr(660,root,video) /dev/fbsplash
 
 %ifarch %{ix86}
 %dev(c,10,184) %attr(666,root,root) /dev/cpu/microcode

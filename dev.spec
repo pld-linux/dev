@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.7.7
-Release:	3
+Release:	4
 #######		From ftp.redhat.com/rawhide
 Source:		%{name}-%{version}.tar.gz
 Copyright:	public domain
@@ -61,8 +61,8 @@ install -d $RPM_BUILD_ROOT
 
 #add group for floppy and console
 # if setup contains this group then remove next 4 lines 
-grep '^floppy:' /etc/group  >/dev/null \
-	|| groupadd -g 19 -r -f floppy >/dev/null
+#grep '^floppy:' /etc/group  >/dev/null \
+#	|| groupadd -g 19 -r -f floppy >/dev/null
 grep '^console:' /etc/group >/dev/null \
 	|| groupadd -g 20 -f -r console >/dev/null
 
@@ -202,7 +202,7 @@ mkfifo --mode=666 syslog
 
 %pre
 # if setup contains groups floppy and console this mayby obsoletes
-%{_sbindir}/groupadd -g 19 -r -f floppy
+#%{_sbindir}/groupadd -g 19 -r -f floppy
 %{_sbindir}/groupadd -g 20 -r -f console
 
 %post
@@ -213,7 +213,7 @@ if [ -f /etc/fstab ] ; then
     # to comment it out if they so desire.
     TMP=$(mktemp /tmp/fstab.XXXXXX)
     sed '/\/proc/a\
-none                    /dev/pts                devpts  mode=0622       0 0
+pts                    /dev/pts                devpts  mode=0600       0 0
         ' < /etc/fstab > $TMP && mv -f $TMP /etc/fstab || { echo "failed to add devpts filesystem to /etc/fstab" 1>&2 ; exit 1 ; }
     rm -f $TMP
   fi

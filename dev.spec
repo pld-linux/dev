@@ -388,7 +388,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/initctl
 %dir /dev/input
 %attr(660,root,root) /dev/input/event*
-%attr(660,root,js) /dev/input/js*
+%attr(660,root,sys) /dev/input/js*
 %attr(660,root,root) /dev/input/mice
 %attr(660,root,root) /dev/input/mouse*
 %attr(600,root,root) /dev/ipauth

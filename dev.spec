@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	10
+Release:	11
 License:	public domain
 Group:		Base
 Group(de):	Gründsätzlich
@@ -296,6 +296,23 @@ mknode irlpt1 c 161 17
 mknode lirc c 61 0
 mknode lircm p
 
+# usb
+mkdir $RPM_BUILD_ROOT/dev/input
+mkdir $RPM_BUILD_ROOT/dev/usb
+for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+	mknode input/js$i c 13 $i
+	mknode input/mouse$i c 13 $(( $i + 32 ))
+	mknode input/event$i c 13 $(( $i + 64 ))
+	mknode usb/ttyACM$i c 166 $i
+	mknode usb/lp$i c 180 $i
+	mknode usb/scanner$i c 180 $(( $i + 48 ))
+	mknode usb/ez$i c 180 $(( $i + 64 ))
+	mknode usb/ttyUSB$i c 188 $i
+	mknode usb/ttyUB$i c 216 $i
+done
+mknode input/mice c 13 31
+mknode usb/rio500 c 180 64
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -357,6 +374,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/ida
 %attr(660,root,disk) /dev/ida/*
 %attr(600,root,root) /dev/initctl
+%dir /dev/input
+%attr(660,root,root) /dev/input/event*
+%attr(660,root,js) /dev/input/js*
+%attr(660,root,root) /dev/input/mice
+%attr(660,root,root) /dev/input/mouse*
 %attr(600,root,root) /dev/ipauth
 %attr(600,root,root) /dev/ipl
 %attr(600,root,root) /dev/ipnat
@@ -541,6 +563,14 @@ rm -rf $RPM_BUILD_ROOT
 
 #u#
 %attr(644,root,root) /dev/urandom
+%dir /dev/usb
+%attr(660,root,root) /dev/usb/ez*
+%attr(660,root,lp) /dev/usb/lp*
+%attr(660,root,root) /dev/usb/scanner*
+%attr(664,root,ttyS) /dev/usb/rio500
+%attr(664,root,ttyS) /dev/usb/ttyACM*
+%attr(664,root,ttyS) /dev/usb/ttyUB*
+%attr(664,root,ttyS) /dev/usb/ttyUSB*
 
 #v#
 %attr(620,root,tty) %verify(not user) /dev/vcs*

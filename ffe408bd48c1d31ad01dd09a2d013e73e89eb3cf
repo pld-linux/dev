@@ -1,0 +1,6 @@
+- removed %post (adding group "audio" should be done in setup, not in
+  dev)
+- removed Requires: shadow, sh-utils (not needed if no %post): to remove
+  loop in dependencies (dev should require only setup and nothing more)
+- changed Requires: setup to Prereq: setup to force right installation
+  order.

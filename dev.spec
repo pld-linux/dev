@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	32
+Release:	33
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -397,6 +397,12 @@ mknode usb/rio500 c 180 64
 mknode usb/tkpanel0 c 180 180
 mknode usb/tkpanel1 c 180 181
 
+# rfcomm (Bluetooth stack) - the same numbers as ttyUBx,
+# but rfcomm refers to these names
+for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+	mknode rfcomm$i c 216 $i
+done
+
 # more ttys (12 may be not sufficient)
 for i in 13 14 15 16 17 18 19 20 21 22 23 24; do
 	mknode tty$i c 4 $i
@@ -604,6 +610,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(644,root,root) /dev/random
 %attr(660,root,disk) /dev/rawqft*
+%attr(664,root,ttyS) /dev/rfcomm*
 %attr(660,root,disk) /dev/rft*
 %attr(660,root,audio) /dev/rmidi*
 %attr(660,root,disk) /dev/rmt*

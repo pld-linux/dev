@@ -232,14 +232,14 @@ ln -sf vtx0 vtx
 ln -sf vbi0 vbi
 
 # em8300 (dxr3 and h+) support
-mknod /dev/em8300-0    c 121 0
-mknod /dev/em8300_mv-0 c 121 1
-mknod /dev/em8300_ma-0 c 121 2
-mknod /dev/em8300_sp-0 c 121 3
-ln -sf /dev/em8300-0 /dev/em8300
-ln -sf /dev/em8300_mv-0 /dev/em8300_mv
-ln -sf /dev/em8300_ma-0 /dev/em8300_ma
-ln -sf /dev/em8300_sp-0 /dev/em8300_sp
+mknode em8300-0    c 121 0
+mknode em8300_mv-0 c 121 1
+mknode em8300_ma-0 c 121 2
+mknode em8300_sp-0 c 121 3
+ln -sf em8300-0    em8300
+ln -sf em8300_mv-0 em8300_mv
+ln -sf em8300_ma-0 em8300_ma
+ln -sf em8300_sp-0 em8300_sp
 
 # more ide channels
 mknode hdi b 56 0
@@ -261,9 +261,9 @@ done
 # ataraid
 mkdir ataraid
 for d in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
-	mknod ataraid/d$d b 114 $(( $d * 16 ))
+	mknode ataraid/d$d b 114 $(( $d * 16 ))
 	for p in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
-		mknod ataraid/d${d}p${p} b 114 $(( $d * 16 + $p ))
+		mknode ataraid/d${d}p${p} b 114 $(( $d * 16 + $p ))
 	done
 done
 
@@ -271,10 +271,10 @@ done
 mknode ipstate c 95 2
 
 # arpd
-mknod arpd c 36 8
+mknode arpd c 36 8
 
 # pt_drv
-mknod pt_drv c 40 0
+mknode pt_drv c 40 0
 
 # temporary
 install -d $RPM_BUILD_ROOT/proc/asound

@@ -346,12 +346,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,disk) /dev/mcd
 %attr(640,root,kmem) /dev/mem
 %config(noreplace) %verify(not link) %attr(662,root,sys) /dev/midi
-%attr(662,root, sys) /dev/midi?*
+%attr(662,root,audio) /dev/midi?*
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/mixer
-%attr(660,root, audio) /dev/mixer?*
+%attr(660,root,audio) /dev/mixer?*
 %attr(660,root, sys) /dev/mmetfgrab
 %attr(600,root,root) /dev/mpu401*
-%attr(662,root, sys) /dev/music
+%attr(660,root,audio) /dev/music
 %attr(600,root, root) /dev/md*
 
 #n#
@@ -410,7 +410,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) /dev/random
 %attr(660,root,disk) /dev/rawqft*
 %attr(660,root,disk) /dev/rft*
-%attr(660,root, sys) /dev/rmidi*
+%attr(660,root,audio) /dev/rmidi*
 %attr(660,root,disk) /dev/rmt*
 %attr(644,root,root) /dev/route
 %attr(664,root,root) /dev/rtc
@@ -422,8 +422,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/scd*
 %attr(660,root,disk) /dev/sd*
 
-%attr(662,root,sys)  /dev/sequencer
-%attr(662,root,sys)  /dev/sequencer2
+%attr(660,root,audio) /dev/sequencer
+%attr(660,root,audio) /dev/sequencer2
 
 %attr(600,root,root) /dev/sg*
 %attr(664,root,root) /dev/sjcd

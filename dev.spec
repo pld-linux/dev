@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	11
+Release:	12
 License:	public domain
 Group:		Base
 Group(cs):	Základ

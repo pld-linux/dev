@@ -208,6 +208,16 @@ mknode amixer1 c 14 27
 mknode amixer2 c 14 43
 mknode amixer3 c 14 59
 
+#video4linux support
+mknode video0 c 81 0
+mknode radio0 c 81 64
+mknode vtx0 c 81 192
+mknode vbi0 c 81 224
+ln -s video0 video
+ln -s radio0 radio
+ln -s vtx0 vtx
+ln -s vbi0 vbi
+
 #raid
 mknode md0 b 9 0
 mknode md1 b 9 1

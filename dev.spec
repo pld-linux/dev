@@ -58,7 +58,7 @@ olarak iþleyebilmesi için temel gereksinimlerdendir.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/dev/cpu
+install -d $RPM_BUILD_ROOT/dev/cpu/{0,1,2,3,4,5,6,7}/
 
 mknode() {
 # [ -e $1 ] || mknod $1 $2 $3 $4
@@ -151,6 +151,11 @@ mknode agpgart c 10 175
 mknode toshiba c 10 181
 mknode cpu/microcode c 10 184
 %endif
+for i in 0 1 2 3 4 5 6 7
+do
+	mknode cpu/$i/cpuid c 203 $i
+	mknod cpu/$i/msr c 202 $i
+done
 
 # route
 mknode route c 36 0
@@ -573,6 +578,15 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/cpu
 %attr(666,root,root) /dev/cpu/microcode
 %endif
+%dir /dev/cpu/0
+%dir /dev/cpu/1
+%dir /dev/cpu/2
+%dir /dev/cpu/3
+%dir /dev/cpu/4
+%dir /dev/cpu/5
+%dir /dev/cpu/6
+%dir /dev/cpu/7
+%attr(664,root,root) /dev/cpu/[0-9]/*
 %attr(660,root,disk) /dev/tpqic*
 
 %attr(666,root,root) /dev/tty

@@ -2572,6 +2572,7 @@
 %dev(c,29,29) %attr(660,root,video) /dev/fb29
 %dev(c,29,30) %attr(660,root,video) /dev/fb30
 %dev(c,29,31) %attr(660,root,video) /dev/fb31
+%dev(c,10,62) %attr(660,root,video) /dev/fbsplash
 %dev(b,2,0) %attr(660,root,floppy) /dev/fd0
 %dev(b,2,4) %attr(660,root,floppy) /dev/fd0d360
 %dev(b,2,20) %attr(660,root,floppy) /dev/fd0h360
@@ -4155,6 +4156,7 @@
 %dev(c,6,0) %attr(660,root,lp) /dev/lp0
 %dev(c,6,1) %attr(660,root,lp) /dev/lp1
 %dev(c,6,2) %attr(660,root,lp) /dev/lp2
+%dev(c,10,63) %attr(660,root,disk) /dev/mapper/control
 %dev(b,9,0) %attr(660,root,disk) /dev/md0
 %dev(b,9,1) %attr(660,root,disk) /dev/md1
 %dev(b,9,10) %attr(660,root,disk) /dev/md10

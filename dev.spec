@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	33
+Release:	34
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -274,6 +274,11 @@ for d in a b c d e f g h i j k l m n o p; do
 		mknode i2o/hd${d}${p} b 80 $(($min + $p))
 	done
 	min=$(($min + 16))
+done
+
+# dpt i2o
+for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17; do
+	mknode dpti$i b 151 $i
 done
 
 # raid
@@ -546,6 +551,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/mpu401*
 %attr(660,root,audio) /dev/music
 %attr(660,root,disk) /dev/md*
+%attr(660,root,disk) /dev/dpti*
 
 #n#
 %attr(660,root,disk) /dev/nb*

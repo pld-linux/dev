@@ -1,0 +1,2 @@
+- release 11: changed permission on md* devices to 660/root.disk
+  (neccessary for amanda).

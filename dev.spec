@@ -106,6 +106,12 @@ mknode fdhd0 b 2 4
 mknode fdhd1 b 2 5
 %endif
 
+%ifarch ppc
+# RTC and Mouse devices related to ppc
+mknode adb c 56 0
+mknode adbmouse c 10 10
+%endif
+
 %ifarch sparc m68k
 # common sparc & m68k specific devices
 mknode kbd c 11 0

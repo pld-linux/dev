@@ -11,8 +11,8 @@ Group:		Base
 Source0:	dev-list
 PreReq:		setup >= 2.4.1-2
 Provides:	devfs
+AutoReqProv:	no
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Autoreqprov:	no
 
 %description
 Unix and unix like systems (including Linux) use file system entries

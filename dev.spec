@@ -5,14 +5,14 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	9
-Source0:	%{name}-%{version}.tar.gz
+Release:	10
 License:	public domain
 Group:		Base
 Group(de):	Gründsätzlich
 Group(es):	Base
 Group(pl):	Podstawowe
 Group(pt_BR):	Base
+Source0:	%{name}-%{version}.tar.gz
 BuildRequires:	setup
 BuildRequires:	shadow
 PreReq:		setup >= 2.4.1-2
@@ -225,6 +225,15 @@ for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 	mknode md$i b 9 $i
 done
 
+# ataraid
+mkdir ataraid
+for d in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+    mknod ataraid/d$d b 114 $(( $d * 16 ))
+    for p in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+	mknod ataraid/d${d}p${p} b 114 $(( $d * 16 + $p ))
+    done
+done
+
 # netfilter
 mknode ipstate c 95 2
 
@@ -294,6 +303,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 #a#
+%dir /dev/ataraid
+%attr(660,root,disk) /dev/ataraid/*
 %attr(660,root,audio) /dev/admmidi*
 
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/adsp

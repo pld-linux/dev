@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.7.7
-Release:	9
+Release:	10
 Source0:	%{name}-%{version}.tar.gz
 Copyright:	public domain
 Group:		Base
@@ -273,6 +273,12 @@ done
 # ltmodem
 mknod ttyLT0 c 62 64
 
+# XFree86-nvidia-kernel
+for i in 0 1 2 3;do
+	mknod nvidia$i c 195 $i
+done
+mknod nvidiactl c 195 255
+
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
@@ -363,7 +369,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/loop*
 
 %attr(660,root,daemon) /dev/lp*
-%attr(664,root,ttyS) /dev/ttyLT*
 
 #m#
 %attr(640,root,disk) /dev/mcd
@@ -387,6 +392,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/nst*
 %attr(660,root,disk) /dev/ntpqic*
 %attr(666,root,root) /dev/null
+%attr(666,root,root) /dev/nvidia*
 %attr(660,root,disk) /dev/nzqft*
 
 #o#
@@ -498,6 +504,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/ttyR*
 
 %attr(664,root, ttyS) /dev/ttyS*
+%attr(664,root,ttyS) /dev/ttyLT*
 
 %attr(666,root, tty) /dev/ttya*
 %attr(666,root, tty) /dev/ttyb*

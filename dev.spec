@@ -5,11 +5,11 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	16
+Release:	17
 License:	Public Domain
 Group:		Base
 Source0:	dev-list
-PreReq:		setup >= 2.4.1-2
+PreReq:		setup >= 2.4.8
 Provides:	devfs
 AutoReqProv:	no
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

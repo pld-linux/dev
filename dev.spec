@@ -114,7 +114,7 @@ mknode adbmouse c 10 10
 ln -sf adbmouse mouse
 # PMU
 mknode pmu c 10 154
-# mol networking 
+# mol networking
 mknode sheep_net c 10 198
 %endif
 

@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	24
+Release:	25
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -230,6 +230,16 @@ ln -sf video0 video
 ln -sf radio0 radio
 ln -sf vtx0 vtx
 ln -sf vbi0 vbi
+
+# em8300 (dxr3 and h+) support
+mknod /dev/em8300-0    c 121 0
+mknod /dev/em8300_mv-0 c 121 1
+mknod /dev/em8300_ma-0 c 121 2
+mknod /dev/em8300_sp-0 c 121 3
+ln -sf /dev/em8300-0 /dev/em8300
+ln -sf /dev/em8300_mv-0 /dev/em8300_mv
+ln -sf /dev/em8300_ma-0 /dev/em8300_ma
+ln -sf /dev/em8300_sp-0 /dev/em8300_sp
 
 # more ide channels
 mknode hdi b 56 0

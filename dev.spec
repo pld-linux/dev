@@ -43,7 +43,7 @@ contient les entrées /dev les plus courantes. Elles sont essentielles
 pour qu'un système fonctionne correctement.
 
 %description -l pl
-Wszystkie systemy unixowe, w tym Linux, u¿ywaj± plików do
+Wszystkie systemy klasy unices, w tym Linux, u¿ywaj± plików do
 przedstawiania urz±dzeñ pod³±czonych do komputera. Wszystkie te pliki
 znajduj± siê zwykle w katalogu /dev. Pakiet ten zawiera wiêkszo¶æ
 popularnych plików specjalnych, s± one jedn± z wa¿niejszych czê¶ci

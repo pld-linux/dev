@@ -229,9 +229,6 @@ mknode initctl p
 #prepared for Log Daemon
 mkfifo --mode=666 syslog
 
-#knfsd char dev
-mknode nfsd_netlink c 36 4
-
 #libsvga char dev helpers
 mknod svga c 209 0
 mknod svga1 c 209 1
@@ -348,7 +345,6 @@ rm -rf $RPM_BUILD_ROOT
 #n#
 %attr(660,root,disk) /dev/nb*
 %config(noreplace) %verify(not link) %attr(666,root,root) /dev/nftape
-%attr(600,root,root) /dev/nfsd_netlink
 %attr(660,root,disk) /dev/nht*
 %attr(660,root,disk) /dev/nqft*
 %attr(660,root,disk) /dev/nrawqft*

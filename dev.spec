@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	7
+Release:	8
 License:	Public Domain
 Group:		Base
 Source0:	dev-list
@@ -55,7 +55,8 @@ olarak iþleyebilmesi için temel gereksinimlerdendir.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/dev/{ataraid,cciss,cdroms,cpu/{0,1,2,3,4,5,6,7}} \
-	$RPM_BUILD_ROOT/dev/{discs,i2o,ida,input,net,pts,raw,rd,usb,shm,snd}
+	$RPM_BUILD_ROOT/dev/{discs,i2o,ida,input,net,pts,raw,rd,usb,shm,snd} \
+	$RPM_BUILD_ROOT/dev/mapper
 
 install %{SOURCE0} .
 
@@ -144,6 +145,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/raw
 %dir /dev/rd
 %dir /dev/usb
+%dir /dev/mapper
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/adsp
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/amidi
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio
@@ -185,6 +187,8 @@ rm -rf $RPM_BUILD_ROOT
 %dev(c,119,10) %attr(640,root,root) /dev/vmnet6
 %dev(c,119,10) %attr(640,root,root) /dev/vmnet7
 %dev(c,119,10) %attr(640,root,root) /dev/vmnet8
+
+%dev(c,10,63) %attr(660,root,disk) /dev/mapper/control
 
 %ifarch %{ix86}
 %dev(c,10,184) %attr(666,root,root) /dev/cpu/microcode

@@ -2792,6 +2792,16 @@
 %dev(c,37,0) %attr(660,root,disk) /dev/ht0
 %dev(c,89,0) %attr(600,root,root) /dev/i2c0
 %dev(c,89,1) %attr(600,root,root) /dev/i2c1
+%dev(c,89,0) %attr(600,root,root) /dev/i2c-0
+%dev(c,89,1) %attr(600,root,root) /dev/i2c-1
+%dev(c,89,2) %attr(600,root,root) /dev/i2c-2
+%dev(c,89,3) %attr(600,root,root) /dev/i2c-3
+%dev(c,89,4) %attr(600,root,root) /dev/i2c-4
+%dev(c,89,5) %attr(600,root,root) /dev/i2c-5
+%dev(c,89,6) %attr(600,root,root) /dev/i2c-6
+%dev(c,89,7) %attr(600,root,root) /dev/i2c-7
+%dev(c,89,8) %attr(600,root,root) /dev/i2c-8
+%dev(c,89,9) %attr(600,root,root) /dev/i2c-9
 %dev(c,10,166) %attr(600,root,root) /dev/i2o/ctl
 %dev(b,80,0) %attr(660,root,disk) /dev/i2o/hda
 %dev(b,80,1) %attr(660,root,disk) /dev/i2o/hda1

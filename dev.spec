@@ -193,6 +193,8 @@ rm -rf $RPM_BUILD_ROOT
 %ifarch %{ix86}
 %dev(c,10,184) %attr(666,root,root) /dev/cpu/microcode
 %dev(c,10,181) %attr(666,root,root) /dev/toshiba
+%dev(c,212,0) %attr(600,root,root) /dev/slamr0
+%dev(c,213,0) %attr(600,root,root) /dev/slusb0
 %endif
 
 %ifarch m68k

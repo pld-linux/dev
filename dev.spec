@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	17
+Release:	18
 License:	public domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -280,6 +280,11 @@ mknode svga4 c 209 4
 
 # ipsec character device
 mknode ipsec c 36 10
+
+# tun device
+for i in 0 1 2 3 4 5 6 7 8 9; do
+	mknode tun$i c 90 $i
+done
 
 # raw io devices
 mknode rawctl c 162 0

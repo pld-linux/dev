@@ -252,8 +252,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(664,root,root) /dev/atibm
 
-%config(noreplace) %verify(not link) %attr(662,root, sys) /dev/audio
-%attr(662,root, sys) /dev/audio?*
+%config(noreplace) %verify(not link) %attr(660,root, audio) /dev/audio
+%attr(660,root, audio) /dev/audio?*
+
+%config(noreplace) %verify(not link) %attr(660,root, audio) /dev/dsp
+%attr(660,root, audio) /dev/dsp?*
+
+%config(noreplace) %verify(not link) %attr(660,root, audio) /dev/mixer
+%attr(660,root, audio) /dev/mixer?*
 
 %attr(664,root,root) /dev/aztcd
 

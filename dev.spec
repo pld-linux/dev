@@ -14,6 +14,8 @@ Group(pl):	Podstawowe
 BuildPrereq:	setup
 BuildPrereq:	shadow
 Requires:	setup
+Requires:	sh-utils
+Requires:	shadow
 Buildarch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Autoreqprov:	no
@@ -233,7 +235,9 @@ mkfifo --mode=666 syslog
 
 # never require /bin/sh
 #%pre
-#%post
+%post
+if ! id -g audio; then
+        %{_sbindir}/groupadd -g 23 audio
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
@@ -255,12 +259,6 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not link) %attr(660,root, audio) /dev/audio
 %attr(660,root, audio) /dev/audio?*
 
-%config(noreplace) %verify(not link) %attr(660,root, audio) /dev/dsp
-%attr(660,root, audio) /dev/dsp?*
-
-%config(noreplace) %verify(not link) %attr(660,root, audio) /dev/mixer
-%attr(660,root, audio) /dev/mixer?*
-
 %attr(664,root,root) /dev/aztcd
 
 #b#
@@ -281,8 +279,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root, sys) /dev/dcxx*
 %attr(662,root, sys) /dev/dmfm*
 %attr(662,root, sys) /dev/dmmidi*
-%config(noreplace) %verify(not link) %attr(662,root, sys) /dev/dsp
-%attr(662,root, sys) /dev/dsp?*
+%config(noreplace) %verify(not link) %attr(660,root, audio) /dev/dsp
+%attr(660,root, audio) /dev/dsp?*
 
 #e#
 %attr(600,root,root) /dev/enskip
@@ -338,8 +336,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,kmem) /dev/mem
 %config(noreplace) %verify(not link) %attr(662,root,sys) /dev/midi
 %attr(662,root, sys) /dev/midi?*
-%config(noreplace) %verify(not link) %attr(662,root,sys) /dev/mixer
-%attr(662,root, sys) /dev/mixer?*
+%config(noreplace) %verify(not link) %attr(660,root,audio) /dev/mixer
+%attr(660,root, audio) /dev/mixer?*
 %attr(660,root, sys) /dev/mmetfgrab
 %attr(600,root,root) /dev/mpu401*
 %attr(662,root, sys) /dev/music

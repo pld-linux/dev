@@ -118,6 +118,8 @@ rm -f gscd sbpcd0 atibm inportbm logibm psaux
 # Coda support 
 mknod cfs0 c 67 0
 
+# PPP support
+mknod ppp c 108 0
 
 ln -s fb0 fb0current
 ln -s fb1 fb1current
@@ -348,6 +350,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/pg*
 
 %attr(640,root,kmem) /dev/port
+%attr(644,root,root) /dev/ppp
 %attr(600,root,root) /dev/printer
 %attr(664,root,root) /dev/psaux
 

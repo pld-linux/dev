@@ -2605,6 +2605,7 @@
 %dev(b,2,113) %attr(660,root,floppy) /dev/fd1u3840
 %dev(b,2,37) %attr(660,root,floppy) /dev/fd1CompaQ
 %dev(c,1,7) %attr(644,root,root) /dev/full
+%dev(c,1,10) %attr(622,root,root) /dev/grsec
 %dev(b,3,0) %attr(660,root,disk) /dev/hda
 %dev(b,3,1) %attr(660,root,disk) /dev/hda1
 %dev(b,3,10) %attr(660,root,disk) /dev/hda10

@@ -135,6 +135,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/cpu/7
 %dir /dev/ataraid
 %dir /dev/cciss
+%dir /dev/dri
 %attr(660,root,disk) %dir /dev/cdroms
 %attr(660,root,disk) %dir /dev/discs
 %dir /dev/i2o
@@ -196,6 +197,7 @@ rm -rf $RPM_BUILD_ROOT
 %dev(c,10,181) %attr(666,root,root) /dev/toshiba
 %dev(c,212,0) %attr(600,root,root) /dev/slamr0
 %dev(c,213,0) %attr(600,root,root) /dev/slusb0
+%dev(c,226,0) %attr(660,root,video) /dev/dri/card0
 %endif
 
 %ifarch m68k

@@ -324,7 +324,7 @@ rm -rf $RPM_BUILD_ROOT
 
 #f#
 %config(noreplace) %verify(not link) %attr(644,root,root) /dev/fb
-%attr(644,root,root) /dev/fb?*
+%attr(664,root,video) /dev/fb?*
 %attr(660,root,floppy) /dev/fd*
 %config(noreplace) %verify(not link) %attr(666,root,root) /dev/ftape
 %attr(644,root,root) /dev/full

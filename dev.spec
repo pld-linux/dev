@@ -190,6 +190,8 @@ rm -rf $RPM_BUILD_ROOT
 %dev(c,119,10) %attr(640,root,root) /dev/vmnet7
 %dev(c,119,10) %attr(640,root,root) /dev/vmnet8
 
+%dev(c,10,240) %attr(600,root,root) /dev/mptctl
+
 %dev(c,10,63) %attr(660,root,disk) /dev/mapper/control
 
 %ifarch %{ix86}

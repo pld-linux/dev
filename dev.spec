@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	27
+Release:	28
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -395,6 +395,9 @@ mknode capsel c 240 0
 # Some PLD-folklor :)
 ln -sf null drzewo
 
+# For mplayer helper:
+mknode dhahelper c 180 0
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -439,6 +442,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(666,root,root) /dev/drzewo
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/dsp
 %attr(660,root,audio) /dev/dsp?*
+%attr(660,root,video) /dev/dhahelper
 
 #e#
 %attr(660,root,video) /dev/em8300*

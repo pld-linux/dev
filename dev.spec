@@ -1,18 +1,19 @@
-Summary: /dev entries
-Name: dev
-Version: 2.5.9
-Release: 1
-Source: dev-%{PACKAGE_VERSION}.cpio
-Copyright: public domain
-Group: Base
-Buildroot: /var/tmp/dev-root
-Autoreqprov: no
-Prefix: /dev
-Requires: shadow-utils >= 970616-7
-Prereq: shadow-utils
+Summary:     /dev entries
 Summary(fr): Entrées de /dev.
 Summary(tr): /dev dizini
 Summary(de): /dev-Einträge
+Summary(pl): Pliki specjalne /dev/*
+Name:        dev
+Version:     2.5.9
+Release:     2d
+#######      From ftp.redhat.com/rawhide
+Source:      %{name}-%{version}.cpio
+Copyright:   public domain
+Group:       Base
+Group(pl):   Bazowe
+Autoreqprov: no
+Requires:    shadow
+Buildroot:   /tmp/buildroot-%{name}-%{version}
 
 %description
 Unix and unix like systems (including Linux) use file system entries
@@ -42,63 +43,22 @@ sich (nicht notwendigerweise) im Verzeichnis /dev. Dieses Paket enthält
 die üblichsten /dev-Einträge. Diese Dateien sind für das Funktionieren
 eines Systems unbedingt erforderlich.
 
-%changelog
-* Fri May 08 1998 Michael K. Johnson <johnsonm@redhat.com>
-
-- added paride devices
-
-* Tue May 05 1998 Erik Troan <ewt@redhat.com>
-
-- uses a filelist
-- ghosts /dev/log
-
-* Fri May 01 1998 Cristian Gafton <gafton@redhat.com>
-- fixed groupadd call in the %install
-
-* Fri Apr 24 1998 Prospector System <bugs@redhat.com>
-- translations modified for de
-
-* Thu Apr 23 1998 Prospector System <bugs@redhat.com>
-- translations modified for fr, tr
-
-* Thu Apr 23 1998 Erik Troan <ewt@redhat.com>
-- fixed preinstall script
-
-* Tue Apr 21 1998 Erik Troan <ewt@redhat.com>
-- updated groupadd to work with upgrades where the floppy group already exists
-
-* Mon Nov 10 1997 Michael K. Johnson <johnsonm@redhat.com>
-- Added more ramdisk entries
-
-* Wed Oct 29 1997 Michael K. Johnson <johnsonm@redhat.com>
-- Added fd and ramdisk symlinks
-
-* Fri Oct 24 1997 Michael K. Johnson <johnsonm@redhat.com>
-- Added floppy group for floppies; made them group-writable.
-
-* Tue Jul 08 1997 Erik Troan <ewt@redhat.com>
-- added bpcd device
-
-* Thu Apr 10 1997 Erik Troan <ewt@redhat.com>
-- Added ftape devices
-
-* Tue Mar 25 1997 Erik Troan <ewt@redhat.com>
-- Fixed stdin, stdout devices.
-- Moved rtc to cpio archive
-- Added ISDN devices
+%description -l pl
+Systemy Unix i unixopodobne (np. Linux) u¿ywaj± plików do przedstawienia
+urz±dzeñ pod³±czonych do komputera. Wszystkie te pliki znajduj± siê zwykle
+w katalogu /dev. Pakiet ten zawiera wiêkszo¶æ popularnych plików specjalnych.
+S± one jedn± z wa¿niejszych czê¶ci prawid³owo dzia³aj±cego systemu.
 
 %prep
-%setup -c -T
+%setup -q -c -T
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT
-BUILD_DIR=`pwd`
 
-# Make sure that the floppy group exists on the build machine
-/usr/sbin/groupadd -g 19 -r -f floppy > /dev/null
+install -d $RPM_BUILD_ROOT
+BUILD_DIR=`pwd`
 
 # unpack in build root
 ( cd $RPM_BUILD_ROOT
-  cpio -iumd < $RPM_SOURCE_DIR/dev-%{PACKAGE_VERSION}.cpio
+  cpio -iumd < %{SOURCE0}
 )
 
 # do some cleanup in build root
@@ -179,19 +139,285 @@ mknod pt3  c 96 3
 chmod 0660      pd[a-d]* pcd[0-3] pf[0-3] pt[0-3]
 chown root:disk pd[a-d]* pcd[0-3] pf[0-3] pt[0-3]
 
-# build the file list
-cd $BUILD_DIR
-ls $RPM_BUILD_ROOT/dev | sed 's,^,/dev/,' > filelist
-touch $RPM_BUILD_ROOT/dev/log
-chown 0.0 $RPM_BUILD_ROOT/dev/log
-chmod 666 $RPM_BUILD_ROOT/dev/log
-echo "%ghost /dev/log" >> filelist
+# unix98 pty support 
+mknod ptmx c 5 2
+chmod 666 ptmx; chown root.tty ptmx
+install -d -m 755 pts
 
+# framebuffer support
+mknod fb0 b 29 0
+mknod fb1 b 29 32
+mknod fb2 b 29 64
+mknod fb3 b 29 96
+mknod fb4 b 29 128
+mknod fb5 b 29 160
+mknod fb6 b 29 192
+mknod fb7 b 29 224
+
+ln -s fb0 fb0current
+ln -s fb1 fb1current
+ln -s fb2 fb2current
+ln -s fb3 fb3current
+ln -s fb4 fb4current
+ln -s fb5 fb5current
+ln -s fb6 fb6current
+ln -s fb7 fb7current
+
+# watchdog support
+mknod watchdog c 10 130 
+
+# /dev/log support
+touch log
+
+# scsi directory
+install -d scsi
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
-%pre
-/usr/sbin/groupadd -g 19 -r -f floppy
+%files 
+%defattr(644,root,root,755)
 
-%files -f filelist
+%dir /dev/pts
+%dir /dev/scsi
+
+#a#
+%attr(664,root,root) /dev/atibm
+%attr(662,root, sys) /dev/audio
+%attr(662,root, sys) /dev/audio1
+%attr(664,root,root) /dev/aztcd
+
+#b#
+%attr(664,root,root) /dev/bpcd
+
+#c#
+%attr(664,root,root) /dev/cdu31a
+%attr(640,root,disk) /dev/cdu535
+%attr(664,root,root) /dev/cm206cd
+%attr(600,root,root) /dev/console
+%attr(666,root,root) /dev/cui*
+
+#d#
+%attr(662,root,sys) /dev/dsp
+%attr(662,root,sys) /dev/dsp1
+
+#e#
+
+#f#
+%attr(644,root,  root) /dev/fb*
+%attr(664,root,floppy) /dev/fd*
+
+#g#
+%attr(664,root,root) /dev/gscd
+
+#h#
+%attr(660,root,disk) /dev/hd*
+%attr(660,root,disk) /dev/ht0
+
+#i#
+%attr(664,root,root) /dev/inportbm
+%attr(600,root,root) /dev/ippp*
+%attr(600,root,root) /dev/isdnctrl*
+%attr(444,root,root) /dev/isdninfo
+
+#j#
+
+#k#
+%attr(640,root,kmem) /dev/kmem
+
+#l#
+%attr(666,root,root) /dev/log
+%attr(664,root,root) /dev/logibm
+%attr(660,root,disk) /dev/loop*
+
+%attr(660,root,daemon) /dev/lp*
+
+#m#
+%attr(640,root,disk) /dev/mcd
+%attr(640,root,kmem) /dev/mem
+%attr(666,root, sys) /dev/midi*
+%attr(666,root, sys) /dev/mixer
+%attr(666,root, sys) /dev/mixer1
+
+#n#
+%attr(660,root,disk) /dev/nht0
+%attr(660,root,disk) /dev/nrft*
+%attr(660,root,disk) /dev/nst*
+%attr(666,root,root) /dev/null
+
+#o#
+%attr(664,root,root) /dev/optcd
+
+#p#
+%attr(640,root,daemon) /dev/par*
+
+%attr(660,root,disk) /dev/pcd*
+%attr(660,root,disk) /dev/pd*
+%attr(660,root,disk) /dev/pf*
+
+%attr(640,root,kmem) /dev/port
+%attr(600,root,root) /dev/printer
+%attr(664,root,root) /dev/psaux
+
+%attr(660,root,disk) /dev/pt0
+%attr(660,root,disk) /dev/pt1
+%attr(660,root,disk) /dev/pt2
+%attr(660,root,disk) /dev/pt3
+
+%attr(666,root,tty) /dev/ptmx
+%attr(666,root,tty) /dev/pty*
+
+#r#
+%attr(640,root,disk) /dev/ram
+%attr(660,root,disk) /dev/ram0
+%attr(660,root,disk) /dev/ram1*
+%attr(660,root,disk) /dev/ram2
+%attr(660,root,disk) /dev/ram3
+%attr(660,root,disk) /dev/ram4
+%attr(660,root,disk) /dev/ram5
+%attr(660,root,disk) /dev/ram6
+%attr(660,root,disk) /dev/ram7
+%attr(660,root,disk) /dev/ram8
+%attr(660,root,disk) /dev/ram9
+
+%attr(644,root,root) /dev/random
+%attr(660,root,disk) /dev/rft*
+%attr(664,root,root) /dev/rtc
+
+#s#
+%attr(640,root,disk) /dev/sbpc*
+
+%attr(660,root,disk) /dev/scd*
+
+%attr(660,root,disk) /dev/sda*
+%attr(660,root,disk) /dev/sdb*
+%attr(660,root,disk) /dev/sdc*
+%attr(660,root,disk) /dev/sdd*
+%attr(660,root,disk) /dev/sde*
+%attr(660,root,disk) /dev/sdf*
+%attr(660,root,disk) /dev/sdg*
+
+%attr(664,root,sys) /dev/sequencer
+
+%attr(600,root,sys) /dev/sg*
+
+%attr(664,root,root) /dev/sjcd
+%attr(666,root, sys) /dev/sndstat
+
+%attr(640,root,disk) /dev/sonycd
+
+%attr(660,root,disk) /dev/st*
+
+%attr(664,root,root) /dev/sunmouse
+%attr(600,root,root) /dev/systty
+
+#t#
+%attr(666,root,root) /dev/tty
+
+%attr(600,root, tty) /dev/tty0
+%attr(600,root, tty) /dev/tty1*
+%attr(600,root, tty) /dev/tty2
+%attr(600,root, tty) /dev/tty3
+%attr(600,root, tty) /dev/tty4
+%attr(600,root, tty) /dev/tty5
+%attr(600,root, tty) /dev/tty6
+%attr(600,root, tty) /dev/tty7
+%attr(600,root, tty) /dev/tty8
+%attr(600,root, tty) /dev/tty9
+
+
+%attr(666,root,root) /dev/ttyI*
+
+%attr(644,root,root) /dev/ttyS*
+
+%attr(666,root, tty) /dev/ttya*
+%attr(666,root, tty) /dev/ttyb*
+%attr(666,root, tty) /dev/ttyc*
+%attr(666,root, tty) /dev/ttyd*
+%attr(666,root, tty) /dev/ttye*
+%attr(666,root, tty) /dev/ttyp*
+%attr(666,root, tty) /dev/ttyq*
+%attr(666,root, tty) /dev/ttyr*
+%attr(666,root, tty) /dev/ttys*
+%attr(666,root, tty) /dev/ttyt*
+%attr(666,root, tty) /dev/ttyu*
+%attr(666,root, tty) /dev/ttyv*
+%attr(666,root, tty) /dev/ttyw*
+%attr(666,root, tty) /dev/ttyx*
+%attr(666,root, tty) /dev/ttyy*
+%attr(666,root, tty) /dev/ttyz*
+
+#u#
+%attr(644,root,root) /dev/urandom
+
+#v#
+%attr(620,root,tty) /dev/vcs*
+
+#w#
+%attr(600,root,root) /dev/watchdog
+
+#x#
+%attr(640,root,disk) /dev/xd*
+
+#y#
+
+#z#
+%attr(666,root,root) /dev/zero
+
+%changelog
+* Sat Feb  6 1999 Micha³ Kuratczyk <kurkens@polbox.com>
+  [2.5.9-2d]
+- added Group(pl)
+- fixed pl translation
+- cosmetic changes
+
+* Sat Dec 12 1998 Sergiusz Paw³owicz <ser@hyperreal.art.pl>
+[2.5.9-1d]
+- added polish translation to spec (regards to PLD Team),
+- added handles to Unix98 pty support,
+- added handles to framebuffer support,
+- revised spec file, adding group 'floppy' removed.
+- removed initctl -- SysVinit provides it.
+- rewrote spec && major changes. 
+
+* Fri May 08 1998 Michael K. Johnson <johnsonm@redhat.com>
+- added paride devices
+
+* Tue May 05 1998 Erik Troan <ewt@redhat.com>
+- uses a filelist
+- ghosts /dev/log
+
+* Fri May 01 1998 Cristian Gafton <gafton@redhat.com>
+- fixed groupadd call in the %install
+
+* Fri Apr 24 1998 Prospector System <bugs@redhat.com>
+- translations modified for de
+
+* Thu Apr 23 1998 Prospector System <bugs@redhat.com>
+- translations modified for fr, tr
+
+* Thu Apr 23 1998 Erik Troan <ewt@redhat.com>
+- fixed preinstall script
+
+* Tue Apr 21 1998 Erik Troan <ewt@redhat.com>
+- updated groupadd to work with upgrades where the floppy group already exists
+
+* Mon Nov 10 1997 Michael K. Johnson <johnsonm@redhat.com>
+- Added more ramdisk entries
+
+* Wed Oct 29 1997 Michael K. Johnson <johnsonm@redhat.com>
+- Added fd and ramdisk symlinks
+
+* Fri Oct 24 1997 Michael K. Johnson <johnsonm@redhat.com>
+- Added floppy group for floppies; made them group-writable.
+
+* Tue Jul 08 1997 Erik Troan <ewt@redhat.com>
+- added bpcd device
+
+* Thu Apr 10 1997 Erik Troan <ewt@redhat.com>
+- Added ftape devices
+
+* Tue Mar 25 1997 Erik Troan <ewt@redhat.com>
+- Fixed stdin, stdout devices.
+- Moved rtc to cpio archive
+- Added ISDN devices

@@ -404,6 +404,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,audio) /dev/dsp?*
 
 #e#
+%attr(660,root,video) /dev/em8300*
 %attr(600,root,root) /dev/enskip
 
 #f#

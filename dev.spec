@@ -1,6 +1,6 @@
 Summary:	/dev entries
-Summary(fr):	Entrées de /dev
 Summary(de):	/dev-Einträge
+Summary(fr):	Entrées de /dev
 Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
@@ -57,15 +57,15 @@ olarak iþleyebilmesi için temel gereksinimlerdendir.
 %setup -q -c -T
 
 %install
-%{__rm} -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 mknode() {
 # [ -e $1 ] || mknod $1 $2 $3 $4
-	%{__rm} -f $1
+	rm -f $1
 	mknod $1 $2 $3 $4
 }
 
-%{__install} -d $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT
 
 # add group for floppy and console
 # if setup contains this group then remove next 4 lines
@@ -76,7 +76,7 @@ mknode() {
 
 # do some cleanup in build root
 cd $RPM_BUILD_ROOT
-%{__tar} xpSzf $RPM_SOURCE_DIR/%{name}-%{version}.tar.gz
+tar xpSzf $RPM_SOURCE_DIR/%{name}-%{version}.tar.gz
 
 cd dev
 
@@ -92,7 +92,7 @@ done
 
 %ifarch sparc
 # SPARC specific devices
-%{__ln_s} -f sunmouse mouse
+ln -sf sunmouse mouse
 mknode openprom c 10 139
 %endif
 
@@ -101,7 +101,7 @@ mknode openprom c 10 139
 mknode amigamouse c 10 4
 mknode atarimouse c 10 5
 mknode apollomouse c 10 7
-%{__ln_s} -f amigamouse mouse
+ln -sf amigamouse mouse
 mknode fdhd0 b 2 4
 mknode fdhd1 b 2 5
 %endif
@@ -109,10 +109,10 @@ mknode fdhd1 b 2 5
 %ifarch sparc m68k
 # common sparc & m68k specific devices
 mknode kbd c 11 0
-%{__chmod} 666 fb*
+chmod 666 fb*
 # remove devices that will *never* exist on a SPARC or m68k
-%{__rm} -f aztcd mcd sbpcd* cm206cd cdu31a cdu535 sonycd sjcd gscd
-%{__rm} -f hd* atibm inportbm logibm psaux
+rm -f aztcd mcd sbpcd* cm206cd cdu31a cdu535 sonycd sjcd gscd
+rm -f hd* atibm inportbm logibm psaux
 %endif
 
 # Coda support
@@ -122,7 +122,7 @@ mknode cfs0 c 67 0
 mknode ppp c 108 0
 
 for i in 0 1 2 3 4 5 6 7; do
-	%{__ln_s} -f fb$i fb${i}current
+	ln -sf fb$i fb${i}current
 done
 
 # watchdog support
@@ -132,34 +132,34 @@ mknode watchdog c 10 130
 mknode route c 36 0
 
 # ALSA support
-%{__rm} -f mixer*
+rm -f mixer*
 mknode mixer0 c 14 0
 mknode mixer1 c 14 16
 mknode mixer2 c 14 32
 mknode mixer3 c 14 48
-%{__ln_s} -f mixer0 mixer
+ln -sf mixer0 mixer
 
-%{__ln_s} -f midi00 midi
+ln -sf midi00 midi
 
-%{__rm} -f dsp*
+rm -f dsp*
 mknode dsp0 c 14 3
 mknode dsp1 c 14 19
 mknode dsp2 c 14 35
 mknode dsp3 c 14 51
-%{__ln_s} -f dsp0 dsp
+ln -sf dsp0 dsp
 
-%{__rm} -f audio*
+rm -f audio*
 mknode audio0 c 14 4
 mknode audio1 c 14 20
 mknode audio2 c 14 36
 mknode audio3 c 14 52
-%{__ln_s} -f audio0 audio
+ln -sf audio0 audio
 
 mknode adsp0 c 14 12
 mknode adsp1 c 14 28
 mknode adsp2 c 14 44
 mknode adsp3 c 14 60
-%{__ln_s} -f adsp0 adsp
+ln -sf adsp0 adsp
 
 mknode dmfm0 c 14 10
 mknode dmfm1 c 14 26
@@ -182,9 +182,9 @@ mknode amidi0 c 14 13
 mknode amidi1 c 14 29
 mknode amidi2 c 14 45
 mknode amidi3 c 14 61
-%{__ln_s} -f amidi0 amidi
+ln -sf amidi0 amidi
 
-%{__ln_s} -f music sequencer2
+ln -sf music sequencer2
 
 mknode aloadC0 c 116 0
 mknode aloadC1 c 116 32
@@ -202,10 +202,10 @@ mknode video0 c 81 0
 mknode radio0 c 81 64
 mknode vtx0 c 81 192
 mknode vbi0 c 81 224
-%{__ln_s} -f video0 video
-%{__ln_s} -f radio0 radio
-%{__ln_s} -f vtx0 vtx
-%{__ln_s} -f vbi0 vbi
+ln -sf video0 video
+ln -sf radio0 radio
+ln -sf vtx0 vtx
+ln -sf vbi0 vbi
 
 # raid
 for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
@@ -216,10 +216,10 @@ done
 mknode ipstate c 95 2
 
 # temporary
-%{__install} -d $RPM_BUILD_ROOT/proc/asound
+install -d $RPM_BUILD_ROOT/proc/asound
 touch $RPM_BUILD_ROOT/proc/asound/dev
 
-%{__ln_s} -f ../proc/asound/dev snd
+ln -sf ../proc/asound/dev snd
 
 # prepared for SysVinit
 mknode initctl p
@@ -239,7 +239,7 @@ mknode ipsec c 36 10
 
 # raw io devices
 mknode rawctl c 162 0
-%{__mkdir} $RPM_BUILD_ROOT/dev/raw
+mkdir $RPM_BUILD_ROOT/dev/raw
 minor=1
 while [ "$minor" -ne 256 ]; do
 	mknode "raw/raw$minor" c 162 $minor
@@ -257,7 +257,7 @@ mknode nvidiactl c 195 255
 
 # kernel 2.4 requires /dev/js* with major 13
 for f in 0 1 2 3; do
-	%{__mv} -f js$f oldjs$f
+	mv -f js$f oldjs$f
 	mknode js$f c 13 $f
 done
 
@@ -268,7 +268,7 @@ mknode irlpt0 c 161 16
 mknode irlpt1 c 161 17
 
 %clean
-%{__rm} -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)

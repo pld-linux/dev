@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.7.7
-Release:	7
+Release:	8
 Source0:	%{name}-%{version}.tar.gz
 Copyright:	public domain
 Group:		Base
@@ -251,6 +251,15 @@ mknod svga4 c 209 4
 #ipsec character device
 mknod ipsec c 36 10
 
+# raw io devices
+mknode rawctl c 162 0
+mkdir $RPM_BUILD_ROOT/dev/raw
+minor=1
+while [ "$minor" -ne 256 ]; do
+    mknode "raw/raw$minor" c 162 $minor
+    minor=$(($minor +1))
+done
+
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
@@ -416,6 +425,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(664,root,root) /dev/rtc
 %dir /dev/rd
 %attr(660,root,disk) /dev/rd/*
+%attr(600,root,root) /dev/rawctl
+%dir /dev/raw
+%attr(660,root,disk) /dev/raw/*
 
 #s#
 %attr(640,root,disk) /dev/sbpc*

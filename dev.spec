@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.7.7
-Release:	2
+Release:	3
 #######		From ftp.redhat.com/rawhide
 Source:		%{name}-%{version}.tar.gz
 Copyright:	public domain
@@ -305,7 +305,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,kmem) /dev/kmem
 
 #l#
-#%attr(666,root,root) /dev/log
+%attr(666,root,root) /dev/log
 %attr(664,root,root) /dev/logibm
 %attr(660,root,disk) /dev/loop*
 
@@ -476,6 +476,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/zqft*
 
 %changelog
+* Thu May 20 1999 Wojtek ¦lusarczyk <wojtek@shadow.eu.org>
+- again /dev/log in this package ... 
+
 * Thu Apr 29 1999 Artur Wiget <wiget@pld.org.pl>
   [2.7.7-2]
 - upgrade to 2.7.7  

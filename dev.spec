@@ -15,6 +15,7 @@ Group(pl):	Podstawowe
 # remove shadow if floppy and console group exist in setup
 #BuildPrereq:	shadow
 #Prereq:		setup
+Buildarch:	noarch
 Buildroot:	/tmp/%{name}-%{version}-root
 Autoreqprov:	no
 
@@ -58,6 +59,8 @@ eines Systems unbedingt erforderlich.
 %install
 rm -rf $RPM_BUILD_ROOT
 
+mknode() { [ -e $1 ] || mknod $1 $2 $3 $4 }
+
 install -d $RPM_BUILD_ROOT
 
 #add group for floppy and console
@@ -86,8 +89,8 @@ done
 %ifarch sparc
 # SPARC specific devices
 ln -s sunmouse mouse
-mknod kbd c 11 0
-mknod openprom c 10 139
+mknode kbd c 11 0
+mknode openprom c 10 139
 chmod 666 fb*
 
 # remove devices that will *never* exist on a SPARC
@@ -99,13 +102,13 @@ rm -f gscd sbpcd0 atibm inportbm logibm psaux
 
 %ifarch m68k                                                                    
 # m68k specific devices                                                         
-mknod amigamouse c 10 4                                                         
-mknod atarimouse c 10 5                                                         
-mknod apollomouse c 10 7                                                        
+mknode amigamouse c 10 4                                                         
+mknode atarimouse c 10 5                                                         
+mknode apollomouse c 10 7                                                        
 ln -s amigamouse mouse                                                          
-mknod fdhd0 b 2 4                                                               
-mknod fdhd1 b 2 5                                                               
-mknod kbd c 11 0                                                                
+mknode fdhd0 b 2 4                                                               
+mknode fdhd1 b 2 5                                                               
+mknode kbd c 11 0                                                                
 chmod 666 fb*                                                                   
                                                                                 
 # remove devices that will *never* exist on a m68k                              
@@ -116,10 +119,10 @@ rm -f gscd sbpcd0 atibm inportbm logibm psaux
 %endif
 
 # Coda support 
-mknod cfs0 c 67 0
+mknode cfs0 c 67 0
 
 # PPP support
-mknod ppp c 108 0
+mknode ppp c 108 0
 
 ln -s fb0 fb0current
 ln -s fb1 fb1current
@@ -131,87 +134,87 @@ ln -s fb6 fb6current
 ln -s fb7 fb7current
 
 # watchdog support
-mknod watchdog c 10 130 
+mknode watchdog c 10 130 
 
 # route 
-mknod route c 36 0
+mknode route c 36 0
 
 #ALSA support
 rm -f mixer*
-mknod mixer0 c 14 0
-mknod mixer1 c 14 16
-mknod mixer2 c 14 32
-mknod mixer3 c 14 48
+mknode mixer0 c 14 0
+mknode mixer1 c 14 16
+mknode mixer2 c 14 32
+mknode mixer3 c 14 48
 ln -s mixer0 mixer
 
 ln -s midi00 midi
 
 rm -f dsp*
-mknod dsp0 c 14 3
-mknod dsp1 c 14 19
-mknod dsp2 c 14 35
-mknod dsp3 c 14 51
+mknode dsp0 c 14 3
+mknode dsp1 c 14 19
+mknode dsp2 c 14 35
+mknode dsp3 c 14 51
 ln -s dsp0 dsp
 
 rm -f audio*
-mknod audio0 c 14 4
-mknod audio1 c 14 20
-mknod audio2 c 14 36
-mknod audio3 c 14 52
+mknode audio0 c 14 4
+mknode audio1 c 14 20
+mknode audio2 c 14 36
+mknode audio3 c 14 52
 ln -s audio0 audio
 
-mknod adsp0 c 14 12
-mknod adsp1 c 14 28
-mknod adsp2 c 14 44
-mknod adsp3 c 14 60
+mknode adsp0 c 14 12
+mknode adsp1 c 14 28
+mknode adsp2 c 14 44
+mknode adsp3 c 14 60
 ln -s adsp0 adsp
 
-mknod dmfm0 c 14 10
-mknod dmfm1 c 14 26
-mknod dmfm2 c 14 42
-mknod dmfm3 c 14 58
+mknode dmfm0 c 14 10
+mknode dmfm1 c 14 26
+mknode dmfm2 c 14 42
+mknode dmfm3 c 14 58
 
-mknod dmmidi0 c 14 9
-mknod dmmidi1 c 14 25
-mknod dmmidi2 c 14 41
-mknod dmmidi3 c 14 57
+mknode dmmidi0 c 14 9
+mknode dmmidi1 c 14 25
+mknode dmmidi2 c 14 41
+mknode dmmidi3 c 14 57
 
-mknod music c 14 8
+mknode music c 14 8
 
-mknod admmidi0 c 14 14
-mknod admmidi1 c 14 30 
-mknod admmidi2 c 14 46
-mknod admmidi3 c 14 62
+mknode admmidi0 c 14 14
+mknode admmidi1 c 14 30 
+mknode admmidi2 c 14 46
+mknode admmidi3 c 14 62
 
-mknod amidi0 c 14 13
-mknod amidi1 c 14 29
-mknod amidi2 c 14 45
-mknod amidi3 c 14 61
+mknode amidi0 c 14 13
+mknode amidi1 c 14 29
+mknode amidi2 c 14 45
+mknode amidi3 c 14 61
 ln -s amidi0 amidi
 
 ln -s music sequencer2
 
 #raid
 
-mknod md0 b 9 0
-mknod md1 b 9 1
-mknod md2 b 9 2
-mknod md3 b 9 3
-mknod md4 b 9 4
-mknod md5 b 9 5
-mknod md6 b 9 6
-mknod md7 b 9 7
-mknod md8 b 9 8
-mknod md9 b 9 9
-mknod md10 b 9 10
-mknod md11 b 9 11
-mknod md12 b 9 12
-mknod md13 b 9 13
-mknod md14 b 9 14
-mknod md15 b 9 15
+mknode md0 b 9 0
+mknode md1 b 9 1
+mknode md2 b 9 2
+mknode md3 b 9 3
+mknode md4 b 9 4
+mknode md5 b 9 5
+mknode md6 b 9 6
+mknode md7 b 9 7
+mknode md8 b 9 8
+mknode md9 b 9 9
+mknode md10 b 9 10
+mknode md11 b 9 11
+mknode md12 b 9 12
+mknode md13 b 9 13
+mknode md14 b 9 14
+mknode md15 b 9 15
 
 #netfilter
-mknod /dev/ipstate c 95 2
+mknode ipstate c 95 2
 
 #temporary
 install -d $RPM_BUILD_ROOT/proc/asound
@@ -220,7 +223,7 @@ touch $RPM_BUILD_ROOT/proc/asound/snd
 ln -s ../proc/asound/snd snd
 
 # prepared for SysVinit
-mknod initctl p
+mknode initctl p
 
 #prepared for Log Daemon
 mkfifo --mode=666 syslog

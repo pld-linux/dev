@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	31
+Release:	32
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -412,6 +412,10 @@ mknode pktcdvd2 b 97 2
 mknode pktcdvd3 b 97 3
 mknode pktcdvd4 b 97 4
 
+# To allow have the same devs like on devfs(links in this dirs):
+mkdir $RPM_BUILD_ROOT/dev/cdroms
+mkdir $RPM_BUILD_ROOT/dev/discs
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -442,6 +446,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/capi*
 %dir /dev/cciss
 %attr(660,root,root) /dev/cciss/*
+%attr(%{perm_cdrom}) %dir /dev/cdroms
 %attr(600,root,root) /dev/cfs0
 %attr(660,root,console) /dev/console
 %attr(664,root,root) /dev/cui*
@@ -451,6 +456,7 @@ rm -rf $RPM_BUILD_ROOT
 #d#
 %attr(600,root,root) /dev/dcbri*
 %attr(660,root,sys) /dev/dcxx*
+%attr(660,root,disk) %dir /dev/discs
 %attr(660,root,audio) /dev/dmfm*
 %attr(660,root,audio) /dev/dmmidi*
 %attr(666,root,root) /dev/drzewo
@@ -661,7 +667,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(664,root,ttyS) /dev/ttyS*
 %attr(664,root,ttyS) /dev/ttyLT*
-%attr(664,root,ttyS) /dev/ttySL*
 
 %attr(666,root,tty) /dev/ttya*
 %attr(666,root,tty) /dev/ttyb*

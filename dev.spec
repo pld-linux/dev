@@ -238,6 +238,7 @@ mkfifo --mode=666 syslog
 %post
 if ! id -g audio; then
         %{_sbindir}/groupadd -g 23 audio
+fi
 
 %clean 
 rm -rf $RPM_BUILD_ROOT

@@ -1,19 +1,17 @@
-Summary:     /dev entries
-Summary(fr): Entrées de /dev.
-Summary(tr): /dev dizini
-Summary(de): /dev-Einträge
-Summary(pl): Pliki specjalne /dev/*
-Name:        dev
-Version:     2.5.9
-Release:     2d
-#######      From ftp.redhat.com/rawhide
-Source:      %{name}-%{version}.cpio
-Copyright:   public domain
-Group:       Base
-Group(pl):   Bazowe
-Autoreqprov: no
-Requires:    shadow
-Buildroot:   /tmp/buildroot-%{name}-%{version}
+Summary:	/dev entries
+Summary(fr):	Entrées de /dev.
+Summary(de):	/dev-Einträge
+Summary(pl):	Pliki specjalne /dev/*
+Summary(tr):	/dev dizini
+Name:		dev
+Version:	2.5.9
+Release:	3
+#######		From ftp.redhat.com/rawhide
+Source:		%{name}-%{version}.cpio
+Copyright:	public domain
+Group:		Base
+Buildroot:	/tmp/%{name}-%{version}-root
+Autoreqprov:	no
 
 %description
 Unix and unix like systems (including Linux) use file system entries
@@ -21,6 +19,12 @@ to represent devices attached to the machine. All of these entries
 are in the /dev tree (though they don't have to be), and this package
 contains the most commonly used /dev entries. These files are essential
 for a system to function properly.
+
+%description -l pl
+Wszystkie systemy Unix, jak na przyk³ad Linux, u¿ywaj± plików do przedstawienia 
+urz±dzeñ pod³±czonych do komputera. Wszystkie te pliki znajduj± siê zwykle w 
+katalogu /dev. Pakiet ten zawiera wiêkszo¶æ popularnych plików specjalnych, 
+s± one jedn± z wa¿niejszych czê¶ci prawid³owo dzia³aj±cego systemu operacyjnego.
 
 %description -l fr
 Unix et les systèmes apparentés (dont Linux) utilise des fichiers pour
@@ -42,12 +46,6 @@ Einträge zum Darstellen angeschlossener Geräte. Diese Einträge befinden
 sich (nicht notwendigerweise) im Verzeichnis /dev. Dieses Paket enthält
 die üblichsten /dev-Einträge. Diese Dateien sind für das Funktionieren
 eines Systems unbedingt erforderlich.
-
-%description -l pl
-Systemy Unix i unixopodobne (np. Linux) u¿ywaj± plików do przedstawienia
-urz±dzeñ pod³±czonych do komputera. Wszystkie te pliki znajduj± siê zwykle
-w katalogu /dev. Pakiet ten zawiera wiêkszo¶æ popularnych plików specjalnych.
-S± one jedn± z wa¿niejszych czê¶ci prawid³owo dzia³aj±cego systemu.
 
 %prep
 %setup -q -c -T
@@ -168,9 +166,8 @@ mknod watchdog c 10 130
 
 # /dev/log support
 touch log
-
-# scsi directory
-install -d scsi
+# route 
+mknod route c 36 0
 
 %clean 
 rm -rf $RPM_BUILD_ROOT
@@ -179,7 +176,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 
 %dir /dev/pts
-%dir /dev/scsi
 
 #a#
 %attr(664,root,root) /dev/atibm
@@ -282,6 +278,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(644,root,root) /dev/random
 %attr(660,root,disk) /dev/rft*
+%attr(644,root,root) /dev/route
 %attr(664,root,root) /dev/rtc
 
 #s#
@@ -325,7 +322,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root, tty) /dev/tty8
 %attr(600,root, tty) /dev/tty9
 
-
 %attr(666,root,root) /dev/ttyI*
 
 %attr(644,root,root) /dev/ttyS*
@@ -365,59 +361,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(666,root,root) /dev/zero
 
 %changelog
-* Sat Feb  6 1999 Micha³ Kuratczyk <kurkens@polbox.com>
-  [2.5.9-2d]
-- added Group(pl)
-- fixed pl translation
-- cosmetic changes
-
 * Sat Dec 12 1998 Sergiusz Paw³owicz <ser@hyperreal.art.pl>
-[2.5.9-1d]
+  [2.5.9-1d]
 - added polish translation to spec (regards to PLD Team),
 - added handles to Unix98 pty support,
 - added handles to framebuffer support,
 - revised spec file, adding group 'floppy' removed.
 - removed initctl -- SysVinit provides it.
-- rewrote spec && major changes. 
-
-* Fri May 08 1998 Michael K. Johnson <johnsonm@redhat.com>
-- added paride devices
-
-* Tue May 05 1998 Erik Troan <ewt@redhat.com>
-- uses a filelist
-- ghosts /dev/log
-
-* Fri May 01 1998 Cristian Gafton <gafton@redhat.com>
-- fixed groupadd call in the %install
-
-* Fri Apr 24 1998 Prospector System <bugs@redhat.com>
-- translations modified for de
-
-* Thu Apr 23 1998 Prospector System <bugs@redhat.com>
-- translations modified for fr, tr
-
-* Thu Apr 23 1998 Erik Troan <ewt@redhat.com>
-- fixed preinstall script
-
-* Tue Apr 21 1998 Erik Troan <ewt@redhat.com>
-- updated groupadd to work with upgrades where the floppy group already exists
-
-* Mon Nov 10 1997 Michael K. Johnson <johnsonm@redhat.com>
-- Added more ramdisk entries
-
-* Wed Oct 29 1997 Michael K. Johnson <johnsonm@redhat.com>
-- Added fd and ramdisk symlinks
-
-* Fri Oct 24 1997 Michael K. Johnson <johnsonm@redhat.com>
-- Added floppy group for floppies; made them group-writable.
-
-* Tue Jul 08 1997 Erik Troan <ewt@redhat.com>
-- added bpcd device
-
-* Thu Apr 10 1997 Erik Troan <ewt@redhat.com>
-- Added ftape devices
-
-* Tue Mar 25 1997 Erik Troan <ewt@redhat.com>
-- Fixed stdin, stdout devices.
-- Moved rtc to cpio archive
-- Added ISDN devices
+- start at RH spec file.

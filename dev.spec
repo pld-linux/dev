@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	7
+Release:	8
 Source0:	%{name}-%{version}.tar.gz
 License:	public domain
 Group:		Base
@@ -131,6 +131,14 @@ done
 # watchdog support
 mknode watchdog c 10 130
 
+# agpgart
+mknode agpgart c 10 175
+
+%ifarch %{x86}
+# toshiba support
+mknode toshiba c 10 181
+%endif
+
 # route
 mknode route c 36 0
 
@@ -239,9 +247,6 @@ mknode svga1 c 209 1
 mknode svga2 c 209 2
 mknode svga3 c 209 3
 mknode svga4 c 209 4
-
-# agpgart
-mknode agpgart c 10 175
 
 # ipsec character device
 mknode ipsec c 36 10
@@ -475,6 +480,9 @@ rm -rf $RPM_BUILD_ROOT
 #t#
 %attr(660,root,disk) /dev/tape*
 %attr(600,root,root) /dev/tlk*
+%ifarch %{x86}
+%attr(666,root,root) /dev/toshiba
+%endif
 %attr(660,root,disk) /dev/tpqic*
 
 %attr(666,root,root) /dev/tty

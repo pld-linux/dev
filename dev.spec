@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	19
+Release:	20
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -230,10 +230,10 @@ mknode hdj b 56 64
 mknode hdk b 57 0
 mknode hdl b 57 64
 for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
-    mknode hdi$i b 56 $i
-    mknode hdj$i b 56 $(( $i + 64 ))
-    mknode hdk$i b 57 $i
-    mknode hdl$i b 57 $(( $i + 64 ))
+	mknode hdi$i b 56 $i
+	mknode hdj$i b 56 $(( $i + 64 ))
+	mknode hdk$i b 57 $i
+	mknode hdl$i b 57 $(( $i + 64 ))
 done
 
 # raid
@@ -244,10 +244,10 @@ done
 # ataraid
 mkdir ataraid
 for d in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
-    mknod ataraid/d$d b 114 $(( $d * 16 ))
-    for p in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
-	mknod ataraid/d${d}p${p} b 114 $(( $d * 16 + $p ))
-    done
+	mknod ataraid/d$d b 114 $(( $d * 16 ))
+	for p in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+		mknod ataraid/d${d}p${p} b 114 $(( $d * 16 + $p ))
+	done
 done
 
 # netfilter
@@ -277,6 +277,12 @@ mknode svga1 c 209 1
 mknode svga2 c 209 2
 mknode svga3 c 209 3
 mknode svga4 c 209 4
+
+# TUN/TAP devices
+mknode tun0 c 90 0
+mknode tun1 c 90 1
+mknode tun2 c 90 2
+mknode tun3 c 90 3
 
 # ipsec character device
 mknode ipsec c 36 10
@@ -547,6 +553,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/tlk*
 %ifarch %{ix86}
 %attr(666,root,root) /dev/toshiba
+%attr(644,root,root) /dev/tun*
 %dir /dev/cpu
 %attr(666,root,root) /dev/cpu/microcode
 %endif

@@ -116,6 +116,9 @@ ln -sf adbmouse mouse
 ln -sf sunmouse mouse
 %endif
 
+# PLD-forklor:
+ln -sf null drzewo
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -170,6 +173,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,root) /dev/lircm
 %attr(600,root,root) /dev/printer
 %attr(666,root,root) /dev/syslog
+%attr(666,root,root) /dev/drzewo
 
 %ifarch %{ix86}
 %dev(c,10,184) %attr(666,root,root) /dev/cpu/microcode

@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	16
+Release:	17
 License:	public domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -119,7 +119,7 @@ mknode kbd c 11 0
 chmod 666 fb*
 # remove devices that will *never* exist on a SPARC or m68k
 rm -f aztcd mcd sbpcd* cm206cd cdu31a cdu535 sonycd sjcd gscd
-rm -f hd* atibm inportbm logibm psaux
+rm -f atibm inportbm logibm psaux
 %endif
 
 # Coda support
@@ -134,7 +134,7 @@ done
 
 # watchdog support
 mknode watchdog c 10 130
-mknod temperature c 10 131
+mknode temperature c 10 131
 
 # agpgart
 mknode agpgart c 10 175
@@ -223,6 +223,18 @@ ln -sf video0 video
 ln -sf radio0 radio
 ln -sf vtx0 vtx
 ln -sf vbi0 vbi
+
+# more ide channels
+mknode hdi b 56 0
+mknode hdj b 56 64
+mknode hdk b 57 0
+mknode hdl b 57 64
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+    mknode hdi$i b 56 $i
+    mknode hdj$i b 56 $(( $i + 64 ))
+    mknode hdk$i b 57 $i
+    mknode hdl$i b 57 $(( $i + 64 ))
+done
 
 # raid
 for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
@@ -637,6 +649,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(664,root,root) /dev/sunmouse
 %endif
 
+%attr(660,root,disk) /dev/hd*
 # not on sparc or m68k
 %ifnarch sparc m68k
 %attr(664,root,root) /dev/atibm
@@ -645,7 +658,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(%{perm_cdrom}) /dev/cdu535
 %attr(%{perm_cdrom}) /dev/cm206cd
 %attr(%{perm_cdrom}) /dev/gscd
-%attr(660,root,disk) /dev/hd*
 %attr(664,root,root) /dev/inportbm
 %attr(664,root,root) /dev/logibm
 %attr(%{perm_cdrom}) /dev/mcd

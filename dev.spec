@@ -6,7 +6,7 @@ Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
 Release:	19
-License:	public domain
+License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
 BuildRequires:	setup

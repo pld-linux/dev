@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	15
+Release:	16
 License:	public domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -244,6 +244,9 @@ mknode ipstate c 95 2
 # arpd
 mknod arpd c 36 8
 
+# pt_drv
+mknod pt_drv c 40 0
+
 # temporary
 install -d $RPM_BUILD_ROOT/proc/asound
 > $RPM_BUILD_ROOT/proc/asound/dev
@@ -464,6 +467,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(666,root,tty) /dev/ptmx
 %attr(666,root,tty) /dev/pty*
+
+%attr(666,root,root) /dev/pt_drv
 %dir /dev/pts
 
 #r#

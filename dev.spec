@@ -1,11 +1,11 @@
 Summary:	/dev entries
-Summary(fr):	Entrées de /dev.
+Summary(fr):	Entrées de /dev
 Summary(de):	/dev-Einträge
 Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.7.7
-Release:	6
+Release:	7
 Source:		%{name}-%{version}.tar.gz
 Copyright:	public domain
 Group:		Base
@@ -197,7 +197,6 @@ ln -s amidi0 amidi
 ln -s music sequencer2
 
 #raid
-
 mknode md0 b 9 0
 mknode md1 b 9 1
 mknode md2 b 9 2
@@ -230,6 +229,16 @@ mknode initctl p
 #prepared for Log Daemon
 mkfifo --mode=666 syslog
 
+#knfsd char dev
+mknode nfsd_netlink c 36 4
+
+#libsvga char dev helpers
+mknod svga c 209 0
+mknod svga1 c 209 1
+mknod svga2 c 209 2
+mknod svga3 c 209 3
+mknod svga4 c 209 4
+
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
@@ -256,14 +265,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(664,root,root) /dev/bpcd
 
 #c#
-%attr(600,root,root)	/dev/capi*
-%attr(664,root,root)    /dev/cdu31a
-%attr(640,root,disk)    /dev/cdu535
-%attr(600,root,root)    /dev/cfs0
-%attr(664,root,root)    /dev/cm206cd
+%attr(600,root,root) /dev/capi*
+%attr(664,root,root) /dev/cdu31a
+%attr(640,root,disk) /dev/cdu535
+%attr(600,root,root) /dev/cfs0
+%attr(664,root,root) /dev/cm206cd
 %attr(660,root,console) /dev/console
-%attr(664,root,root)    /dev/cui*
-%attr(600,root,root)    /dev/cum*
+%attr(664,root,root) /dev/cui*
+%attr(600,root,root) /dev/cum*
 
 #d#
 %attr(600,root,root) /dev/dcbri*
@@ -337,6 +346,7 @@ rm -rf $RPM_BUILD_ROOT
 #n#
 %attr(660,root,disk) /dev/nb*
 %config(noreplace) %verify(not link) %attr(666,root,root) /dev/nftape
+%attr(600,root,root) /dev/nfsd_netlink
 %attr(660,root,disk) /dev/nht*
 %attr(660,root,disk) /dev/nqft*
 %attr(660,root,disk) /dev/nrawqft*
@@ -421,6 +431,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(666,root,root) /dev/std*
 
 %attr(664,root,root) /dev/sunmouse
+%attr(664,root,root) /dev/svga*
 %attr(666,root,root) /dev/syslog
 %attr(600,root,root) /dev/systty
 

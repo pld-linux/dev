@@ -4,7 +4,7 @@ Summary(de):	/dev-Einträge
 Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
-Version:	2.7.3
+Version:	2.7.7
 Release:	2
 #######		From ftp.redhat.com/rawhide
 Source:		%{name}-%{version}.tar.gz
@@ -117,15 +117,6 @@ rm -f gscd sbpcd0 atibm inportbm logibm psaux
 # Coda support 
 mknod cfs0 c 67 0
 
-# framebuffer support
-mknod fb0 c 29 0
-mknod fb1 c 29 32
-mknod fb2 c 29 64
-mknod fb3 c 29 96
-mknod fb4 c 29 128
-mknod fb5 c 29 160
-mknod fb6 c 29 192
-mknod fb7 c 29 224
 
 ln -s fb0 fb0current
 ln -s fb1 fb1current
@@ -135,7 +126,6 @@ ln -s fb4 fb4current
 ln -s fb5 fb5current
 ln -s fb6 fb6current
 ln -s fb7 fb7current
-ln -s fb0 fb                                                                    
 
 # watchdog support
 mknod watchdog c 10 130 
@@ -151,11 +141,7 @@ mknod mixer2 c 14 32
 mknod mixer3 c 14 48
 ln -s mixer0 mixer
 
-mknod midi0 c 14 2
-mknod midi1 c 14 18
-mknod midi2 c 14 34
-mknod midi3 c 14 50
-ln -s midi0 midi
+ln -s midi00 midi
 
 rm -f dsp*
 mknod dsp0 c 14 3
@@ -239,39 +225,46 @@ rm -rf $RPM_BUILD_ROOT
 %files 
 %defattr(644,root,root,755)
 
-%dir /dev/pts
-
 #a#
-%attr(664,root,root) /dev/atibm
-%config(noreplace) %verify(not link) %attr(662,root, sys) /dev/audio
-%attr(662,root, sys) /dev/audio?*
-%attr(664,root,root) /dev/aztcd
+%attr(662,root, sys) /dev/admmidi*
 
 %config(noreplace) %verify(not link) %attr(666,root, sys) /dev/adsp
 %attr(662,root, sys) /dev/adsp?*
-%attr(662,root, sys) /dev/admmidi*
+
 %config(noreplace) %verify(not link) %attr(662,root,root) /dev/amidi
 %attr(662,root,root) /dev/amidi?*
+
+%attr(664,root,root) /dev/atibm
+
+%config(noreplace) %verify(not link) %attr(662,root, sys) /dev/audio
+%attr(662,root, sys) /dev/audio?*
+
+%attr(664,root,root) /dev/aztcd
+
 
 #b#
 %attr(664,root,root) /dev/bpcd
 
 #c#
+%attr(600,root,root)	/dev/capi*
 %attr(664,root,root)    /dev/cdu31a
 %attr(640,root,disk)    /dev/cdu535
+%attr(600,root,root)    /dev/cfs0
 %attr(664,root,root)    /dev/cm206cd
 %attr(660,root,console) /dev/console
-%attr(666,root,root)    /dev/cui*
+%attr(664,root,root)    /dev/cui*
 %attr(600,root,root)    /dev/cum*
-%attr(600,root,root)    /dev/cfs0
 
 #d#
-%config(noreplace) %verify(not link) %attr(662,root, sys) /dev/dsp
-%attr(662,root, sys) /dev/dsp?*
+%attr(600,root,root) /dev/dcbri*
+%attr(660,root, sys) /dev/dcxx*
 %attr(662,root, sys) /dev/dmfm*
 %attr(662,root, sys) /dev/dmmidi*
+%config(noreplace) %verify(not link) %attr(662,root, sys) /dev/dsp
+%attr(662,root, sys) /dev/dsp?*
 
 #e#
+%attr(600,root,root) /dev/enskip
 
 #f#
 %config(noreplace) %verify(not link) %attr(644,root,root)   /dev/fb
@@ -288,16 +281,25 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/ht0
 
 #i#
-%attr(664,root,root) /dev/ida/*
+%attr(600,root,root) /dev/i2c*
+%dir /dev/ida
+%attr(660,root,disk) /dev/ida/*
+%attr(600,root,root) /dev/initctl
 %attr(664,root,root) /dev/inportbm
+%attr(600,root,root) /dev/ipauth
+%attr(600,root,root) /dev/ipl
+%attr(600,root,root) /dev/ipnat
 %attr(600,root,root) /dev/ippp*
+%attr(660,root, sys) /dev/iscc*
 %attr(600,root,root) /dev/isctl
+%attr(600,root,root) /dev/isdn?
+%attr(600,root,root) /dev/isdn??
 %config(noreplace) %verify(not link) %attr(600,root,root) /dev/isdnctrl
 %attr(600,root,root) /dev/isdnctrl?*
 %attr(444,root,root) /dev/isdninfo
-%attr(600,root,root) /dev/initctl
 
 #j#
+%attr(660,root, sys) /dev/js*
 
 #k#
 %attr(640,root,kmem) /dev/kmem
@@ -312,30 +314,37 @@ rm -rf $RPM_BUILD_ROOT
 #m#
 %attr(640,root,disk) /dev/mcd
 %attr(640,root,kmem) /dev/mem
-%config(noreplace) %verify(not link) %attr(666,root, sys) /dev/midi
-%attr(666,root, sys) /dev/midi?*
-%config(noreplace) %verify(not link) %attr(666,root,root) /dev/mixer
-%attr(666,root,root) /dev/mixer?*
-%attr(666,root,root) /dev/music
+%config(noreplace) %verify(not link) %attr(662,root,sys) /dev/midi
+%attr(662,root, sys) /dev/midi?*
+%config(noreplace) %verify(not link) %attr(662,root,sys) /dev/mixer
+%attr(662,root, sys) /dev/mixer?*
+%attr(660,root, sys) /dev/mmetfgrab
+%attr(600,root,root) /dev/mpu401*
+%attr(662,root, sys) /dev/music
 
 #n#
-%attr(660,root,root) /dev/nb*
-%attr(660,root,disk) /dev/nht0
+%attr(660,root,disk) /dev/nb*
+%config(noreplace) %verify(not link) %attr(666,root,root) /dev/nftape
+%attr(660,root,disk) /dev/nht*
+%attr(660,root,disk) /dev/nqft*
+%attr(660,root,disk) /dev/nrawqft*
 %attr(660,root,disk) /dev/nrft*
 %attr(660,root,disk) /dev/nst*
+%attr(660,root,disk) /dev/ntpqic*
 %attr(666,root,root) /dev/null
-
-%config(noreplace) %verify(not link) %attr(666,root,root) /dev/nftape
+%attr(660,root,disk) /dev/nzqft*
 
 #o#
 %attr(664,root,root) /dev/optcd
 
 #p#
-%attr(640,root,daemon) /dev/par*
+%attr(640,root,daemon) /dev/par?
+%attr(660,root,daemon) /dev/parport*
 
 %attr(660,root,disk) /dev/pcd*
 %attr(660,root,disk) /dev/pd*
 %attr(660,root,disk) /dev/pf*
+%attr(600,root,root) /dev/pg*
 
 %attr(640,root,kmem) /dev/port
 %attr(600,root,root) /dev/printer
@@ -346,8 +355,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/pt2
 %attr(660,root,disk) /dev/pt3
 
-%attr(666,root,tty) /dev/ptmx
-%attr(666,root,tty) /dev/pty*
+%attr(666,root, tty) /dev/ptmx
+%attr(666,root, tty) /dev/pty*
+%dir /dev/pts
 
 #r#
 %attr(640,root,disk) /dev/ram
@@ -365,44 +375,47 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not link) %attr(660,root,disk) /dev/ramdisk
 
 %attr(644,root,root) /dev/random
+%attr(660,root,disk) /dev/rawqft*
 %attr(660,root,disk) /dev/rft*
+%attr(660,root, sys) /dev/rmidi*
+%attr(660,root,disk) /dev/rmt*
 %attr(644,root,root) /dev/route
 %attr(664,root,root) /dev/rtc
-%attr(600,root,root) /dev/rd/*
+%dir /dev/rd
+%attr(660,root,disk) /dev/rd/*
 
 #s#
 %attr(640,root,disk) /dev/sbpc*
-
 %attr(660,root,disk) /dev/scd*
-
-%attr(660,root,disk) /dev/sda*
-%attr(660,root,disk) /dev/sdb*
-%attr(660,root,disk) /dev/sdc*
-%attr(660,root,disk) /dev/sdd*
-%attr(660,root,disk) /dev/sde*
-%attr(660,root,disk) /dev/sdf*
-%attr(660,root,disk) /dev/sdg*
+%attr(660,root,disk) /dev/sd*
 
 %attr(662,root,sys)  /dev/sequencer
 %attr(662,root,sys)  /dev/sequencer2
 
-%attr(444,root,root) /dev/snd
-
-%attr(600,root,sys) /dev/sg*
-
+%attr(600,root,root) /dev/sg*
 %attr(664,root,root) /dev/sjcd
+%attr(600,root,root) /dev/smtpe*
+
+%attr(444,root,root) /dev/snd
 %attr(666,root,root) /dev/sndstat
 
 %attr(640,root,disk) /dev/sonycd
 
-%attr(660,root,disk) /dev/st*
+%attr(600,root,root) /dev/srnd*
+
+%attr(660,root,disk) /dev/st?
+%attr(600,root,root) /dev/staliomem*
+%attr(666,root,root) /dev/std*
 
 %attr(664,root,root) /dev/sunmouse
+%attr(666,root,root) /dev/syslog
 %attr(600,root,root) /dev/systty
 
-%attr(666,root,root) /dev/syslog
-
 #t#
+%attr(660,root,disk) /dev/tape*
+%attr(600,root,root) /dev/tlk*
+%attr(660,root,disk) /dev/tpqic*
+
 %attr(666,root,root) /dev/tty
 
 %attr(600,root, tty) /dev/tty0
@@ -416,9 +429,13 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root, tty) /dev/tty8
 %attr(600,root, tty) /dev/tty9
 
-%attr(666,root,root) /dev/ttyI*
-
+%attr(600,root,root) /dev/ttyC*
+%attr(600,root,root) /dev/ttyD*
+%attr(600,root,root) /dev/ttyE*
+%attr(600,root,root) /dev/ttyI*
 %attr(600,root,root) /dev/ttyM*
+%attr(600,root,root) /dev/ttyP*
+%attr(600,root,root) /dev/ttyR*
 
 %attr(644,root,root) /dev/ttyS*
 
@@ -447,16 +464,24 @@ rm -rf $RPM_BUILD_ROOT
 
 #w#
 %attr(600,root,root) /dev/watchdog
+%attr(660,root, sys) /dev/wvisfgrab
 
 #x#
-%attr(640,root,disk) /dev/xd*
+%attr(660,root,disk) /dev/xd*
 
 #y#
 
 #z#
 %attr(666,root,root) /dev/zero
+%attr(660,root,disk) /dev/zqft*
 
 %changelog
+* Thu Apr 29 1999 Artur Wiget <wiget@pld.org.pl>
+  [2.7.7-2]
+- upgrade to 2.7.7  
+- removed creating already created devices
+- added more devices in %%files
+
 * Mon Apr 27 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
   [2.7.3-2]
 - added /dev/initctl,

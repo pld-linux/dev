@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	3
+Release:	4
 License:	Public Domain
 Group:		Base
 Source0:	dev-list
@@ -148,7 +148,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/amidi
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/dsp
-%config(noreplace) %verify(not link) %attr(664,root,video) /dev/fb
+%config(noreplace) %verify(not link) %attr(660,root,video) /dev/fb
 %config(noreplace) %verify(not link) %attr(660,root,disk) /dev/ftape
 %config(noreplace) %verify(not link) %attr(600,root,root) /dev/isdnctrl
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/midi
@@ -156,7 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not link) %attr(660,root,disk) /dev/nftape
 %config(noreplace) %verify(not link) %attr(660,root,disk) /dev/ramdisk
 %attr(660,root,video) /dev/em8300*
-%attr(664,root,video) /dev/fb[0-9]*current
+%attr(660,root,video) /dev/fb[0-9]*current
 /dev/fd
 /dev/stdin
 /dev/stdout

@@ -278,16 +278,10 @@ mknode svga2 c 209 2
 mknode svga3 c 209 3
 mknode svga4 c 209 4
 
-# TUN/TAP devices
-mknode tun0 c 90 0
-mknode tun1 c 90 1
-mknode tun2 c 90 2
-mknode tun3 c 90 3
-
 # ipsec character device
 mknode ipsec c 36 10
 
-# tun device
+# TUN/TAP devices
 for i in 0 1 2 3 4 5 6 7 8 9; do
 	mknode tun$i c 90 $i
 done
@@ -553,7 +547,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/tlk*
 %ifarch %{ix86}
 %attr(666,root,root) /dev/toshiba
-%attr(600,root,root) /dev/tun*
 %dir /dev/cpu
 %attr(666,root,root) /dev/cpu/microcode
 %endif
@@ -599,7 +592,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(666,root,tty) /dev/ttyx*
 %attr(666,root,tty) /dev/ttyy*
 %attr(666,root,tty) /dev/ttyz*
-%attr(666,root,root) /dev/tun*
+%attr(600,root,root) /dev/tun*
 
 #u#
 %attr(644,root,root) /dev/urandom

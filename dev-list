@@ -4006,6 +4006,7 @@
 %dev(c,161,1) %attr(664,root,ttyS) /dev/ircomm1
 %dev(c,161,16) %attr(664,root,ttyS) /dev/irlpt0
 %dev(c,161,17) %attr(664,root,ttyS) /dev/irlpt1
+%dev(c,10,187) %attr(664,root,root) /dev/irnet
 %dev(c,93,0) %attr(660,root,sys) /dev/iscc0
 %dev(c,93,1) %attr(660,root,sys) /dev/iscc1
 %dev(c,93,128) %attr(660,root,sys) /dev/isccctl0

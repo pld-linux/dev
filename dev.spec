@@ -112,7 +112,7 @@ ln -sf amigamouse mouse
 ln -sf adbmouse mouse
 %endif
 
-%ifarch sparc
+%ifarch sparc sparc64 sparcv9
 ln -sf sunmouse mouse
 %endif
 

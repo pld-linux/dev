@@ -8,8 +8,7 @@ Version:	2.9.0
 Release:	1
 License:	Public Domain
 Group:		Base
-Source0:	dev-list.bz2
-# Source0-md5:	4808891f6317383850ff826c31a1e797
+Source0:	dev-list
 PreReq:		setup >= 2.4.1-2
 Provides:	devfs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -58,7 +57,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/dev/{ataraid,cciss,cdroms,cpu/{0,1,2,3,4,5,6,7}} \
 	$RPM_BUILD_ROOT/dev/{discs,i2o,ida,input,net,pts,raw,rd,usb}
 
-bunzip2 -dc %{SOURCE0} > dev-list
+install %{SOURCE0} .
 
 cd $RPM_BUILD_ROOT/dev
 ln -sf adsp0 adsp
@@ -116,6 +115,9 @@ ln -sf adbmouse mouse
 %ifarch sparc
 ln -sf sunmouse mouse
 %endif
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %files -f dev-list
 %defattr(644,root,root,755)

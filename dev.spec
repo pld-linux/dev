@@ -4,8 +4,8 @@ Summary(de):	/dev-Einträge
 Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
-Version:	2.7.7
-Release:	11
+Version:	2.8.0
+Release:	1
 Source0:	%{name}-%{version}.tar.gz
 License:	public domain
 Group:		Base

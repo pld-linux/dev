@@ -362,6 +362,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(666,root,root) /dev/zero
 
 %changelog
+* Tue Apr 20 1999 Artur Frysiak <wiget@pld.org.pl>
+  [2.5.9-3]
+- compiled on rpm 3
+- fixed framebuffer support
+
 * Sat Dec 12 1998 Sergiusz Paw³owicz <ser@hyperreal.art.pl>
   [2.5.9-1d]
 - added polish translation to spec (regards to PLD Team),

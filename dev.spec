@@ -25,12 +25,12 @@ in the /dev tree (though they don't have to be), and this package
 contains the most commonly used /dev entries. These files are
 essential for a system to function properly.
 
-%description -l pl
-Wszystkie systemy unixowe, w tym Linux, u¿ywaj± plików do
-przedstawiania urz±dzeñ pod³±czonych do komputera. Wszystkie te pliki
-znajduj± siê zwykle w katalogu /dev. Pakiet ten zawiera wiêkszo¶æ
-popularnych plików specjalnych, s± one jedn± z wa¿niejszych czê¶ci
-prawid³owo dzia³aj±cego systemu operacyjnego.
+%description -l de
+Unix und Unix-ähnliche Systeme (inkl. Linux) verwenden Dateisystem-
+Einträge zum Darstellen angeschlossener Geräte. Diese Einträge
+befinden sich (nicht notwendigerweise) im Verzeichnis /dev. Dieses
+Paket enthält die üblichsten /dev-Einträge. Diese Dateien sind für das
+Funktionieren eines Systems unbedingt erforderlich.
 
 %description -l fr
 Unix et les systèmes apparentés (dont Linux) utilise des fichiers pour
@@ -39,19 +39,19 @@ sont dans l'arborescence /dev (ce n'est pas obligatoire). Ce paquetage
 contient les entrées /dev les plus courantes. Elles sont essentielles
 pour qu'un système fonctionne correctement.
 
+%description -l pl
+Wszystkie systemy unixowe, w tym Linux, u¿ywaj± plików do
+przedstawiania urz±dzeñ pod³±czonych do komputera. Wszystkie te pliki
+znajduj± siê zwykle w katalogu /dev. Pakiet ten zawiera wiêkszo¶æ
+popularnych plików specjalnych, s± one jedn± z wa¿niejszych czê¶ci
+prawid³owo dzia³aj±cego systemu operacyjnego.
+
 %description -l tr
 Unix ve Unix benzeri sistemler (Linux da dahil olmak üzere), makinaya
 baðlý aygýtlarý göstermek için özel dosyalar kullanýrlar. Bu özel
 dosyalarýn tümü /dev dizin yapýsý altýndadýr. Bu paket en çok
 kullanýlan /dev dosyalarýný içerir. Bu dosyalar, bir sistemin düzgün
 olarak iþleyebilmesi için temel gereksinimlerdendir.
-
-%description -l de
-Unix und Unix-ähnliche Systeme (inkl. Linux) verwenden Dateisystem-
-Einträge zum Darstellen angeschlossener Geräte. Diese Einträge
-befinden sich (nicht notwendigerweise) im Verzeichnis /dev. Dieses
-Paket enthält die üblichsten /dev-Einträge. Diese Dateien sind für das
-Funktionieren eines Systems unbedingt erforderlich.
 
 %prep
 %setup -q -c -T
@@ -491,7 +491,7 @@ done
 %attr(644,root,root) /dev/urandom
 
 #v#
-%attr(620,root,tty) /dev/vcs*
+%attr(620,root,tty) %verify(not user) /dev/vcs*
 
 #w#
 %attr(600,root,root) /dev/watchdog

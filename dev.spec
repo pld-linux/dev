@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	1
+Release:	2
 License:	Public Domain
 Group:		Base
 Source0:	dev-list
@@ -96,10 +96,10 @@ ln -sf video0 video
 ln -sf vtx0 vtx
 
 # prepared for SysVinit
-mknod initctl p
+mkfifo initctl
 
-mknod lircm p
-mknod printer p
+mkfifo lircm
+mkfifo printer
 
 # prepared for Log Daemon
 mkfifo syslog

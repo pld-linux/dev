@@ -202,8 +202,8 @@ mkfifo --mode=666 syslog
 
 %pre
 # if setup contains groups floppy and console this mayby obsoletes
-/usr/sbin/groupadd -g 19 -r -f floppy
-/usr/sbin/groupadd -g 20 -r -f console
+%{_sbindir}/groupadd -g 19 -r -f floppy
+%{_sbindir}/groupadd -g 20 -r -f console
 
 %post
 if [ -f /etc/fstab ] ; then

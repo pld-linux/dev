@@ -15,7 +15,7 @@ BuildPrereq:	setup
 BuildPrereq:	shadow
 Requires:	setup
 Buildarch:	noarch
-Buildroot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Autoreqprov:	no
 
 %description
@@ -256,7 +256,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(662,root, sys) /dev/audio?*
 
 %attr(664,root,root) /dev/aztcd
-
 
 #b#
 %attr(664,root,root) /dev/bpcd

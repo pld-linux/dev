@@ -257,6 +257,12 @@ for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 	mknode hdk$i b 57 $i
 	mknode hdl$i b 57 $(( $i + 64 ))
 done
+
+# osst (ide OnStream Tape drives)
+
+mknode osst0 c 206 0
+mknode osst1 c 206 1
+
 # i2o disks
 mkdir i2o
 mknode i2o/ctl c 10 166
@@ -553,6 +559,7 @@ rm -rf $RPM_BUILD_ROOT
 #o#
 %attr(%{perm_cdrom}) /dev/optcd
 %attr(660,root,sys) /dev/oldjs*
+%attr(660,root,disk) /dev/osst?
 
 #p#
 %attr(660,root,lp) /dev/par?

@@ -475,39 +475,3 @@ rm -rf $RPM_BUILD_ROOT
 #z#
 %attr(666,root,root) /dev/zero
 %attr(660,root,disk) /dev/zqft*
-
-%changelog
-* Thu May 20 1999 Wojtek ¦lusarczyk <wojtek@shadow.eu.org>
-- again /dev/log in this package ... 
-
-* Thu Apr 29 1999 Artur Wiget <wiget@pld.org.pl>
-  [2.7.7-2]
-- upgrade to 2.7.7  
-- removed creating already created devices
-- added more devices in %%files
-
-* Mon Apr 27 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
-  [2.7.3-2]
-- added /dev/initctl,
-- added pts device to /etc/fstab,
-- added /dev/syslog.
-
-* Mon Apr 26 1999 Wojciech "Sas" Ciêciwa <cieciwa@alpha.zarz.agh.edu.pl>
-  [2.7.3-1]
-- upgrade to 2.7.3,
-- removed /dev/log, /dev/cua[0-3].
-
-* Tue Apr 20 1999 Artur Frysiak <wiget@pld.org.pl>
-  [2.5.9-3]
-- compiled on rpm 3
-- fixed framebuffer support
-- added coda support
-
-* Sat Dec 12 1998 Sergiusz Paw³owicz <ser@hyperreal.art.pl>
-  [2.5.9-1d]
-- added polish translation to spec (regards to PLD Team),
-- added handles to Unix98 pty support,
-- added handles to framebuffer support,
-- revised spec file, adding group 'floppy' removed.
-- removed initctl -- SysVinit provides it.
-- start at RH spec file.

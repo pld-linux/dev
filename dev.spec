@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.7.7
-Release:	10
+Release:	11
 Source0:	%{name}-%{version}.tar.gz
 Copyright:	public domain
 Group:		Base
@@ -380,7 +380,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root, sys) /dev/mmetfgrab
 %attr(600,root,root) /dev/mpu401*
 %attr(660,root,audio) /dev/music
-%attr(600,root, root) /dev/md*
+%attr(660,root,disk) /dev/md*
 
 #n#
 %attr(660,root,disk) /dev/nb*

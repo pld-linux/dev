@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	18
+Release:	19
 License:	public domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -592,6 +592,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(666,root,tty) /dev/ttyx*
 %attr(666,root,tty) /dev/ttyy*
 %attr(666,root,tty) /dev/ttyz*
+%attr(666,root,root) /dev/tun*
 
 #u#
 %attr(644,root,root) /dev/urandom

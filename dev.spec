@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	26
+Release:	27
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -369,8 +369,7 @@ mknode lirc c 61 0
 mknode lircm p
 
 # usb
-mkdir $RPM_BUILD_ROOT/dev/input
-mkdir $RPM_BUILD_ROOT/dev/usb
+mkdir input usb
 for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 	mknode input/js$i c 13 $i
 	mknode input/mouse$i c 13 $(( $i + 32 ))
@@ -384,6 +383,11 @@ for i in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
 done
 mknode input/mice c 13 63
 mknode usb/rio500 c 180 64
+
+# more ttys (12 may be not sufficient)
+for i in 13 14 15 16 17 18 19 20 21 22 23 24; do
+	mknode tty$i c 4 $i
+done
 
 # For Capsel:
 mknode capsel c 240 0

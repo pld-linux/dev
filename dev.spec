@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	9
+Release:	10
 License:	Public Domain
 Group:		Base
 Source0:	dev-list
@@ -215,7 +215,8 @@ rm -rf $RPM_BUILD_ROOT
 %dev(c,10,198) %attr(644,root,root) /dev/sheep_net
 %endif
 
-%ifarch sparc
+%ifarch sparc sparc64 sparcv9
+%dev(c,14,7) %attr(660,root,audio) /dev/audioctl
 # XXX: which permissions ???
 %dev(c,10,139) %attr(600,root,root) /dev/openprom
 %dev(c,10,6) %attr(664,root,root) /dev/sunmouse

@@ -224,12 +224,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(664,root,root) /dev/mouse
 %endif
 
-%ifarch m68k sparc
+%ifarch m68k sparc sparc64 sparcv9
 # XXX: which permissions???
 %dev(c,11,00) %attr(600,root,root) /dev/kbd
 %endif
 
-%ifnarch m68k sparc
+%ifnarch m68k sparc sparc64 sparcv9
 %dev(c,10,3) %attr(664,root,root) /dev/atibm
 %dev(b,29,0) %attr(660,root,disk) /dev/aztcd
 %dev(b,15,0) %attr(660,root,disk) /dev/cdu31a

@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	0.1
+Release:	1
 License:	Public Domain
 Group:		Base
 Source0:	dev-list.bz2
@@ -55,8 +55,8 @@ olarak iþleyebilmesi için temel gereksinimlerdendir.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/dev/cpu/{0,1,2,3,4,5,6,7} \
-	$RPM_BUILD_ROOT/dev/{ataraid,cciss,cdroms,discs,i2o,ida,input,net,pts,raw,rd,usb}
+install -d $RPM_BUILD_ROOT/dev/{ataraid,cciss,cdroms,cpu/{0,1,2,3,4,5,6,7}} \
+	$RPM_BUILD_ROOT/dev/{discs,i2o,ida,input,net,pts,raw,rd,usb}
 
 bunzip2 -dc %{SOURCE0} > dev-list
 
@@ -73,9 +73,37 @@ ln -sf mixer0 mixer
 ln -sf nrft0 nftape
 ln -sf ram0 ramdisk
 
-%ifarch sparc
-ln -sf sunmouse mouse
-%endif
+ln -sf em8300-0    em8300
+ln -sf em8300_ma-0 em8300_ma
+ln -sf em8300_mv-0 em8300_mv
+ln -sf em8300_sp-0 em8300_sp
+for i in 0 1 2 3 4 5 6 7; do
+	ln -sf fb$i fb${i}current
+done
+ln -sf /proc/self/fd fd
+ln -sf fd/0 stdin
+ln -sf fd/1 stdout
+ln -sf fd/2 stderr
+i=0;
+for l in a b c d e f g h; do
+	ln -sf sg$l sg$i
+	i=$((i+1))
+done
+ln -sf radio0 radio
+ln -sf music sequencer2
+ln -sf /proc/asound/dev snd
+ln -sf vbi0 vbi
+ln -sf video0 video
+ln -sf vtx0 vtx
+
+# prepared for SysVinit
+mknod initctl p
+
+mknod lircm p
+mknod printer p
+
+# prepared for Log Daemon
+mkfifo syslog
 
 %ifarch m68k
 ln -sf amigamouse mouse
@@ -83,6 +111,10 @@ ln -sf amigamouse mouse
 
 %ifarch ppc
 ln -sf adbmouse mouse
+%endif
+
+%ifarch sparc
+ln -sf sunmouse mouse
 %endif
 
 %files -f dev-list
@@ -98,8 +130,8 @@ ln -sf adbmouse mouse
 %dir /dev/cpu/7
 %dir /dev/ataraid
 %dir /dev/cciss
-%dir /dev/cdroms
-%dir /dev/discs
+%attr(660,root,disk) %dir /dev/cdroms
+%attr(660,root,disk) %dir /dev/discs
 %dir /dev/i2o
 %dir /dev/ida
 %dir /dev/input
@@ -112,38 +144,51 @@ ln -sf adbmouse mouse
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/amidi
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/dsp
-%config(noreplace) %verify(not link) %attr(644,root,root) /dev/fb
-%config(noreplace) %verify(not link) %attr(666,root,root) /dev/ftape
+%config(noreplace) %verify(not link) %attr(664,root,video) /dev/fb
+%config(noreplace) %verify(not link) %attr(660,root,disk) /dev/ftape
 %config(noreplace) %verify(not link) %attr(600,root,root) /dev/isdnctrl
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/midi
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/mixer
-%config(noreplace) %verify(not link) %attr(666,root,root) /dev/nftape
+%config(noreplace) %verify(not link) %attr(660,root,disk) /dev/nftape
 %config(noreplace) %verify(not link) %attr(660,root,disk) /dev/ramdisk
+%attr(660,root,video) /dev/em8300*
+%attr(664,root,video) /dev/fb[0-7]current
+/dev/fd
+/dev/stdin
+/dev/stdout
+/dev/stderr
+%attr(660,root,video) /dev/radio
+%attr(660,root,audio) /dev/sequencer2
+%attr(600,root,root) /dev/sg[0-7]
+/dev/snd
+%attr(660,root,video) /dev/vbi
+%attr(660,root,video) /dev/video
+%attr(660,root,video) /dev/vtx
+%attr(600,root,root) /dev/initctl
+%attr(660,root,root) /dev/lircm
+%attr(600,root,root) /dev/printer
+%attr(666,root,root) /dev/syslog
 
 %ifarch %{ix86}
 %dev(c,10,184) %attr(666,root,root) /dev/cpu/microcode
 %dev(c,10,181) %attr(666,root,root) /dev/toshiba
 %endif
 
-%ifarch sparc m68k
-# XXX: which permissions???
-%dev(c,11,00 %attr(600,root,root) /dev/kbd
-%endif
-
 %ifarch m68k
+%dev(b,2,4) %attr(660,root,floppy) /dev/fdhd0
+%dev(b,2,5) %attr(660,root,floppy) /dev/fdhd1 
 # XXX: which permissions???
 %dev(c,10,4) %attr(664,root,root) /dev/amigamouse
+%attr(664,root,root) /dev/mouse
 %dev(c,10,5) %attr(664,root,root) /dev/atarimouse
 %dev(c,10,7) %attr(664,root,root) /dev/apollomouse
-# XXX: what's that???
-%dev(b,2,4) /dev/fdhd0
-%dev(b,2,5) /dev/fdhd1 
 %endif
 
 %ifarch ppc
-%dev(c,56,0) %attr(644,root,root) /dev/adb*
+%dev(c,56,0) %attr(644,root,root) /dev/adb
 %dev(c,10,10) %attr(644,root,root) /dev/adbmouse
-%dev(c,10.154) %attr(644,root,root) /dev/pmu
+%attr(644,root,root) /dev/mouse
+%dev(c,10,154) %attr(644,root,root) /dev/pmu
 %dev(c,10,198) %attr(644,root,root) /dev/sheep_net
 %endif
 
@@ -151,9 +196,15 @@ ln -sf adbmouse mouse
 # XXX: which permissions ???
 %dev(c,10,139) %attr(600,root,root) /dev/openprom
 %dev(c,10,6) %attr(664,root,root) /dev/sunmouse
+%attr(664,root,root) /dev/mouse
 %endif
 
-%ifnarch sparc m68k
+%ifarch m68k sparc
+# XXX: which permissions???
+%dev(c,11,00) %attr(600,root,root) /dev/kbd
+%endif
+
+%ifnarch m68k sparc
 %dev(c,10,3) %attr(664,root,root) /dev/atibm
 %dev(b,29,0) %attr(660,root,disk) /dev/aztcd
 %dev(b,15,0) %attr(660,root,disk) /dev/cdu31a

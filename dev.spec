@@ -5,8 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.7.7
-Release:	5
-#######		From ftp.redhat.com/rawhide
+Release:	6
 Source:		%{name}-%{version}.tar.gz
 Copyright:	public domain
 Group:		Base

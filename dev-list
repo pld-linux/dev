@@ -4186,6 +4186,7 @@
 %dev(c,14,48) %attr(660,root,audio) /dev/mixer3
 %dev(c,40,0) %attr(660,root,sys) /dev/mmetfgrab
 %dev(c,178,0) %attr(660,root,video) /dev/mga_vid
+%dev(c,10,240) %attr(600,root,root) /dev/mptctl
 %dev(c,31,0) %attr(600,root,root) /dev/mpu401data
 %dev(c,31,1) %attr(600,root,root) /dev/mpu401stat
 %dev(c,14,8) %attr(660,root,audio) /dev/music
@@ -8317,6 +8318,16 @@
 %dev(c,7,136) %attr(620,root,tty) %verify(not user) /dev/vcsa8
 %dev(c,7,137) %attr(620,root,tty) %verify(not user) /dev/vcsa9
 %dev(c,81,0) %attr(660,root,video) /dev/video0
+%dev(c,10,165) %attr(640,root,root) /dev/vmmon
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet0
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet1
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet2
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet3
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet4
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet5
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet6
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet7
+%dev(c,119,10) %attr(640,root,root) /dev/vmnet8
 %dev(c,81,192) %attr(660,root,video) /dev/vtx0
 %dev(c,10,130) %attr(600,root,root) /dev/watchdog
 %dev(c,26,0) %attr(660,root,sys) /dev/wvisfgrab
@@ -8716,4 +8727,3 @@
 %dev(c,196,253) %attr(664,root,root) /dev/zap/timer
 %dev(c,196,254) %attr(664,root,root) /dev/zap/channel
 %dev(c,196,255) %attr(664,root,root) /dev/zap/pseudo
-

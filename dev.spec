@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	1
+Release:	2
 Source0:	%{name}-%{version}.tar.gz
 License:	public domain
 Group:		Base
@@ -228,14 +228,14 @@ mknode initctl p
 mkfifo --mode=666 syslog
 
 # libsvga char dev helpers
-mknod svga c 209 0
-mknod svga1 c 209 1
-mknod svga2 c 209 2
-mknod svga3 c 209 3
-mknod svga4 c 209 4
+mknode svga c 209 0
+mknode svga1 c 209 1
+mknode svga2 c 209 2
+mknode svga3 c 209 3
+mknode svga4 c 209 4
 
 # ipsec character device
-mknod ipsec c 36 10
+mknode ipsec c 36 10
 
 # raw io devices
 mknode rawctl c 162 0
@@ -247,19 +247,25 @@ while [ "$minor" -ne 256 ]; do
 done
 
 # ltmodem
-mknod ttyLT0 c 62 64
+mknode ttyLT0 c 62 64
 
 # XFree86-nvidia-kernel
 for i in 0 1 2 3; do
-	mknod nvidia$i c 195 $i
+	mknode nvidia$i c 195 $i
 done
-mknod nvidiactl c 195 255
+mknode nvidiactl c 195 255
 
 # kernel 2.4 requires /dev/js* with major 13
 for f in 0 1 2 3; do
 	%{__mv} -f js$f oldjs$f
-	mknod js$f c 13 $f
+	mknode js$f c 13 $f
 done
+
+# irda-utils
+mknode ircomm0 c 161 0
+mknode ircomm1 c 161 1
+mknode irlpt0 c 161 16
+mknode irlpt1 c 161 17
 
 %clean
 %{__rm} -rf $RPM_BUILD_ROOT
@@ -322,6 +328,10 @@ done
 %attr(600,root,root) /dev/ipnat
 %attr(600,root,root) /dev/ipstate
 %attr(600,root,root) /dev/ippp*
+%attr(664,root,ttyS) /dev/ircomm0
+%attr(664,root,ttyS) /dev/ircomm1
+%attr(664,root,ttyS) /dev/irlpt0
+%attr(664,root,ttyS) /dev/irlpt1
 %attr(660,root,sys) /dev/iscc*
 %attr(600,root,root) /dev/isctl
 %attr(600,root,root) /dev/isdn?

@@ -5,14 +5,17 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	5
+Release:	6
 Source0:	%{name}-%{version}.tar.gz
 License:	public domain
 Group:		Base
+Group(de):	Gründsätzlich
+Group(es):	Base
 Group(pl):	Podstawowe
+Group(pt_BR):	Base
 BuildRequires:	setup
 BuildRequires:	shadow
-Prereq:		setup
+Prereq:		setup >= 2.4.1-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Autoreqprov:	no
 
@@ -443,6 +446,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/raw
 %attr(660,root,disk) /dev/raw/*
 
+%attr(660,root,video) /dev/radio0
+%attr(660,root,video) /dev/radio
+
 #s#
 %attr(%{perm_cdrom}) /dev/scd*
 %attr(660,root,disk) /dev/sd*
@@ -517,6 +523,13 @@ rm -rf $RPM_BUILD_ROOT
 
 #v#
 %attr(620,root,tty) %verify(not user) /dev/vcs*
+
+%attr(660,root,video) /dev/video0
+%attr(660,root,video) /dev/video
+%attr(660,root,video) /dev/vtx0
+%attr(660,root,video) /dev/vtx
+%attr(660,root,video) /dev/vbi0
+%attr(660,root,video) /dev/vbi
 
 #w#
 %attr(600,root,root) /dev/watchdog

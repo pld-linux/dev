@@ -58,6 +58,7 @@ olarak iþleyebilmesi için temel gereksinimlerdendir.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT/dev/cpu
 
 mknode() {
 # [ -e $1 ] || mknod $1 $2 $3 $4
@@ -65,7 +66,6 @@ mknode() {
 	mknod $1 $2 $3 $4
 }
 
-install -d $RPM_BUILD_ROOT
 
 # add group for floppy and console
 # if setup contains this group then remove next 4 lines
@@ -136,13 +136,13 @@ done
 mknode watchdog c 10 130
 mknod temperature c 10 131
 
-
 # agpgart
 mknode agpgart c 10 175
 
 %ifarch %{ix86}
 # toshiba support
 mknode toshiba c 10 181
+mknode cpu/microcode c 10 184
 %endif
 
 # route
@@ -525,6 +525,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(600,root,root) /dev/tlk*
 %ifarch %{ix86}
 %attr(666,root,root) /dev/toshiba
+%dir /dev/cpu
+%attr(666,root,root) /dev/cpu/microcode
 %endif
 %attr(660,root,disk) /dev/tpqic*
 

@@ -8,10 +8,22 @@ Version:	2.8.0
 Release:	11
 License:	public domain
 Group:		Base
-Group(de):	Gründsätzlich
+Group(cs):	Základ
+Group(da):	Basal
+Group(de):	Basis
 Group(es):	Base
+Group(fr):	Base
+Group(is):	Grunnforrit
+Group(it):	Base
+Group(ja):	¥Ù¡¼¥¹
+Group(no):	Basis
 Group(pl):	Podstawowe
+Group(pt):	Base
 Group(pt_BR):	Base
+Group(ru):	âÁÚÁ
+Group(sl):	Osnova
+Group(sv):	Bas
+Group(uk):	âÁÚÁ
 Source0:	%{name}-%{version}.tar.gz
 BuildRequires:	setup
 BuildRequires:	shadow

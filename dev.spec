@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.7.7
-Release:	8
+Release:	9
 Source0:	%{name}-%{version}.tar.gz
 Copyright:	public domain
 Group:		Base
@@ -270,6 +270,9 @@ while [ "$minor" -ne 256 ]; do
     minor=$(($minor +1))
 done
 
+# ltmodem
+mknod ttyLT0 c 62 64
+
 %clean 
 rm -rf $RPM_BUILD_ROOT
 
@@ -360,6 +363,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root,disk) /dev/loop*
 
 %attr(660,root,daemon) /dev/lp*
+%attr(664,root,ttyS) /dev/ttyLT*
 
 #m#
 %attr(640,root,disk) /dev/mcd

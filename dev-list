@@ -3881,6 +3881,8 @@
 %dev(c,185,2) %attr(600,root,root) /dev/intermezzo2
 %dev(c,185,3) %attr(600,root,root) /dev/intermezzo3
 %dev(c,95,3) %attr(600,root,root) /dev/ipauth
+%dev(c,254,0) %attr(600,root,root) /dev/ipmi0
+%dev(c,10,173) %attr(600,root,root) /dev/ipmikcs
 %dev(c,36,10) %attr(600,root,root) /dev/ipsec
 %dev(c,95,0) %attr(600,root,root) /dev/ipl
 %dev(c,95,1) %attr(600,root,root) /dev/ipnat

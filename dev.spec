@@ -268,13 +268,13 @@ done
 %defattr(644,root,root,755)
 
 #a#
-%attr(662,root,sys) /dev/admmidi*
+%attr(660,root,audio) /dev/admmidi*
 
-%config(noreplace) %verify(not link) %attr(666,root,sys) /dev/adsp
-%attr(662,root,sys) /dev/adsp?*
+%config(noreplace) %verify(not link) %attr(660,root,audio) /dev/adsp
+%attr(660,root,audio) /dev/adsp?*
 
-%config(noreplace) %verify(not link) %attr(662,root,root) /dev/amidi
-%attr(662,root,root) /dev/amidi?*
+%config(noreplace) %verify(not link) %attr(660,root,audio) /dev/amidi
+%attr(660,root,audio) /dev/amidi?*
 
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio
 %attr(660,root,audio) /dev/audio?*
@@ -292,8 +292,8 @@ done
 #d#
 %attr(600,root,root) /dev/dcbri*
 %attr(660,root,sys) /dev/dcxx*
-%attr(662,root,sys) /dev/dmfm*
-%attr(662,root,sys) /dev/dmmidi*
+%attr(660,root,audio) /dev/dmfm*
+%attr(660,root,audio) /dev/dmmidi*
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/dsp
 %attr(660,root,audio) /dev/dsp?*
 

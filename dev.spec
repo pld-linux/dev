@@ -55,7 +55,7 @@ olarak iþleyebilmesi için temel gereksinimlerdendir.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/dev/{ataraid,cciss,cdroms,cpu/{0,1,2,3,4,5,6,7}} \
-	$RPM_BUILD_ROOT/dev/{discs,i2o,ida,input,net,pts,raw,rd,usb,shm,snd} \
+	$RPM_BUILD_ROOT/dev/{discs,i2o,ida,input,net,pts,raw,rd,usb,shm,snd,zap} \
 	$RPM_BUILD_ROOT/dev/mapper
 
 install %{SOURCE0} .
@@ -146,6 +146,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/rd
 %dir /dev/usb
 %dir /dev/mapper
+%dir /dev/zap
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/adsp
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/amidi
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio

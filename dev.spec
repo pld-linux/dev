@@ -191,6 +191,25 @@ ln -s amidi0 amidi
 
 ln -s music sequencer2
 
+#raid
+
+mknod md0 b 9 0
+mknod md1 b 9 1
+mknod md2 b 9 2
+mknod md3 b 9 3
+mknod md4 b 9 4
+mknod md5 b 9 5
+mknod md6 b 9 6
+mknod md7 b 9 7
+mknod md8 b 9 8
+mknod md9 b 9 9
+mknod md10 b 9 10
+mknod md11 b 9 11
+mknod md12 b 9 12
+mknod md13 b 9 13
+mknod md14 b 9 14
+mknod md15 b 9 15
+
 #temporary
 install -d $RPM_BUILD_ROOT/proc/asound
 touch $RPM_BUILD_ROOT/proc/asound/snd
@@ -324,6 +343,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(660,root, sys) /dev/mmetfgrab
 %attr(600,root,root) /dev/mpu401*
 %attr(662,root, sys) /dev/music
+%attr(600,root, root) /dev/md*
 
 #n#
 %attr(660,root,disk) /dev/nb*

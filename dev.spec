@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.8.0
-Release:	14
+Release:	15
 License:	public domain
 Group:		Base
 Source0:	%{name}-%{version}.tar.gz
@@ -110,6 +110,7 @@ mknode fdhd1 b 2 5
 # RTC and Mouse devices related to ppc
 mknode adb c 56 0
 mknode adbmouse c 10 10
+ln -sf adbmouse mouse
 %endif
 
 %ifarch sparc m68k
@@ -614,6 +615,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(664,root,root) /dev/amigamouse
 %attr(664,root,root) /dev/atarimouse
 %attr(664,root,root) /dev/apollomouse
+%endif
+
+# only on ppc
+%ifarch ppc
+%attr(644,root,root) /dev/adb*
+%attr(644,root,root) /dev/mouse
 %endif
 
 # only on sparc

@@ -51,6 +51,7 @@ eines Systems unbedingt erforderlich.
 %setup -q -c -T
 rm -rf $RPM_BUILD_ROOT
 
+%build
 install -d $RPM_BUILD_ROOT
 BUILD_DIR=`pwd`
 
@@ -65,12 +66,8 @@ cd $RPM_BUILD_ROOT
 %ifarch sparc
 # SPARC specific devices
 ln -s sunmouse dev/mouse
-mknod dev/fb0 c 29 0
-mknod dev/fb1 c 29 32
 mknod dev/kbd c 11 0
 mknod dev/openprom c 10 139
-ln -s fb0 dev/fb
-chmod 666 dev/fb*
 
 # remove devices that will *never* exist on a SPARC
 rm -f dev/hd* dev/aztcd dev/mcd dev/sbpcd1 dev/cdu31a dev/sbpcd2 dev/scd3
@@ -79,18 +76,18 @@ rm -f dev/gscd dev/sbpcd0 dev/atibm dev/inportbm dev/logibm dev/psaux
 
 %endif
 
-chmod 660 dev/lp*
-chgrp daemon dev/lp*
+#chmod 660 dev/lp*
+#chgrp daemon dev/lp*
 
 for I in 9 10 11 12; do
 	mknod dev/tty$I c 4 $I
 	chown root:tty dev/tty$I
-	chmod 600 dev/tty$I
+#	chmod 600 dev/tty$I
 done
 
 cd dev
 
-chgrp floppy fd?*
+#chgrp floppy fd?*
 
 ln -s ram0 ramdisk
 ln -s ../proc/self/fd fd
@@ -134,23 +131,23 @@ mknod pt1  c 96 1
 mknod pt2  c 96 2
 mknod pt3  c 96 3
 
-chmod 0660      pd[a-d]* pcd[0-3] pf[0-3] pt[0-3]
-chown root:disk pd[a-d]* pcd[0-3] pf[0-3] pt[0-3]
+#chmod 0660      pd[a-d]* pcd[0-3] pf[0-3] pt[0-3]
+#chown root:disk pd[a-d]* pcd[0-3] pf[0-3] pt[0-3]
 
 # unix98 pty support 
 mknod ptmx c 5 2
-chmod 666 ptmx; chown root.tty ptmx
+#chmod 666 ptmx; chown root.tty ptmx
 install -d -m 755 pts
 
 # framebuffer support
-mknod fb0 b 29 0
-mknod fb1 b 29 32
-mknod fb2 b 29 64
-mknod fb3 b 29 96
-mknod fb4 b 29 128
-mknod fb5 b 29 160
-mknod fb6 b 29 192
-mknod fb7 b 29 224
+mknod fb0 c 29 0
+mknod fb1 c 29 32
+mknod fb2 c 29 64
+mknod fb3 c 29 96
+mknod fb4 c 29 128
+mknod fb5 c 29 160
+mknod fb6 c 29 192
+mknod fb7 c 29 224
 
 ln -s fb0 fb0current
 ln -s fb1 fb1current
@@ -160,6 +157,10 @@ ln -s fb4 fb4current
 ln -s fb5 fb5current
 ln -s fb6 fb6current
 ln -s fb7 fb7current
+ln -s fb0 fb
+
+# It's correct ?
+#chmod 666 fb*
 
 # watchdog support
 mknod watchdog c 10 130 

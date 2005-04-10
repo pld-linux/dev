@@ -3931,6 +3931,7 @@
 %dev(c,185,1) %attr(600,root,root) /dev/intermezzo1
 %dev(c,185,2) %attr(600,root,root) /dev/intermezzo2
 %dev(c,185,3) %attr(600,root,root) /dev/intermezzo3
+%dev(c,10,61) %attr(444,root,root) /dev/inotify
 %dev(c,95,3) %attr(600,root,root) /dev/ipauth
 %dev(c,254,0) %attr(600,root,root) /dev/ipmi0
 %dev(c,10,173) %attr(600,root,root) /dev/ipmikcs

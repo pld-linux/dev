@@ -8,7 +8,7 @@ Version:	2.9.0
 Release:	19.2
 License:	Public Domain
 Group:		Base
-Source0:	dev-list
+Source0:	%{name}-list
 PreReq:		setup >= 2.4.8
 Provides:	devfs
 AutoReqProv:	no
@@ -197,7 +197,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %ifarch m68k
 %dev(b,2,4) %attr(660,root,floppy) /dev/fdhd0
-%dev(b,2,5) %attr(660,root,floppy) /dev/fdhd1 
+%dev(b,2,5) %attr(660,root,floppy) /dev/fdhd1
 # XXX: which permissions???
 %dev(c,10,4) %attr(664,root,root) /dev/amigamouse
 %attr(664,root,root) /dev/mouse

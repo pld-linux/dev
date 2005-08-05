@@ -4192,7 +4192,7 @@
 %dev(c,14,48) %attr(660,root,audio) /dev/mixer3
 %dev(c,40,0) %attr(660,root,sys) /dev/mmetfgrab
 %dev(c,178,0) %attr(660,root,video) /dev/mga_vid
-%dev(c,10,240) %attr(600,root,root) /dev/mptctl
+%dev(c,10,220) %attr(600,root,root) /dev/mptctl
 %dev(c,31,0) %attr(600,root,root) /dev/mpu401data
 %dev(c,31,1) %attr(600,root,root) /dev/mpu401stat
 %dev(c,14,8) %attr(660,root,audio) /dev/music

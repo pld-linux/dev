@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	19.2
+Release:	20
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list

@@ -133,6 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/cpu/5
 %dir /dev/cpu/6
 %dir /dev/cpu/7
+%dir /dev/cpuset
 %dir /dev/ataraid
 %dir /dev/cciss
 %dir /dev/dri

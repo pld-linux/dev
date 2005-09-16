@@ -4161,7 +4161,6 @@
 %dev(c,6,1) %attr(660,root,lp) /dev/lp1
 %dev(c,6,2) %attr(660,root,lp) /dev/lp2
 %dev(c,10,63) %attr(660,root,disk) /dev/mapper/control
-%dev(c,10,227) %attr(600,root,root) /dev/mcelog
 %dev(b,9,0) %attr(660,root,disk) /dev/md0
 %dev(b,9,1) %attr(660,root,disk) /dev/md1
 %dev(b,9,10) %attr(660,root,disk) /dev/md10

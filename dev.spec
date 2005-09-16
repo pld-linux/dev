@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	21
+Release:	22
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list
@@ -194,6 +194,10 @@ rm -rf $RPM_BUILD_ROOT
 %dev(c,226,5) %attr(660,root,video) /dev/dri/card5
 %dev(c,226,6) %attr(660,root,video) /dev/dri/card6
 %dev(c,226,7) %attr(660,root,video) /dev/dri/card7
+%endif
+
+%ifarch %{ix86} %{x8664}
+%dev(c,10,227) %attr(600,root,root) /dev/mcelog
 %endif
 
 %ifarch m68k

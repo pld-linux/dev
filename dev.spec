@@ -9,7 +9,7 @@ Release:	24
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list
-PreReq:		setup >= 2.4.8
+Requires:	setup >= 2.4.8
 Provides:	devfs
 AutoReqProv:	no
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

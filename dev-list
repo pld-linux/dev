@@ -7039,6 +7039,14 @@
 %dev(b,11,5) %attr(660,root,disk) /dev/scd5
 %dev(b,11,6) %attr(660,root,disk) /dev/scd6
 %dev(b,11,7) %attr(660,root,disk) /dev/scd7
+%dev(c,86,0) %attr(660,root,backup) /dev/sch0
+%dev(c,86,1) %attr(660,root,backup) /dev/sch1
+%dev(c,86,2) %attr(660,root,backup) /dev/sch2
+%dev(c,86,3) %attr(660,root,backup) /dev/sch3
+%dev(c,86,4) %attr(660,root,backup) /dev/sch4
+%dev(c,86,5) %attr(660,root,backup) /dev/sch5
+%dev(c,86,6) %attr(660,root,backup) /dev/sch6
+%dev(c,86,7) %attr(660,root,backup) /dev/sch7
 %dev(b,8,0) %attr(660,root,disk) /dev/sda
 %dev(b,8,1) %attr(660,root,disk) /dev/sda1
 %dev(b,8,10) %attr(660,root,disk) /dev/sda10

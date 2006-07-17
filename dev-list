@@ -4951,6 +4951,8 @@
 %dev(c,162,98) %attr(660,root,disk) /dev/raw/raw98
 %dev(c,162,99) %attr(660,root,disk) /dev/raw/raw99
 %dev(c,162,0) %attr(600,root,root) /dev/rawctl
+%dev(c,235,11) %attr(644,root,root) /dev/frandom
+%dev(c,235,12) %attr(644,root,root) /dev/erandom
 %dev(c,27,32) %attr(660,root,disk) /dev/rawqft0
 %dev(c,27,33) %attr(660,root,disk) /dev/rawqft1
 %dev(c,27,34) %attr(660,root,disk) /dev/rawqft2

@@ -211,11 +211,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %ifarch ppc
-%dev(c,56,0) %attr(644,root,root) /dev/adb
-%dev(c,10,10) %attr(644,root,root) /dev/adbmouse
-%attr(644,root,root) /dev/mouse
-%dev(c,10,154) %attr(644,root,root) /dev/pmu
-%dev(c,10,198) %attr(644,root,root) /dev/sheep_net
+%dev(c,56,0) /dev/adb
+%dev(c,10,10) /dev/adbmouse
+/dev/mouse
+%dev(c,10,154) /dev/pmu
+%dev(c,10,198) /dev/sheep_net
 %endif
 
 %ifarch sparc sparc64 sparcv9

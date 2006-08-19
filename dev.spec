@@ -5,7 +5,7 @@ Summary(pl):	Pliki specjalne /dev/*
 Summary(tr):	/dev dizini
 Name:		dev
 Version:	2.9.0
-Release:	25
+Release:	26
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list
@@ -54,9 +54,8 @@ olarak iþleyebilmesi için temel gereksinimlerdendir.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/dev/{ataraid,cciss,cdroms,cpu/{0,1,2,3,4,5,6,7}} \
-	$RPM_BUILD_ROOT/dev/{discs,i2o,ida,input,net,pts,raw,rd,usb,shm,snd,zap} \
-	$RPM_BUILD_ROOT/dev/{mapper,dri,cdemu,cpuset}
+install -d $RPM_BUILD_ROOT/dev/{ataraid,cciss,cdemu,cdroms,cpu/{0,1,2,3,4,5,6,7},cpuset} \
+	$RPM_BUILD_ROOT/dev/{discs,dri,etherd,i2o,ida,input,mapper,net,pts,raw,rd,usb,shm,snd,zap}
 
 install %{SOURCE0} .
 
@@ -124,6 +123,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f dev-list
 %defattr(644,root,root,755)
+%dir /dev/ataraid
+%dir /dev/cciss
+%dir /dev/cdemu
 %dir /dev/cpu
 %dir /dev/cpu/0
 %dir /dev/cpu/1
@@ -134,22 +136,20 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/cpu/6
 %dir /dev/cpu/7
 %dir /dev/cpuset
-%dir /dev/ataraid
-%dir /dev/cciss
 %dir /dev/dri
 %attr(750,root,disk) %dir /dev/cdroms
 %attr(750,root,disk) %dir /dev/discs
+%dir /dev/etherd
 %dir /dev/i2o
 %dir /dev/ida
 %dir /dev/input
+%dir /dev/mapper
 %dir /dev/net
 %dir /dev/pts
 %dir /dev/raw
 %dir /dev/rd
 %dir /dev/usb
-%dir /dev/mapper
 %dir /dev/zap
-%dir /dev/cdemu
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/adsp
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/amidi
 %config(noreplace) %verify(not link) %attr(660,root,audio) /dev/audio

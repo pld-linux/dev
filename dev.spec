@@ -1,8 +1,8 @@
 Summary:	/dev entries
-Summary(de):	/dev-Einträge
-Summary(fr):	Entrées de /dev
-Summary(pl):	Pliki specjalne /dev/*
-Summary(tr):	/dev dizini
+Summary(de.UTF-8):   /dev-EintrÃ¤ge
+Summary(fr.UTF-8):   EntrÃ©es de /dev
+Summary(pl.UTF-8):   Pliki specjalne /dev/*
+Summary(tr.UTF-8):   /dev dizini
 Name:		dev
 Version:	2.9.0
 Release:	26
@@ -21,33 +21,33 @@ in the /dev tree (though they don't have to be), and this package
 contains the most commonly used /dev entries. These files are
 essential for a system to function properly.
 
-%description -l de
-Unix und Unix-ähnliche Systeme (inkl. Linux) verwenden Dateisystem-
-Einträge zum Darstellen angeschlossener Geräte. Diese Einträge
+%description -l de.UTF-8
+Unix und Unix-Ã¤hnliche Systeme (inkl. Linux) verwenden Dateisystem-
+EintrÃ¤ge zum Darstellen angeschlossener GerÃ¤te. Diese EintrÃ¤ge
 befinden sich (nicht notwendigerweise) im Verzeichnis /dev. Dieses
-Paket enthält die üblichsten /dev-Einträge. Diese Dateien sind für das
+Paket enthÃ¤lt die Ã¼blichsten /dev-EintrÃ¤ge. Diese Dateien sind fÃ¼r das
 Funktionieren eines Systems unbedingt erforderlich.
 
-%description -l fr
-Unix et les systèmes apparentés (dont Linux) utilise des fichiers pour
-représenter les périphériques reliés à la machine. Toutes ces entrées
+%description -l fr.UTF-8
+Unix et les systÃ¨mes apparentÃ©s (dont Linux) utilise des fichiers pour
+reprÃ©senter les pÃ©riphÃ©riques reliÃ©s Ã  la machine. Toutes ces entrÃ©es
 sont dans l'arborescence /dev (ce n'est pas obligatoire). Ce paquetage
-contient les entrées /dev les plus courantes. Elles sont essentielles
-pour qu'un système fonctionne correctement.
+contient les entrÃ©es /dev les plus courantes. Elles sont essentielles
+pour qu'un systÃ¨me fonctionne correctement.
 
-%description -l pl
-Wszystkie systemy klasy unices, w tym Linux, u¿ywaj± plików do
-przedstawiania urz±dzeñ pod³±czonych do komputera. Wszystkie te pliki
-znajduj± siê zwykle w katalogu /dev. Pakiet ten zawiera wiêkszo¶æ
-popularnych plików specjalnych, s± one jedn± z wa¿niejszych czê¶ci
-prawid³owo dzia³aj±cego systemu operacyjnego.
+%description -l pl.UTF-8
+Wszystkie systemy klasy unices, w tym Linux, uÅ¼ywajÄ… plikÃ³w do
+przedstawiania urzÄ…dzeÅ„ podÅ‚Ä…czonych do komputera. Wszystkie te pliki
+znajdujÄ… siÄ™ zwykle w katalogu /dev. Pakiet ten zawiera wiÄ™kszoÅ›Ä‡
+popularnych plikÃ³w specjalnych, sÄ… one jednÄ… z waÅ¼niejszych czÄ™Å›ci
+prawidÅ‚owo dziaÅ‚ajÄ…cego systemu operacyjnego.
 
-%description -l tr
-Unix ve Unix benzeri sistemler (Linux da dahil olmak üzere), makinaya
-bağlı aygıtları göstermek için özel dosyalar kullanırlar. Bu özel
-dosyaların tümü /dev dizin yapısı altındadır. Bu paket en çok
-kullanılan /dev dosyalarını içerir. Bu dosyalar, bir sistemin düzgün
-olarak işleyebilmesi için temel gereksinimlerdendir.
+%description -l tr.UTF-8
+Unix ve Unix benzeri sistemler (Linux da dahil olmak Ã¼zere), makinaya
+baÄŸlÄ± aygÄ±tlarÄ± gÃ¶stermek iÃ§in Ã¶zel dosyalar kullanÄ±rlar. Bu Ã¶zel
+dosyalarÄ±n tÃ¼mÃ¼ /dev dizin yapÄ±sÄ± altÄ±ndadÄ±r. Bu paket en Ã§ok
+kullanÄ±lan /dev dosyalarÄ±nÄ± iÃ§erir. Bu dosyalar, bir sistemin dÃ¼zgÃ¼n
+olarak iÅŸleyebilmesi iÃ§in temel gereksinimlerdendir.
 
 %prep
 %setup -q -c -T

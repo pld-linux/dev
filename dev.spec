@@ -1,8 +1,8 @@
 Summary:	/dev entries
-Summary(de.UTF-8):   /dev-Einträge
-Summary(fr.UTF-8):   Entrées de /dev
-Summary(pl.UTF-8):   Pliki specjalne /dev/*
-Summary(tr.UTF-8):   /dev dizini
+Summary(de.UTF-8):	/dev-Einträge
+Summary(fr.UTF-8):	Entrées de /dev
+Summary(pl.UTF-8):	Pliki specjalne /dev/*
+Summary(tr.UTF-8):	/dev dizini
 Name:		dev
 Version:	2.9.0
 Release:	26

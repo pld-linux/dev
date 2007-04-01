@@ -4587,10 +4587,6 @@
 %dev(c,27,21) %attr(660,root,disk) /dev/nzqft1
 %dev(c,27,22) %attr(660,root,disk) /dev/nzqft2
 %dev(c,27,23) %attr(660,root,disk) /dev/nzqft3
-%dev(c,15,0) %attr(660,root,sys) /dev/oldjs0
-%dev(c,15,1) %attr(660,root,sys) /dev/oldjs1
-%dev(c,15,2) %attr(660,root,sys) /dev/oldjs2
-%dev(c,15,3) %attr(660,root,sys) /dev/oldjs3
 %dev(b,17,0) %attr(660,root,disk) /dev/optcd
 %dev(c,206,0) %attr(660,root,disk) /dev/osst0
 %dev(c,206,1) %attr(660,root,disk) /dev/osst1

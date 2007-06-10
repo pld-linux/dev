@@ -7539,6 +7539,7 @@
 %dev(c,35,129) %attr(600,root,root) /dev/smtpe1
 %dev(c,35,130) %attr(600,root,root) /dev/smtpe2
 %dev(c,35,131) %attr(600,root,root) /dev/smtpe3
+%dev(c,10,231) %attr(640,root,root) /dev/snapshot
 %dev(c,14,6) %attr(666,root,root) /dev/sndstat
 %dev(c,110,0) %attr(600,root,root) /dev/srnd0
 %dev(c,110,1) %attr(600,root,root) /dev/srnd1

@@ -182,7 +182,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(666,root,root) /dev/drzewo
 
 %ifarch %{ix86}
-%dev(c,10,184) %attr(666,root,root) /dev/cpu/microcode
 %dev(c,10,181) %attr(666,root,root) /dev/toshiba
 %dev(c,212,0) %attr(600,root,root) /dev/slamr0
 %dev(c,213,0) %attr(600,root,root) /dev/slusb0
@@ -198,6 +197,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %ifarch %{ix86} %{x8664}
 %dev(c,10,227) %attr(600,root,root) /dev/mcelog
+%dev(c,10,184) %attr(666,root,root) /dev/cpu/microcode
 %endif
 
 %ifarch m68k

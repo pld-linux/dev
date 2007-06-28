@@ -2355,6 +2355,7 @@
 %dev(b,111,153) %attr(660,root,root) /dev/cciss/c7d9p9
 %dev(c,67,0) %attr(600,root,root) /dev/cfs0
 %dev(c,5,1) %attr(660,root,console) /dev/console
+%dev(c,10,184) %attr(660,root,root) /dev/cpu/microcode
 %dev(c,203,0) %attr(664,root,root) /dev/cpu/0/cpuid
 %dev(c,202,0) %attr(664,root,root) /dev/cpu/0/msr
 %dev(c,203,1) %attr(664,root,root) /dev/cpu/1/cpuid

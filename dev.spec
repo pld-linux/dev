@@ -15,7 +15,7 @@ AutoReqProv:	no
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Unix and unix like systems (including Linux) use file system entries
+Unix and Unix-like systems (including Linux) use file system entries
 to represent devices attached to the machine. All of these entries are
 in the /dev tree (though they don't have to be), and this package
 contains the most commonly used /dev entries. These files are

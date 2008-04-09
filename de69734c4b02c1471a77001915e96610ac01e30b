@@ -1,0 +1,2 @@
+- rel. 30; fixed /dev/full permisions
+  [0666,root,root]

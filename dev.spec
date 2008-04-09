@@ -9,9 +9,9 @@ Release:	30
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list
+AutoReqProv:	no
 Requires:	setup >= 2.4.8
 Provides:	devfs
-AutoReqProv:	no
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

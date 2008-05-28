@@ -1,0 +1,2 @@
+- version 3.4 for fc2 upgrade
+- remove "autoreqprov: no", this pkg doesn't have any provides by itself

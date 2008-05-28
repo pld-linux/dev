@@ -4,12 +4,11 @@ Summary(fr.UTF-8):	Entrées de /dev
 Summary(pl.UTF-8):	Pliki specjalne /dev/*
 Summary(tr.UTF-8):	/dev dizini
 Name:		dev
-Version:	2.9.0
-Release:	33
+Version:	3.4
+Release:	1
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list
-AutoReqProv:	no
 Requires:	setup >= 2.4.12-2
 Provides:	devfs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

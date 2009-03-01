@@ -5,11 +5,11 @@ Summary(pl.UTF-8):	Pliki specjalne /dev/*
 Summary(tr.UTF-8):	/dev dizini
 Name:		dev
 Version:	3.4
-Release:	3
+Release:	4
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list
-Requires:	setup >= 2.4.12-2
+Requires:	setup >= 2.6.1-1
 Provides:	devfs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 

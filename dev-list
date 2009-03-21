@@ -7254,6 +7254,7 @@
 %dev(c,12,6) %attr(660,root,disk) /dev/rmt8
 %dev(c,36,0) %attr(644,root,root) /dev/route
 %dev(c,10,135) %attr(664,root,root) /dev/rtc
+%dev(c,254,0) %attr(664,root,root) /dev/rtc0
 %dev(b,11,0) %attr(660,root,disk) /dev/scd0
 %dev(b,11,1) %attr(660,root,disk) /dev/scd1
 %dev(b,11,2) %attr(660,root,disk) /dev/scd2

@@ -5,7 +5,7 @@ Summary(pl.UTF-8):	Pliki specjalne /dev/*
 Summary(tr.UTF-8):	/dev dizini
 Name:		dev
 Version:	3.4
-Release:	6
+Release:	7
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list
@@ -53,7 +53,7 @@ olarak işleyebilmesi için temel gereksinimlerdendir.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/dev/{ataraid,cciss,cdemu,cdroms,cpu/{0,1,2,3,4,5,6,7},cpuset} \
+install -d $RPM_BUILD_ROOT/dev/{ataraid,cciss,cdemu,cdroms,cpu/{0,1,2,3,4,5,6,7},cgroup.cpuset} \
 	$RPM_BUILD_ROOT/dev/{discs,dri,etherd,i2o,ida,input,mapper,net,pts,raw,rd,usb,shm,snd,zap}
 
 install %{SOURCE0} .
@@ -125,6 +125,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /dev/ataraid
 %dir /dev/cciss
 %dir /dev/cdemu
+%dir /dev/cgroup
 %dir /dev/cpu
 %dir /dev/cpu/0
 %dir /dev/cpu/1

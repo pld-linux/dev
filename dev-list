@@ -4373,6 +4373,7 @@
 %dev(c,13,2) %attr(660,root,sys) /dev/js2
 %dev(c,13,3) %attr(660,root,sys) /dev/js3
 %dev(c,1,2) %attr(640,root,kmem) /dev/kmem
+%dev(c,1,11) %attr(660,root,root) /dev/kmsg
 %dev(c,61,0) %attr(660,root,root) /dev/lirc
 %dev(b,7,0) %attr(660,root,disk) /dev/loop0
 %dev(b,7,1) %attr(660,root,disk) /dev/loop1

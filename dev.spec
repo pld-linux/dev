@@ -5,7 +5,7 @@ Summary(pl.UTF-8):	Pliki specjalne /dev/*
 Summary(tr.UTF-8):	/dev dizini
 Name:		dev
 Version:	3.4
-Release:	9
+Release:	10
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list
@@ -83,7 +83,7 @@ ln -sf fd/0 stdin
 ln -sf fd/1 stdout
 ln -sf fd/2 stderr
 i=0;
-for l in a b c d e f g h; do
+for l in a b c d e f g h i j k l m n o p; do
 	ln -sf sg$l sg$i
 	i=$((i+1))
 done
@@ -169,7 +169,8 @@ rm -rf $RPM_BUILD_ROOT
 /dev/stderr
 %attr(660,root,video) /dev/radio
 %attr(660,root,audio) /dev/sequencer2
-%attr(600,root,root) /dev/sg[0-7]
+%attr(600,root,root) /dev/sg[0-9]
+%attr(600,root,root) /dev/sg1[0-5]
 %attr(1777,root,root) %dir /dev/shm
 %dir /dev/snd
 %attr(660,root,video) /dev/vbi

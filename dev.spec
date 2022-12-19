@@ -5,7 +5,7 @@ Summary(pl.UTF-8):	Pliki specjalne /dev/*
 Summary(tr.UTF-8):	/dev dizini
 Name:		dev
 Version:	3.4
-Release:	10
+Release:	11
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list

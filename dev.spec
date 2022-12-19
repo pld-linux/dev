@@ -5,13 +5,15 @@ Summary(pl.UTF-8):	Pliki specjalne /dev/*
 Summary(tr.UTF-8):	/dev dizini
 Name:		dev
 Version:	3.4
-Release:	11
+Release:	12
 License:	Public Domain
 Group:		Base
 Source0:	%{name}-list
 Requires:	setup >= 2.6.1-1
 Provides:	devfs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define _enable_debug_packages  0
 
 %description
 Unix and Unix-like systems (including Linux) use file system entries
